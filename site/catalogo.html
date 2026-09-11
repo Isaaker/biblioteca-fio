@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="site_title">Catálogo — Biblioteca Fundación Infante de Orleans</title>
+  <meta name="description" content="Explora el catálogo completo de la Biblioteca de la Fundación Infante de Orleans, con filtros por autor, tema, idioma y año.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biblioteca — Fundación Infante de Orleans">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Catálogo — Biblioteca FIO">
+  <meta property="og:description" content="Explora el catálogo completo de la Biblioteca de la Fundación Infante de Orleans, con filtros por autor, tema, idioma y año.">
+  <meta property="og:url" content="https://biblioteca.fio.es/catalogo.html">
+  <meta property="og:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Catálogo — Biblioteca FIO">
+  <meta name="twitter:description" content="Explora el catálogo completo de la Biblioteca de la Fundación Infante de Orleans, con filtros por autor, tema, idioma y año.">
+  <meta name="twitter:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="assets/img/favicons/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#202d58">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="fio-splash" class="fio-splash">
+    <div class="fio-splash-content">
+      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
+      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main-content" data-i18n="shell_skip_to_content">Saltar al contenido</a>
+
+  <div id="fio-header-mount"></div>
+
+  <main id="main-content" x-data="fioCatalog()" x-init="init()">
+
+    <template x-if="loading">
+      <p class="fio-empty" data-i18n="loading">Cargando catálogo…</p>
+    </template>
+
+    <template x-if="error">
+      <p class="fio-empty" x-text="error"></p>
+    </template>
+
+    <template x-if="!loading && !error">
+      <div>
+        <div class="fio-filter-bar">
+          <div style="grid-column: 1 / -1;">
+            <label for="f-q" data-i18n="search_field_general">Búsqueda general</label>
+            <input id="f-q" type="text" x-model="q" @input="onQueryInput()" data-i18n-attr="placeholder:filter_q_placeholder" placeholder="Buscar por título, autor, tema, ISBN…">
+            <small style="color: var(--fio-muted); display:block; margin-top:4px;" data-i18n="filter_q_help">Admite "frases exactas", -excluir, opción1|opción2, y tolera alguna errata.</small>
+          </div>
+          <div>
+            <label for="f-author" data-i18n="filter_author">Autor</label>
+            <select id="f-author" x-model="filterAuthor" @change="onFilterChange()">
+              <option value="" data-i18n="filter_all">Todos</option>
+              <template x-for="a in authorOptions" :key="a">
+                <option :value="a" x-text="a"></option>
+              </template>
+            </select>
+          </div>
+          <div>
+            <label for="f-topic" data-i18n="filter_topic">Tema</label>
+            <select id="f-topic" x-model="filterTopic" @change="onFilterChange()">
+              <option value="" data-i18n="filter_all">Todos</option>
+              <template x-for="t in topicOptions" :key="t">
+                <option :value="t" x-text="t"></option>
+              </template>
+            </select>
+          </div>
+          <div>
+            <label for="f-subtopic" data-i18n="filter_subtopic">Subtema</label>
+            <select id="f-subtopic" x-model="filterSubtopic" @change="onFilterChange()">
+              <option value="" data-i18n="filter_all">Todos</option>
+              <template x-for="t in subtopicOptions" :key="t">
+                <option :value="t" x-text="t"></option>
+              </template>
+            </select>
+          </div>
+          <div>
+            <label for="f-language" data-i18n="filter_language">Idioma</label>
+            <select id="f-language" x-model="filterLanguage" @change="onFilterChange()">
+              <option value="" data-i18n="filter_all">Todos</option>
+              <template x-for="l in languageOptions" :key="l">
+                <option :value="l" x-text="l"></option>
+              </template>
+            </select>
+          </div>
+          <div>
+            <label for="f-year" data-i18n="filter_year">Año</label>
+            <select id="f-year" x-model="filterYear" @change="onFilterChange()">
+              <option value="" data-i18n="filter_all">Todos</option>
+              <template x-for="y in yearOptions" :key="y">
+                <option :value="y" x-text="y"></option>
+              </template>
+            </select>
+          </div>
+          <div>
+            <label for="f-sort" data-i18n="filter_sort_by">Ordenar por</label>
+            <select id="f-sort" x-model="sortBy" @change="onFilterChange()">
+              <option value="title" data-i18n="filter_sort_title">Título</option>
+              <option value="author" data-i18n="filter_sort_author">Autor</option>
+              <option value="year" data-i18n="filter_sort_year">Año</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-order" data-i18n="filter_sort_by">Ordenar por</label>
+            <select id="f-order" x-model="sortOrder" @change="onFilterChange()">
+              <option value="asc" data-i18n="filter_order_asc">Ascendente</option>
+              <option value="desc" data-i18n="filter_order_desc">Descendente</option>
+            </select>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" x-model="filterDigitizedOnly" @change="onFilterChange()">
+              <span data-i18n="filter_digitized_only">Solo digitalizados</span>
+            </label>
+          </div>
+          <div>
+            <button class="fio-filter-clear" @click="resetFilters()" data-i18n="filter_clear">Quitar filtros</button>
+          </div>
+        </div>
+
+        <p class="fio-result-count">
+          <span x-text="filteredBooks.length"></span> <span data-i18n="result_count_mid">libro(s) encontrado(s) de</span> <span x-text="allBooks.length"></span> <span data-i18n="result_count_post">en total.</span>
+        </p>
+
+        <template x-if="filteredBooks.length === 0">
+          <p class="fio-empty" data-i18n="no_results">Ningún libro coincide con los filtros seleccionados.</p>
+        </template>
+
+        <div class="fio-book-list">
+          <template x-for="book in pagedBooks" :key="book.id">
+            <article class="fio-book-card" :id="'book-' + book.id">
+              <a :href="'libro.html?id=' + book.id" class="fio-cover">
+                <img :data-cover-for="book.id" :alt="'Portada de ' + book.title" loading="lazy">
+              </a>
+              <div class="fio-book-card-body">
+              <h2 class="fio-book-title"><a :href="'libro.html?id=' + book.id" x-text="book.title" style="color:inherit; text-decoration:none;"></a></h2>
+              <p class="fio-book-meta" x-text="bookSubtitle(book)"></p>
+              <div class="fio-book-tags">
+                <template x-if="book.topic">
+                  <span class="fio-tag" x-text="book.topic"></span>
+                </template>
+                <template x-if="book.subtopic">
+                  <span class="fio-tag" x-text="book.subtopic"></span>
+                </template>
+                <template x-if="book.language">
+                  <span class="fio-tag" x-text="book.language"></span>
+                </template>
+              </div>
+              <div class="fio-book-footer">
+                <span x-show="book.reference">
+                  <span data-i18n="reference_label">Referencia</span>: <span class="fio-signature" x-text="book.reference"></span>
+                </span>
+                <span x-show="book.isbn">
+                  <span data-i18n="isbn_label">ISBN</span>: <span x-text="book.isbn"></span>
+                </span>
+                <template x-if="book.is_digitized && book.digital_link">
+                  <a class="fio-digital-link" :href="book.digital_link" target="_blank" rel="noopener" data-i18n="digital_link_label">
+                    Ver copia digital
+                  </a>
+                </template>
+              </div>
+              </div>
+            </article>
+          </template>
+        </div>
+
+        <nav class="fio-pagination" x-show="totalPages > 1">
+          <button @click="goToPage(page - 1)" :disabled="page === 1" data-i18n="prev_page">‹ Anterior</button>
+          <template x-for="n in pageNumbers" :key="n">
+            <button :class="{ active: n === page }" @click="goToPage(n)" x-text="n"></button>
+          </template>
+          <button @click="goToPage(page + 1)" :disabled="page === totalPages" data-i18n="next_page">Siguiente ›</button>
+        </nav>
+      </div>
+    </template>
+
+  </main>
+
+  <div id="fio-footer-mount"></div>
+  <script src="js/shell.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/fio-ux.js"></script>
+  <script src="js/search-utils.js"></script>
+  <script src="js/splash.js"></script>
+  <script src="js/covers.js"></script>
+  <script src="js/catalog.js"></script>
+</body>
+</html>
