@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="site_title">Biblioteca — Fundación Infante de Orleans</title>
+  <meta name="description" content="Catálogo público de la Biblioteca FIO: más de 3.500 volúmenes de historia de la aviación, aeronáutica, ingeniería e historia militar.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biblioteca — Fundación Infante de Orleans">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Biblioteca — Fundación Infante de Orleans">
+  <meta property="og:description" content="Catálogo público de la Biblioteca FIO: más de 3.500 volúmenes de historia de la aviación, aeronáutica, ingeniería e historia militar.">
+  <meta property="og:url" content="https://biblioteca.fio.es/index.html">
+  <meta property="og:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Biblioteca — Fundación Infante de Orleans">
+  <meta name="twitter:description" content="Catálogo público de la Biblioteca FIO: más de 3.500 volúmenes de historia de la aviación, aeronáutica, ingeniería e historia militar.">
+  <meta name="twitter:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="assets/img/favicons/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#202d58">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="fio-splash" class="fio-splash">
+    <div class="fio-splash-content">
+      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
+      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main-content" data-i18n="shell_skip_to_content">Saltar al contenido</a>
+
+  <div id="fio-header-mount"></div>
+
+  <main id="main-content" x-data="fioLanding()" x-init="init()">
+
+    <div class="fio-hero" style="background-image: url('assets/img/portada.jpg');">
+      <h1 data-i18n="hero_title">Biblioteca Fundación Infante de Orleans</h1>
+      <p data-i18n="hero_lead">Consulta el catálogo de nuestra biblioteca especializada en aviación e historia aeronáutica: libros, revistas y publicaciones sobre la aviación histórica española.</p>
+      <div class="fio-hero-actions">
+        <a href="catalogo.html" class="fio-btn fio-btn-solid" data-i18n="hero_cta_catalog">Ver catálogo</a>
+        <a href="catalogo.html" class="fio-btn fio-btn-outline" data-i18n="hero_cta_search">Buscar un libro</a>
+      </div>
+    </div>
+
+    <div class="fio-stats-grid">
+      <div class="fio-stat">
+        <div class="fio-stat-value" x-text="loading ? '…' : stats.total"></div>
+        <div class="fio-stat-label" data-i18n="stat_total_books">libros catalogados</div>
+      </div>
+      <div class="fio-stat">
+        <div class="fio-stat-value" x-text="loading ? '…' : stats.topics"></div>
+        <div class="fio-stat-label" data-i18n="stat_topics">temas distintos</div>
+      </div>
+      <div class="fio-stat">
+        <div class="fio-stat-value" x-text="loading ? '…' : stats.languages"></div>
+        <div class="fio-stat-label" data-i18n="stat_languages">idiomas</div>
+      </div>
+      <div class="fio-stat">
+        <div class="fio-stat-value" x-text="loading ? '…' : stats.digitized"></div>
+        <div class="fio-stat-label" data-i18n="stat_digitized">libros digitalizados</div>
+      </div>
+    </div>
+
+    <div class="fio-features-grid">
+      <div class="fio-feature-card">
+        <div class="fio-feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5v-17ZM6.5 4A.5.5 0 0 0 6 4.5v13.6A2.5 2.5 0 0 1 6.5 18H18V4H6.5Z"/><path d="M8 7h8v1.5H8V7Zm0 3h8v1.5H8V10Zm0 3h5v1.5H8V13Z"/></svg>
+        </div>
+        <h3 data-i18n="feature_catalog_title">Catálogo abierto</h3>
+        <p data-i18n="feature_catalog_body">Explora el fondo bibliográfico de la Fundación sin necesidad de registro: títulos, autores, editoriales y materias.</p>
+        <a href="catalogo.html" class="fio-btn fio-btn-solid" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="hero_cta_catalog">Ver catálogo</a>
+      </div>
+      <div class="fio-feature-card">
+        <div class="fio-feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M9.5 3a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z"/><path d="M14.5 14.79 20.71 21l1.29-1.29-6.21-6.21-1.29 1.29Z"/></svg>
+        </div>
+        <h3 data-i18n="feature_search_title">Buscador</h3>
+        <p data-i18n="feature_search_body">Filtra por autor, tema, año o busca texto libre para encontrar rápidamente la obra que buscas dentro de nuestra biblioteca.</p>
+        <a href="catalogo.html" class="fio-btn fio-btn-solid" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="hero_cta_search">Buscar</a>
+      </div>
+    </div>
+
+    <div class="fio-visit-card">
+      <h2 data-i18n="visit_title">Visítanos</h2>
+      <div class="fio-visit-grid">
+        <div>
+          <div class="fio-visit-item">
+            <div class="fio-visit-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.4 7 11.5 7.3 11.8a1 1 0 0 0 1.4 0C13 21.5 20 15.4 20 10c0-4.4-3.6-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+            </div>
+            <div>
+              <b data-i18n="visit_address_label">Dirección</b><br>
+              <span data-i18n="visit_address_body">Carretera de la Fortuna, 14, Edificio Real Aeroclub<br>28054 Cuatro Vientos, Madrid</span>
+            </div>
+          </div>
+          <div class="fio-visit-item">
+            <div class="fio-visit-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm.75 5v5.4l4.2 2.5-.75 1.3L11 13V7h1.75Z"/></svg>
+            </div>
+            <div>
+              <b data-i18n="visit_hours_label">Horario de apertura</b><br>
+              <span data-i18n="visit_hours_body">Lunes, miércoles y viernes, de 10:30 a 13:30.</span><br>
+              <small><span data-i18n="visit_hours_note">Fuera de ese horario, contacta con los voluntarios en</span>
+                <a href="mailto:fioteca@fio.es?subject=Consulta%20de%20acceso%20fuera%20de%20horario">fioteca@fio.es</a></small>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="fio-visit-item">
+            <div class="fio-visit-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5v-17Z"/></svg>
+            </div>
+            <div>
+              <b data-i18n="visit_loan_label">Consulta y préstamo</b><br>
+              <span data-i18n="visit_loan_body">La biblioteca está abierta al público en general para consultas in situ. Los socios y socias de la FIO pueden llevarse libros en préstamo, durante un máximo de 15 días, siempre que el ejemplar sea posterior a 1950 (los más antiguos solo pueden consultarse en sala).</span>
+            </div>
+          </div>
+          <div class="fio-visit-item">
+            <div class="fio-visit-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 5H3v14h18V5Zm-2 2v2H5V7h14ZM5 17v-6h14v6H5Z"/></svg>
+            </div>
+            <div>
+              <b data-i18n="visit_catalog_label">Catálogo disponible</b><br>
+              Más de <span x-text="loading ? '…' : stats.total"></span> <span data-i18n="visit_catalog_body">volúmenes de temática aeronáutica: libros de consulta, monografías de aviones, manuales técnicos, textos históricos, biografías, novelas y cómics, la mayoría en castellano e inglés.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="fio-footer-mount"></div>
+  <script src="js/shell.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/fio-ux.js"></script>
+  <script src="js/search-utils.js"></script>
+  <script src="js/splash.js"></script>
+  <script src="js/landing.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-09-11T11:11:26Z",
+  "note": "Manifiesto para asistentes de IA y scripts: qué ficheros del catálogo existen y cuánto pesa cada uno, para elegir cuál descargar según los límites de la herramienta. Ver también /llm.txt.",
+  "files": {
+    "catalog_full": {
+      "file": "catalog.json",
+      "size_bytes": 69,
+      "description": "Catálogo completo, un único fichero."
+    },
+    "catalog_lite": {
+      "file": "catalog-lite.json",
+      "size_bytes": 264,
+      "description": "Catálogo completo pero solo con los campos esenciales (título, autor, tema, año, idioma, ISBN, referencia, digitalización). Recomendado como primera opción para asistentes de IA."
+    },
+    "catalog_parts": [
+      {
+        "part": 1,
+        "file": "catalog-part-1.json",
+        "record_count": 0,
+        "record_range": [
+          1,
+          0
+        ],
+        "size_bytes": 115
+      }
+    ]
+  }
+}

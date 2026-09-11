@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="interoperability_title">Conecta con la biblioteca — Biblioteca FIO</title>
+  <meta name="description" content="Endpoints abiertos, formatos de datos y buenas prácticas para reutilizar el catálogo de la Biblioteca FIO desde sistemas externos.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biblioteca — Fundación Infante de Orleans">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Conecta con la biblioteca — Biblioteca FIO">
+  <meta property="og:description" content="Endpoints abiertos, formatos de datos y buenas prácticas para reutilizar el catálogo de la Biblioteca FIO desde sistemas externos.">
+  <meta property="og:url" content="https://biblioteca.fio.es/interoperabilidad.html">
+  <meta property="og:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Conecta con la biblioteca — Biblioteca FIO">
+  <meta name="twitter:description" content="Endpoints abiertos, formatos de datos y buenas prácticas para reutilizar el catálogo de la Biblioteca FIO desde sistemas externos.">
+  <meta name="twitter:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="assets/img/favicons/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#202d58">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="fio-splash" class="fio-splash">
+    <div class="fio-splash-content">
+      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
+      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main-content" data-i18n="shell_skip_to_content">Saltar al contenido</a>
+
+  <div id="fio-header-mount"></div>
+
+  <main id="main-content">
+    <h1 data-i18n="interoperability_title">Conecta con la biblioteca</h1>
+    <p class="fio-book-meta">Esta página describe cómo colaborar con la biblioteca, qué formatos de datos se ofrecen y qué límites de uso deben respetarse.</p>
+
+    <section class="fio-callout">
+      <h2>Objetivo</h2>
+      <p>La Biblioteca FIO quiere facilitar la consulta del catálogo y la interoperabilidad con otras herramientas sin comprometer la preservación de los originales ni la legalidad del uso de obras protegidas.</p>
+    </section>
+
+    <section class="fio-section">
+      <h2>Cómo colaborar</h2>
+      <ul>
+        <li>Referenciar el catálogo público en otros portales o aplicaciones con enlaces estables a las fichas de libro.</li>
+        <li>Usar las búsquedas y filtros de la web para localizar títulos, referencias y temas.</li>
+        <li>Solicitar acceso académico o de investigación a materiales protegidos mediante contacto directo con la biblioteca.</li>
+      </ul>
+    </section>
+
+    <section class="fio-section">
+      <h2>Formato de datos y endpoints</h2>
+      <p>El catálogo se ofrece en formato estático para máxima compatibilidad y facilidad de consumo en entornos sin backend.</p>
+      <ul class="fio-endpoints">
+        <li><strong>Catálogo público JSON (completo, ~1&nbsp;MB+):</strong> <code>/data/catalog.json</code></li>
+        <li><strong>Catálogo JSON reducido (recomendado para IA, campos esenciales):</strong> <code>/data/catalog-lite.json</code></li>
+        <li><strong>Catálogo JSON troceado (~500 libros por fichero):</strong> <code>/data/catalog-part-1.json</code>, <code>-2.json</code>... (ver índice)</li>
+        <li><strong>Índice de ficheros y tamaños:</strong> <code>/data/catalog-index.json</code></li>
+        <li><strong>Instrucciones para asistentes de IA:</strong> <code>/llm.txt</code></li>
+        <li><strong>Exportación MARC21:</strong> <code>/data/catalogo.mrc</code></li>
+        <li><strong>Exportación MARCXML:</strong> <code>/data/catalogo_marcxml.xml</code></li>
+        <li><strong>Ficha de libro:</strong> <code>/libro.html?id=&lt;identificador&gt;</code></li>
+      </ul>
+      <p>El catálogo completo puede pesar más de 1&nbsp;MB con miles de libros: si vas a procesarlo con un asistente de IA o una herramienta con límite de descarga, usa <code>catalog-lite.json</code> o las partes troceadas en vez del fichero completo.</p>
+    </section>
+
+    <section class="fio-section">
+      <h2>Límites y buenas prácticas</h2>
+      <ul>
+        <li>No redistribuir copias digitales públicas fuera del marco autorizado por la Fundación.</li>
+        <li>No reutilizar automáticamente datos de obras protegidas para usos de reproducción masiva o indexación comercial sin permiso explícito.</li>
+        <li>Respetar los metadatos, citas y referencias bibliográficas cuando se integre el catálogo en terceros sistemas.</li>
+        <li>Usar la información del catálogo únicamente para consulta, investigación y referencia bibliográfica.</li>
+      </ul>
+    </section>
+
+    <section class="fio-section">
+      <h2>Contacto y soporte</h2>
+      <p>Si necesitas integrar el catálogo en una aplicación, una guía temática o un sistema de exhibición, puedes contactar con la biblioteca en <a href="mailto:fioteca@fio.es">fioteca@fio.es</a>.</p>
+    </section>
+  </main>
+
+  <div id="fio-footer-mount"></div>
+  <script src="js/shell.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/fio-ux.js"></script>
+  <script src="js/search-utils.js"></script>
+  <script src="js/splash.js"></script>
+</body>
+</html>

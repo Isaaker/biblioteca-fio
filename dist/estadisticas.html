@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="stats_title">Estadísticas — Biblioteca FIO</title>
+  <meta name="description" content="Estadísticas públicas del catálogo de la Biblioteca FIO: libros por tema, idioma, autor, editorial y década de publicación.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biblioteca — Fundación Infante de Orleans">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Estadísticas — Biblioteca FIO">
+  <meta property="og:description" content="Estadísticas públicas del catálogo de la Biblioteca FIO: libros por tema, idioma, autor, editorial y década de publicación.">
+  <meta property="og:url" content="https://biblioteca.fio.es/estadisticas.html">
+  <meta property="og:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Estadísticas — Biblioteca FIO">
+  <meta name="twitter:description" content="Estadísticas públicas del catálogo de la Biblioteca FIO: libros por tema, idioma, autor, editorial y década de publicación.">
+  <meta name="twitter:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="assets/img/favicons/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#202d58">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="fio-splash" class="fio-splash">
+    <div class="fio-splash-content">
+      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
+      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main-content" data-i18n="shell_skip_to_content">Saltar al contenido</a>
+
+  <div id="fio-header-mount"></div>
+
+  <main id="main-content" x-data="fioStats()" x-init="init()">
+    <h1 data-i18n="stats_title">Estadísticas del catálogo</h1>
+    <p class="fio-book-meta" data-i18n="stats_lead">Cifras generadas automáticamente a partir del catálogo público.</p>
+
+    <template x-if="loading">
+      <p class="fio-empty" data-i18n="loading">Cargando estadísticas…</p>
+    </template>
+
+    <template x-if="!loading && error">
+      <div class="fio-callout" style="border-color: rgba(191, 95, 95, 0.45); background: rgba(191, 95, 95, 0.06);">
+        <strong>No se pudieron cargar las estadísticas.</strong>
+        <p x-text="error" style="margin: 8px 0 0;"></p>
+      </div>
+    </template>
+
+    <template x-if="!loading && !error">
+      <div>
+        <div class="fio-stats-grid">
+          <div class="fio-stat">
+            <div class="fio-stat-value" x-text="total"></div>
+            <div class="fio-stat-label" data-i18n="stat_total_books">libros catalogados</div>
+          </div>
+          <div class="fio-stat">
+            <div class="fio-stat-value" x-text="totalTopics"></div>
+            <div class="fio-stat-label" data-i18n="stat_topics">temas distintos</div>
+          </div>
+          <div class="fio-stat">
+            <div class="fio-stat-value" x-text="totalLanguages"></div>
+            <div class="fio-stat-label" data-i18n="stat_languages">idiomas</div>
+          </div>
+          <div class="fio-stat">
+            <div class="fio-stat-value" x-text="digitizedPercent + '%'"></div>
+            <div class="fio-stat-label" data-i18n="stat_digitized">libros digitalizados</div>
+          </div>
+        </div>
+
+        <div class="fio-stats-section">
+          <h2 data-i18n="stats_by_topic">Libros por tema</h2>
+          <p class="fio-meta" x-text="'Top ' + byTopic.length + ' temas (de ' + totalTopics + ' temas totales)'"></p>
+          <template x-for="row in byTopic" :key="row.label">
+            <div class="fio-bar-row">
+              <div class="fio-bar-label" x-text="row.label"></div>
+              <div class="fio-bar-track"><div class="fio-bar-fill" :style="{ width: barWidth(row.count, byTopic) }"></div></div>
+              <div class="fio-bar-value" x-text="row.count"></div>
+            </div>
+          </template>
+        </div>
+
+        <div class="fio-stats-section">
+          <h2 data-i18n="stats_by_language">Libros por idioma</h2>
+          <p class="fio-meta" x-text="'Top ' + byLanguage.length + ' idiomas (de ' + totalLanguages + ' idiomas totales)'"></p>
+          <template x-for="row in byLanguage" :key="row.label">
+            <div class="fio-bar-row">
+              <div class="fio-bar-label" x-text="row.label"></div>
+              <div class="fio-bar-track"><div class="fio-bar-fill" :style="{ width: barWidth(row.count, byLanguage) }"></div></div>
+              <div class="fio-bar-value" x-text="row.count"></div>
+            </div>
+          </template>
+        </div>
+
+        <div class="fio-stats-section">
+          <h2 data-i18n="stats_by_decade">Libros por década de publicación</h2>
+          <template x-for="row in byDecade" :key="row.label">
+            <div class="fio-bar-row">
+              <div class="fio-bar-label" x-text="row.label"></div>
+              <div class="fio-bar-track"><div class="fio-bar-fill" :style="{ width: barWidth(row.count, byDecade) }"></div></div>
+              <div class="fio-bar-value" x-text="row.count"></div>
+            </div>
+          </template>
+        </div>
+
+        <div class="fio-stats-section">
+          <h2 data-i18n="stats_digitization">Digitalización</h2>
+          <p>
+            <span x-text="digitizedCount"></span> <span data-i18n="stats_digitized_of_total">digitalizados de</span>
+            <span x-text="total"></span> (<span x-text="digitizedPercent"></span>%)
+          </p>
+          <div class="fio-bar-track" style="max-width:420px;">
+            <div class="fio-bar-fill" :style="{ width: digitizedPercent + '%' }"></div>
+          </div>
+        </div>
+        <div class="fio-stats-section">
+          <h2 data-i18n="stats_by_author">Autores con más obras en el catálogo</h2>
+          <template x-for="row in byAuthor" :key="row.label">
+            <div class="fio-bar-row">
+              <div class="fio-bar-label" x-text="row.label"></div>
+              <div class="fio-bar-track"><div class="fio-bar-fill" :style="{ width: barWidth(row.count, byAuthor) }"></div></div>
+              <div class="fio-bar-value" x-text="row.count"></div>
+            </div>
+          </template>
+        </div>
+
+        <div class="fio-stats-section">
+          <h2 data-i18n="stats_by_publisher">Editoriales con más obras en el catálogo</h2>
+          <template x-for="row in byPublisher" :key="row.label">
+            <div class="fio-bar-row">
+              <div class="fio-bar-label" x-text="row.label"></div>
+              <div class="fio-bar-track"><div class="fio-bar-fill" :style="{ width: barWidth(row.count, byPublisher) }"></div></div>
+              <div class="fio-bar-value" x-text="row.count"></div>
+            </div>
+          </template>
+        </div>
+
+        <div class="fio-stats-section">
+          <h2 data-i18n="stats_by_speciality">Libros por especialidad</h2>
+          <template x-for="row in bySpeciality" :key="row.label">
+            <div class="fio-bar-row">
+              <div class="fio-bar-label" x-text="row.label"></div>
+              <div class="fio-bar-track"><div class="fio-bar-fill" :style="{ width: barWidth(row.count, bySpeciality) }"></div></div>
+              <div class="fio-bar-value" x-text="row.count"></div>
+            </div>
+          </template>
+        </div>
+
+        <div class="fio-stats-section">
+          <h2 data-i18n="stats_summary_title">Resumen general</h2>
+          <div class="fio-stats-grid">
+            <div class="fio-stat">
+              <div class="fio-stat-value" x-text="isbnCount + ' (' + isbnPercent + '%)'"></div>
+              <div class="fio-stat-label" data-i18n="stats_isbn_coverage">Libros con ISBN registrado</div>
+            </div>
+            <div class="fio-stat">
+              <div class="fio-stat-value" x-text="seriesCount + ' (' + seriesPercent + '%)'"></div>
+              <div class="fio-stat-label" data-i18n="stats_series_count">Libros en alguna serie o colección</div>
+            </div>
+            <div class="fio-stat">
+              <div class="fio-stat-value" x-text="avgPages"></div>
+              <div class="fio-stat-label" data-i18n="stats_avg_pages">Media de páginas por libro</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </main>
+
+  <div id="fio-footer-mount"></div>
+  <script src="js/shell.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/fio-ux.js"></script>
+  <script src="js/search-utils.js"></script>
+  <script src="js/splash.js"></script>
+  <script src="js/stats.js"></script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="book_details_title">Detalles del libro — Biblioteca FIO</title>
+  <meta name="description" content="Ficha bibliográfica de un libro del catálogo de la Biblioteca de la Fundación Infante de Orleans.">
+  <meta property="og:type" content="book">
+  <meta property="og:site_name" content="Biblioteca — Fundación Infante de Orleans">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Detalles del libro — Biblioteca FIO">
+  <meta property="og:description" content="Ficha bibliográfica de un libro del catálogo de la Biblioteca de la Fundación Infante de Orleans.">
+  <meta property="og:url" content="https://biblioteca.fio.es/libro.html">
+  <meta property="og:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Detalles del libro — Biblioteca FIO">
+  <meta name="twitter:description" content="Ficha bibliográfica de un libro del catálogo de la Biblioteca de la Fundación Infante de Orleans.">
+  <meta name="twitter:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="assets/img/favicons/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#202d58">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="fio-splash" class="fio-splash">
+    <div class="fio-splash-content">
+      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
+      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main-content" data-i18n="shell_skip_to_content">Saltar al contenido</a>
+
+  <div id="fio-header-mount"></div>
+
+  <main id="main-content" x-data="fioBookDetail()" x-init="init()">
+
+    <p><a href="catalogo.html" data-i18n="back_to_catalog">← Volver al catálogo</a></p>
+
+    <template x-if="loading">
+      <p class="fio-empty" data-i18n="loading">Cargando libro…</p>
+    </template>
+
+    <template x-if="!loading && notFound">
+      <p class="fio-empty" data-i18n="book_not_found">No se ha encontrado ningún libro con esos datos.</p>
+    </template>
+
+    <template x-if="!loading && book">
+      <div>
+        <div class="fio-book-header">
+          <div class="fio-cover fio-cover-lg">
+            <img :data-cover-for="book.id" :alt="'Portada de ' + book.title" loading="lazy">
+          </div>
+          <div>
+            <h1 x-text="book.title"></h1>
+            <p class="fio-book-meta" x-text="bookSubtitleLine()"></p>
+          </div>
+        </div>
+
+        <div class="fio-book-badges">
+          <template x-if="book.is_digitized">
+            <span class="fio-badge" data-i18n="badge_digitized">Digitalizado</span>
+          </template>
+          <template x-if="book.topic">
+            <span class="fio-tag" x-text="book.topic"></span>
+          </template>
+          <template x-if="book.subtopic">
+            <span class="fio-tag" x-text="book.subtopic"></span>
+          </template>
+        </div>
+
+        <div class="fio-actions-row">
+          <template x-if="book.is_digitized && book.digital_link">
+            <a class="fio-digital-link" :href="book.digital_link" target="_blank" rel="noopener" data-i18n="view_digital_copy">Ver copia digital</a>
+          </template>
+          <button type="button" class="fio-ghost-btn" @click="toggleFavorite()">
+            <span class="fio-icon" aria-hidden="true">star</span>
+            <span x-text="isFavorite() ? 'En favoritos' : 'Añadir a favoritos'">Añadir a favoritos</span>
+          </button>
+          <button type="button" class="fio-ghost-btn" @click="copyCitation()">
+            <span class="fio-icon" aria-hidden="true">edit_note</span>
+            <span>Copiar cita</span>
+          </button>
+          <button type="button" class="fio-ghost-btn" @click="copyShareLink()">
+            <span class="fio-icon" aria-hidden="true">link</span>
+            <span>Copiar enlace</span>
+          </button>
+        </div>
+
+        <template x-if="needsConservationNotice()">
+          <div class="fio-conservation-box">
+            <p><strong data-i18n="conservation_notice_title">Aviso de conservación</strong></p>
+            <p data-i18n="conservation_notice_body">Este ejemplar es anterior a 1950. Se trata de una obra frágil y su consulta puede estar sujeta a condiciones especiales para garantizar su correcta conservación.</p>
+
+            <template x-if="book.is_digitized">
+              <div class="fio-conservation-status is-digital">
+                <span class="fio-icon" aria-hidden="true">cloud_done</span>
+                <span>
+                  <div data-i18n="conservation_digital_available">COPIA DIGITAL DISPONIBLE</div>
+                  <span class="fio-conservation-status-text" data-i18n="conservation_digital_body">Existe una copia digitalizada disponible para consulta. Esta se ofrece de manera preferente para favorecer la conservación del original si no existe una causa justificada para la consulta del mismo.</span>
+                  <a href="https://biblioteca.fio.es/acceso-copias-digitales" target="_blank" rel="noopener" data-i18n="conservation_more_info">Más información</a>.
+                </span>
+              </div>
+            </template>
+
+            <template x-if="!book.is_digitized">
+              <div class="fio-conservation-status is-physical">
+                <span class="fio-icon" aria-hidden="true">back_hand</span>
+                <span>
+                  <div data-i18n="conservation_physical_only">CONSULTA EN FÍSICO — USO DE GUANTES OBLIGATORIO</div>
+                  <span class="fio-conservation-status-text" data-i18n="conservation_physical_body">Este libro no cuenta con copia digital. Su consulta en físico requiere el uso obligatorio de guantes para conservar correctamente la obra.</span>
+                </span>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <div class="fio-synopsis-box" x-show="book">
+          <div class="fio-section-header">
+            <span class="fio-icon" aria-hidden="true">description</span>
+            <h3>Sinopsis</h3>
+          </div>
+          <template x-if="synopsisLoading">
+            <p style="color: var(--fio-muted); font-style: italic;">Cargando sinopsis...</p>
+          </template>
+          <template x-if="!synopsisLoading && synopsis">
+            <p x-text="synopsis"></p>
+          </template>
+          <template x-if="!synopsisLoading && !synopsis">
+            <p style="color: var(--fio-muted); text-align: center; padding: 16px; background: #f5f5f5; border-radius: 8px; margin: 16px 0;">No disponible</p>
+          </template>
+        </div>
+
+        <div class="fio-citation-box" x-show="book">
+          <label><span class="fio-icon" aria-hidden="true">draw</span>Formato de cita</label>
+          <select x-model="citationStyle">
+            <option value="apa">APA</option>
+            <option value="chicago">Chicago</option>
+          </select>
+          <textarea readonly rows="3" x-text="bookCitation()"></textarea>
+        </div>
+
+        <h3 data-i18n="catalog_data_title">Datos del catálogo</h3>
+        <table class="fio-detail-table">
+          <tbody>
+            <tr>
+              <td data-i18n="field_reference">Referencia</td><td x-text="book.reference || '—'"></td>
+              <td data-i18n="field_edition">Edición</td><td x-text="book.edition || '—'"></td>
+            </tr>
+            <tr>
+              <td data-i18n="field_author">Autor(es)</td><td x-text="book.author || '—'"></td>
+              <td data-i18n="field_publisher">Editorial</td><td x-text="book.publisher || '—'"></td>
+            </tr>
+            <tr>
+              <td data-i18n="field_place">Lugar</td><td x-text="book.place || '—'"></td>
+              <td data-i18n="field_year">Año</td><td x-text="book.publication_year || '—'"></td>
+            </tr>
+            <tr>
+              <td data-i18n="field_topic">Tema</td><td x-text="book.topic || '—'"></td>
+              <td data-i18n="field_subtopic">Subtema</td><td x-text="book.subtopic || '—'"></td>
+            </tr>
+            <tr>
+              <td data-i18n="field_speciality">Especialidad</td><td x-text="book.speciality || '—'"></td>
+              <td data-i18n="field_specifications">Especificaciones</td><td x-text="book.specifications || '—'"></td>
+            </tr>
+            <tr>
+              <td data-i18n="field_isbn">ISBN</td><td x-text="book.isbn || '—'"></td>
+              <td data-i18n="field_language">Idioma</td><td x-text="book.language || '—'"></td>
+            </tr>
+            <tr>
+              <td data-i18n="field_pages">Nº de páginas</td><td x-text="book.num_pages || '—'"></td>
+              <td data-i18n="field_illustrations">Ilustraciones</td><td x-text="book.illustrations || '—'"></td>
+            </tr>
+            <tr>
+              <td data-i18n="field_size">Tamaño</td><td x-text="book.size_cm ? (book.size_cm + ' cm') : '—'"></td>
+              <td data-i18n="field_series">Serie / Colección</td><td x-text="book.series || '—'"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <template x-if="relatedBooks.length > 0">
+          <div style="margin-top: 32px;">
+            <h3 data-i18n="related_books_title">Libros relacionados</h3>
+            <p class="fio-book-meta" data-i18n="related_books_lead">Mismo tema o autor que este libro.</p>
+            <div class="fio-related-grid">
+              <template x-for="rb in relatedBooks" :key="rb.id">
+                <a class="fio-related-card" :href="'libro.html?id=' + rb.id">
+                  <div class="fio-related-cover">
+                    <img :src="rb.cover || ''" :alt="'Portada de ' + rb.title" @error="this.style.display='none'" x-show="rb.cover" />
+                    <span x-show="!rb.cover" x-text="(rb.title || 'L').charAt(0).toUpperCase()">L</span>
+                  </div>
+                  <div class="fio-related-body">
+                    <strong x-text="rb.title"></strong>
+                    <span x-text="rb.author || 'Autor desconocido'"></span>
+                    <small x-text="rb.reference || (rb.year ? 'Año ' + rb.year : '')"></small>
+                  </div>
+                </a>
+              </template>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+
+  </main>
+
+  <div id="fio-footer-mount"></div>
+  <script src="js/shell.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/fio-ux.js"></script>
+  <script src="js/search-utils.js"></script>
+  <script src="js/splash.js"></script>
+  <script src="js/covers.js"></script>
+  <script src="js/book-detail.js"></script>
+</body>
+</html>

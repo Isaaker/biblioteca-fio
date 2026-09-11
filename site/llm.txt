@@ -1,0 +1,122 @@
+# Catálogo de la Biblioteca de la Fundación Infante de Orleans (FIO)
+
+Este fichero está pensado para asistentes de inteligencia artificial
+(ChatGPT, Claude, Gemini u otros) a los que una persona haya pedido
+ayuda para encontrar libros en este catálogo. Léelo antes de responder.
+
+## Qué es este sitio
+
+Catálogo público, de solo lectura, de la biblioteca de la Fundación
+Infante de Orleans (FIO), especializada en aviación e historia
+aeronáutica española. No requiere registro ni autenticación. No hay
+préstamo online: es un catálogo de consulta.
+
+## Cómo descargar el catálogo (importante: hay varios tamaños)
+
+El catálogo completo (~3.500 libros) pesa más de 1 MB, y algunas
+herramientas de IA fallan al descargar o procesar un fichero tan
+grande de una sola vez. Por eso hay varias versiones — usa la más
+pequeña que te sirva para lo que te ha pedido la persona:
+
+1. **`/data/catalog-lite.json`** (la más pequeña, unos cientos de KB):
+   úsala primero. Trae todos los libros pero solo los campos
+   esenciales para recomendar uno: `id`, `reference`, `title`,
+   `author`, `topic`, `subtopic`, `publication_year`, `language`,
+   `isbn`, `is_digitized`, `digital_link`. Para la mayoría de
+   peticiones ("libros sobre X", "algo de tal autor") esto es
+   suficiente.
+
+2. **`/data/catalog-index.json`**: manifiesto con el tamaño exacto en
+   bytes de cada fichero disponible y cuántas partes hay — consúltalo
+   si necesitas decidir qué vas a poder descargar antes de intentarlo.
+
+3. **`/data/catalog-part-1.json`, `catalog-part-2.json`, ...**: el
+   catálogo COMPLETO (todos los campos) troceado en partes de ~500
+   libros cada una, mucho más manejables una a una. Usa esto si
+   necesitas datos que no están en la versión "lite" (editorial,
+   lugar de publicación, número de páginas, ISBN completo,
+   especificaciones...) de un grupo de libros.
+
+4. **`/data/catalog.json`**: el catálogo completo en un único fichero
+   (más de 1 MB). Solo inténtalo si las opciones anteriores no te
+   bastan y tu herramienta admite ficheros de ese tamaño.
+
+Todos comparten el mismo formato de registro:
+
+    {
+      "generated_at": "2026-01-01T00:00:00Z",
+      "record_count": 1234,
+      "records": [
+        {
+          "id": 1,
+          "reference": "LB0001",
+          "title": "...",
+          "subtitle": "...",
+          "author": "...",
+          "edition": "...",
+          "place": "...",
+          "publisher": "...",
+          "publication_year": 1998,
+          "topic": "...",
+          "subtopic": "...",
+          "speciality": "...",
+          "specifications": "...",
+          "language": "...",
+          "num_pages": 320,
+          "illustrations": "...",
+          "size_cm": "24",
+          "series": "...",
+          "isbn": "...",
+          "is_digitized": false,
+          "digital_link": null
+        }
+      ]
+    }
+
+(`catalog-lite.json` solo trae el subconjunto de campos listado en el
+punto 1; el resto de ficheros trae todos los campos de arriba.)
+
+Todos los campos pueden venir vacíos (`null`) salvo `id`, `title` y
+`author`. `is_digitized` y `digital_link` indican si existe una copia
+digital pública del libro (cuando `is_digitized` es `true`).
+
+Nota sobre `author` e `language`: cuando un libro tiene varios autores
+o está en varios idiomas, el campo trae los valores juntos separados
+por " / " (p. ej. `"Autor Uno / Autor Dos"`, `"Inglés / Español"`) —
+trátalos como varios valores distintos, no como uno solo.
+
+## Cómo recomendar libros
+
+1. Descarga `/data/catalog-lite.json` (o una parte de `catalog-part-N.json`
+   si necesitas más detalle de un grupo concreto de libros).
+2. Busca coincidencias razonables por título, autor, tema (`topic`),
+   subtema (`subtopic`), especialidad (`speciality`), especificaciones,
+   editorial, idioma, serie o año de publicación, según lo que pida la
+   persona. Tolera errores tipográficos razonables.
+3. Responde con una lista corta (5-10 libros como máximo) e indica,
+   para cada uno: título exacto, autor, año (si lo hay) y la
+   referencia (`reference`, con el formato "LB0123") tal como aparecen
+   en el JSON — así la persona puede localizarlo físicamente en la
+   biblioteca o buscarlo en la web por esa referencia.
+4. Si el libro tiene `is_digitized: true` y `digital_link`, menciona
+   que existe copia digital y el enlace.
+5. No inventes libros que no estén en `catalog.json`. Si no encuentras
+   nada razonable, dilo con claridad en vez de inventar resultados.
+
+## Enlaces útiles para la persona
+
+- Ficha de un libro concreto: `/libro.html?id=<id>` (usa el `id`
+  numérico del JSON), o `/libro.html?ref=<referencia>` (p. ej.
+  `/libro.html?ref=LB0123`).
+- Buscador avanzado con filtros: `/buscar.html`
+- Listado completo con filtros: `/catalogo.html`
+- Exportación bibliográfica en MARC21: `/data/catalogo.mrc`
+- Exportación en MARCXML: `/data/catalogo_marcxml.xml`
+
+## Qué NO hay en este catálogo (y no debes suponer)
+
+No hay datos de disponibilidad de préstamo en tiempo real, no hay
+usuarios ni cuentas, y no se puede reservar ni pedir un libro desde
+esta web. Para consultas de préstamo, dirige a la persona a la página
+de inicio (`/index.html`), donde están el horario y el contacto de la
+biblioteca.

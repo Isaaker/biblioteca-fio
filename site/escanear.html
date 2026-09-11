@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="scan_title">Escanear — Biblioteca FIO</title>
+  <meta name="description" content="Encuentra un libro de la Biblioteca FIO apuntando la cámara al código de barras o a la etiqueta de referencia.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biblioteca — Fundación Infante de Orleans">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Escanear — Biblioteca FIO">
+  <meta property="og:description" content="Encuentra un libro de la Biblioteca FIO apuntando la cámara al código de barras o a la etiqueta de referencia.">
+  <meta property="og:url" content="https://biblioteca.fio.es/escanear.html">
+  <meta property="og:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Escanear — Biblioteca FIO">
+  <meta name="twitter:description" content="Encuentra un libro de la Biblioteca FIO apuntando la cámara al código de barras o a la etiqueta de referencia.">
+  <meta name="twitter:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="assets/img/favicons/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#202d58">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="fio-splash" class="fio-splash">
+    <div class="fio-splash-content">
+      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
+      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main-content" data-i18n="shell_skip_to_content">Saltar al contenido</a>
+
+  <div id="fio-header-mount"></div>
+
+  <main id="main-content" x-data="fioScanner()" x-init="init()">
+    <div class="fio-search-hero">
+      <h1 data-i18n="scan_title">Buscar un libro con la cámara</h1>
+      <p data-i18n="scan_lead">Apunta con la cámara al código de barras (ISBN) de la contraportada, o a la etiqueta blanca con la referencia (por ejemplo, "LB0123") del lomo o la primera página.</p>
+    </div>
+
+    <div class="fio-scan-modes">
+      <button class="fio-scan-mode-btn" :class="{ active: mode === 'barcode' }" @click="setMode('barcode')" data-i18n="scan_mode_barcode">Código de barras</button>
+      <button class="fio-scan-mode-btn" :class="{ active: mode === 'label' }" @click="setMode('label')" data-i18n="scan_mode_label">Etiqueta de referencia</button>
+    </div>
+
+    <div class="fio-scan-video-wrap" x-show="cameraActive">
+      <video x-ref="video" playsinline webkit-playsinline muted></video>
+      <div class="fio-scan-guide"></div>
+    </div>
+
+    <p class="fio-scan-status" x-show="statusMessage" x-text="statusMessage"></p>
+    <p class="fio-scan-status" x-show="cameraError" x-text="cameraError" style="color:#a33;"></p>
+
+    <div class="fio-scan-actions">
+      <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="startCamera()" x-show="!cameraActive" data-i18n="scan_start">Activar cámara</button>
+      <button class="fio-btn fio-btn-outline" style="border-color: var(--fio-blue); color: var(--fio-blue) !important;" @click="stopCamera()" x-show="cameraActive" data-i18n="scan_stop">Detener cámara</button>
+    </div>
+
+    <template x-if="mode === 'label'">
+      <div class="fio-scan-manual" style="margin-bottom: 24px;">
+        <label for="label-upload" style="display:block; margin-bottom:6px; color: var(--fio-muted);" data-i18n="scan_upload_alt">O sube una foto de la etiqueta:</label>
+        <input id="label-upload" type="file" accept="image/*" capture="environment" @change="scanUploadedPhoto($event)">
+      </div>
+    </template>
+
+    <div class="fio-scan-manual">
+      <label for="manual-ref" data-i18n="scan_manual_label">O escribe la referencia a mano:</label>
+      <input id="manual-ref" type="text" x-model="manualRef" data-i18n-attr="placeholder:scan_manual_placeholder" placeholder="Ej. LB0123" @keyup.enter="submitManualRef()">
+      <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="submitManualRef()" data-i18n="scan_manual_go">Ir al libro</button>
+    </div>
+
+    <template x-if="resultBook">
+      <div class="fio-scan-result">
+        <p data-i18n="scan_found" style="color: var(--fio-muted); margin-bottom: 4px;">Libro encontrado:</p>
+        <h3 x-text="resultBook.title"></h3>
+        <p class="fio-book-meta" x-text="resultBook.author"></p>
+        <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="goToResult()" data-i18n="scan_view_book">Ver ficha del libro</button>
+      </div>
+    </template>
+
+    <template x-if="noMatch">
+      <p class="fio-empty" data-i18n="scan_no_match">No se ha encontrado ningún libro con ese código o referencia.</p>
+    </template>
+  </main>
+
+  <div id="fio-footer-mount"></div>
+  <script src="js/shell.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/fio-ux.js"></script>
+  <script src="js/search-utils.js"></script>
+  <script src="js/splash.js"></script>
+  <script src="js/scanner.js"></script>
+</body>
+</html>

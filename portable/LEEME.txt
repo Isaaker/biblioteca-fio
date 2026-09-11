@@ -1,0 +1,34 @@
+CATÁLOGO DE LA BIBLIOTECA FIO — VERSIÓN PORTABLE
+=================================================
+
+Cómo usarlo
+-----------
+- Windows: haz doble clic en "EJECUTAR_CATALOGO_FIO.bat"
+- Mac / Linux: haz doble clic en "EJECUTAR_CATALOGO_FIO.command"
+
+Se abrirá una ventana negra (la del servidor) y, unos segundos después,
+tu navegador con el catálogo ya cargado. Mientras quieras usar el
+catálogo, deja esa ventana negra abierta; para cerrar el catálogo,
+simplemente cierra esa ventana (o pulsa Ctrl+C dentro de ella).
+
+Requisitos
+----------
+Necesitas tener Python 3 instalado (gratuito). La mayoría de Mac y
+Linux ya lo traen. En Windows normalmente hay que instalarlo una vez
+desde https://www.python.org/downloads/ marcando la casilla
+"Add python.exe to PATH" durante la instalación.
+
+Si no tienes Python y no puedes instalarlo, como alternativa puedes
+abrir la carpeta "dist" y arrastrar el archivo "index.html" a una
+ventana de Firefox, aunque algunas funciones del catálogo podrían no
+funcionar igual de bien sin el servidor.
+
+¿Por qué hace falta un "servidor" para ver una página web?
+-----------------------------------------------------------
+Este catálogo carga sus datos (libros, referencias, etc.) mediante
+peticiones que los navegadores modernos bloquean por seguridad cuando
+abres el archivo directamente con doble clic. El servidor local que
+incluye esta carpeta soluciona eso sin necesidad de conexión a
+internet: todo funciona en tu propio ordenador (localhost).
+
+No se envía ni se recibe ningún dato por internet.
