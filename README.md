@@ -1,3 +1,4 @@
+![Logo FIO](./site/assets/img/logo.png)
 # Catálogo de la Biblioteca FIO — cómo actualizarlo
 
 Este repositorio publica automáticamente el catálogo de la Biblioteca de
