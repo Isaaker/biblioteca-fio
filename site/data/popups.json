@@ -1,0 +1,27 @@
+{
+  "_comentario": "Popups/avisos emergentes de la web, editables sin programar (igual que digitalizados.json). Ver site/js/popups.js para la explicación completa de cada campo. Recuerda: 'active': false apaga un popup sin necesidad de borrarlo (útil para reactivarlo más adelante).",
+  "popups": [
+    {
+      "id": "casi-listos-2026-09",
+      "active": true,
+      "type": "modal",
+      "pages": ["index.html"],
+      "dismiss": "session",
+      "title": {
+        "es": "Ya casi estamos listos…",
+        "en": "We're almost ready…"
+      },
+      "body": {
+        "es": "Estamos ultimando los preparativos y últimas entradas de nuestro catálogo para poder ofrecer una mejor experiencia a los usuarios de la biblioteca, gracias por su paciencia. Mientras espera puede continuar consultando nuestro catálogo en nuestra antigua web:",
+        "en": "We're putting the finishing touches on our catalogue to offer library users a better experience — thank you for your patience. In the meantime, you can keep browsing our catalogue on our previous website:"
+      },
+      "link": {
+        "url": "https://fio.es/biblioteca-fio",
+        "text": {
+          "es": "ir a la antigua web del catálogo",
+          "en": "go to the previous catalogue website"
+        }
+      }
+    }
+  ]
+}

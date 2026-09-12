@@ -751,6 +751,13 @@ footer.fio-footer a {
   text-decoration: underline;
 }
 
+.fio-footer-credits {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 0.78rem;
+  opacity: 0.75;
+}
+
 .fio-section {
   margin-top: 24px;
 }
