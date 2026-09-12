@@ -1,6 +1,8 @@
 # LICENCIA DE USO — CATÁLOGO Y SITIO WEB DE LA BIBLIOTECA
 ## FUNDACIÓN INFANTE DE ORLEANS (FIO)
 
+![Logo de la Fundación Infante de Orleans](./site/assets/img/logo.png)
+
 **Última actualización:** 11 de septiembre de 2026
 
 ---
