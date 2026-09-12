@@ -1,0 +1,46 @@
+name: Publicar versión portable (pendrive)
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  portable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Comprobar que existe dist/ (sitio ya construido)
+        run: |
+          if [ ! -f dist/index.html ]; then
+            echo "ERROR: no existe dist/index.html. Lanza primero 'Generar y publicar catálogo' antes de crear la versión portable."
+            exit 1
+          fi
+
+      - name: Preparar versión portable (ZIP con servidor local incluido, para pendrive)
+        run: |
+          rm -rf catalogo-portable
+          mkdir -p catalogo-portable
+          cp -r dist catalogo-portable/dist
+          cp portable/servidor.py catalogo-portable/
+          cp portable/EJECUTAR_CATALOGO_FIO.bat catalogo-portable/
+          cp portable/EJECUTAR_CATALOGO_FIO.command catalogo-portable/
+          cp portable/LEEME.txt catalogo-portable/
+          chmod +x catalogo-portable/EJECUTAR_CATALOGO_FIO.command
+          cd catalogo-portable
+          zip -r ../catalogo-portable.zip .
+          cd ..
+
+      - name: Calcular etiqueta de versión (fecha + número de ejecución)
+        id: version
+        run: echo "tag=portable-$(date +'%Y%m%d')-${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+
+      - name: Publicar Release con el ZIP portable
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "Catálogo (portable) - ${{ steps.version.outputs.tag }}"
+          body: "Versión para pendrive/uso local, sin necesidad de internet. Descomprime el ZIP y haz doble clic en EJECUTAR_CATALOGO_FIO.bat (Windows) o EJECUTAR_CATALOGO_FIO.command (Mac/Linux). Requiere tener Python instalado (ver LEEME.txt dentro del ZIP)."
+          files: catalogo-portable.zip

@@ -1,0 +1,32 @@
+# Artefactos generados por build/generate_catalog.py dentro de site/
+# (site/ es la FUENTE; se regeneran en cada build, no hace falta
+# versionarlos aquí — la copia que SÍ se versiona vive en dist/, ver
+# más abajo). IMPORTANTE: esta lista debe cubrir TODO lo que escribe
+# generate_catalog.py en site/data/ — si falta algo aquí, acaba
+# commiteado en site/ (con datos reales) además de en dist/, y con el
+# repositorio público eso significa exponerlo permanentemente en el
+# historial de git aunque luego se borre.
+site/data/catalog.json
+site/data/catalog-lite.json
+site/data/catalog-index.json
+site/data/catalog-part-*.json
+site/data/ref-index.json
+site/data/catalogo.mrc
+site/data/catalogo_marcxml.xml
+site/data/books/
+
+# dist/ SÍ se versiona a propósito: es el sitio ya construido que
+# Cloudflare Pages (y opcionalmente GitHub Pages) despliegan
+# directamente, sin necesidad de ejecutar ningún build en el propio
+# proveedor de hosting. Lo mantiene actualizado el workflow de GitHub
+# Actions en cada push a data/indice_general.xlsx, build/** o site/**
+# (ver .github/workflows/build-and-deploy.yml). No lo borres de aquí.
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Sistema
+.DS_Store
+Thumbs.db

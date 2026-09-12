@@ -1,0 +1,34 @@
+name: Gitleaks (escaneo de secretos)
+
+# Revisa todo el historial de commits en busca de claves de API,
+# tokens, contraseñas o similares que se hayan podido subir por error
+# en algún momento — red de seguridad adicional, independiente de que
+# el repositorio sea privado. Si encuentra algo, el workflow falla en
+# rojo y hay que rotar esa credencial cuanto antes (borrarla del
+# código no es suficiente si ya quedó en el historial de git).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 7 * * 1" # todos los lunes a las 07:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio (con todo el historial)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+
+      - name: Ejecutar Gitleaks
+        uses: gitleaks/gitleaks-action@dcedce43c6f43de0b836d1fe38946645c9c638dc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

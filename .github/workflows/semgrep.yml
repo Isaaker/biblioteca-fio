@@ -1,0 +1,34 @@
+name: Semgrep
+
+# Revisa el código en busca de patrones de código inseguro conocidos
+# (inyecciones, uso peligroso de eval/exec, manejo inseguro de
+# ficheros, secretos hardcodeados, etc.), tanto en el Python de
+# build/ como en el JavaScript de site/. Se ejecuta en cada cambio y
+# semanalmente, para detectar también reglas nuevas publicadas por
+# Semgrep desde la última vez.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1" # todos los lunes a las 06:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Ejecutar Semgrep
+        # "auto" descarga un conjunto de reglas ajustado automáticamente
+        # al contenido del repo (Python, JavaScript...); no requiere
+        # login ni token de Semgrep para uso público/gratuito. --error
+        # hace que el workflow falle (en rojo) si encuentra algún
+        # hallazgo, para que sea imposible pasarlo por alto.
+        run: semgrep scan --config auto --error
