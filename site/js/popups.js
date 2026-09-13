@@ -56,16 +56,48 @@
     store.setItem(key, '1');
   }
 
+  // El contenido de data/popups.json lo edita a mano cualquier
+  // voluntario desde la web de GitHub, sin pasar por revisión de
+  // código: nunca se debe volcar tal cual dentro de innerHTML, para
+  // que un error de tecleo (o una edición futura poco cuidadosa) no
+  // pueda acabar inyectando HTML/JS en la página. Por eso todo texto
+  // se escapa aquí antes de insertarse.
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = String(str);
+    return div.innerHTML;
+  }
+
   function localizedText(field, lang) {
     if (!field) return '';
-    if (typeof field === 'string') return field; // por si alguien escribe un texto sin es/en
-    return field[lang] || field.es || field.en || '';
+    if (typeof field === 'string') return escapeHtml(field); // por si alguien escribe un texto sin es/en
+    return escapeHtml(field[lang] || field.es || field.en || '');
+  }
+
+  function isSafeLinkUrl(url) {
+    try {
+      // Relativas (p. ej. "contacto.html") se resuelven contra la
+      // página actual; solo se aceptan esquemas http(s), nunca
+      // "javascript:" ni similares.
+      const resolved = new URL(url, window.location.href);
+      return resolved.protocol === 'http:' || resolved.protocol === 'https:';
+    } catch (err) {
+      return false;
+    }
   }
 
   function buildLinkHtml(popup, lang) {
-    if (!popup.link || !popup.link.url) return '';
-    const text = localizedText(popup.link.text, lang) || popup.link.url;
-    return ` <a href="${popup.link.url}" target="_blank" rel="noopener">${text}</a>`;
+    if (!popup.link || !popup.link.url || !isSafeLinkUrl(popup.link.url)) return '';
+    // El enlace se construye como elemento del DOM (no como HTML en
+    // bruto) para que la URL nunca pueda "escapar" del atributo href,
+    // y luego se serializa ya escapado.
+    const rawText = (popup.link.text && (popup.link.text[lang] || popup.link.text.es || popup.link.text.en)) || popup.link.url;
+    const a = document.createElement('a');
+    a.href = popup.link.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = rawText;
+    return ' ' + a.outerHTML;
   }
 
   function showModal(popup, lang, onClose) {

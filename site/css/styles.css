@@ -1286,6 +1286,30 @@ footer.fio-footer a {
   background-color: var(--fio-muted);
 }
 
+/* Evento recurrente automático (p. ej. la Exhibición en Vuelo): se
+   resalta en azul para distinguirlo de un evento puntual normal. */
+.fio-event-card.is-recurring {
+  background-color: var(--fio-blue-tint);
+  border-color: var(--fio-blue);
+}
+
+.fio-event-card .fio-event-body { flex: 1; min-width: 0; }
+.fio-event-card .fio-event-body h3 { margin: 4px 0 6px; }
+.fio-event-card .fio-event-body p { margin: 0; }
+
+.fio-event-badge {
+  display: inline-block;
+  background-color: var(--fio-blue);
+  color: var(--fio-white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 4px;
+}
+
 /* Contenido bilingüe editable a mano (p. ej. en eventos.html): cada
    bloque de texto se escribe dos veces, envuelto en <span class="lang-es">
    y <span class="lang-en">, y esta regla muestra solo el que coincide
@@ -1373,6 +1397,125 @@ html[lang="en"] .lang-es { display: none; }
 
 .fio-modal-body { padding: 18px; }
 .fio-modal-footer { padding: 0 18px 18px; text-align: right; }
+
+/* ==========================================================================
+   Modal de favoritos
+   ========================================================================== */
+.fio-favorites-trigger { position: relative; }
+
+.fio-favorites-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--fio-blue);
+  color: var(--fio-white);
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fio-favorites-modal .fio-modal { max-width: 520px; }
+
+.fio-favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.fio-favorites-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--fio-blue-border);
+  border-radius: var(--radius);
+}
+
+.fio-favorites-cover {
+  width: 44px;
+  height: 62px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--fio-blue-tint);
+}
+
+.fio-favorites-cover img,
+.fio-favorites-cover svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fio-favorites-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fio-favorites-title {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fio-favorites-ref {
+  color: var(--fio-muted);
+  font-size: 0.85rem;
+}
+
+.fio-favorites-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.fio-favorites-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--fio-blue);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.fio-favorites-icon-btn:hover,
+.fio-favorites-icon-btn:focus-visible {
+  background-color: var(--fio-blue-tint);
+}
+
+.fio-favorites-icon-btn.fio-favorites-remove {
+  color: #b3261e;
+}
+
+body[data-theme="dark"] .fio-favorites-icon-btn.fio-favorites-remove {
+  color: #ff8a80;
+}
+
+.fio-favorites-empty {
+  color: var(--fio-muted);
+  text-align: center;
+  padding: 24px 8px;
+  margin: 0;
+}
 
 /* ==========================================================================
    Toast (aviso breve no bloqueante)
