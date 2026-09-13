@@ -1,0 +1,9 @@
+{
+  "_comentario": "Nombres que aparecen en la página de agradecimientos (gracias.html). Añadir un nombre nuevo es tan sencillo como añadir una línea más a la lista que corresponda y guardar — no hace falta tocar ningún otro fichero. El orden de esta lista es el orden en que aparecen en la animación. Si un nombre debe estar en ambas listas (donó libros Y ha sido voluntario), simplemente repítelo en las dos.",
+  "donantes": [
+    "Ejemplo: Familia Pérez"
+  ],
+  "voluntarios": [
+    "Ejemplo: Juan García"
+  ]
+}
