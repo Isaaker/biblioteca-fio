@@ -1727,3 +1727,111 @@ body[data-contrast="on"] .fio-contrast-toggle {
 .fio-popup-link {
   text-decoration: none;
 }
+
+/* --- Accesibilidad: respeta "reducir movimiento" del sistema ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Página de agradecimientos (gracias.html) --------------------------- */
+.fio-thanks-hero {
+  text-align: center;
+  padding: 32px 12px 8px;
+}
+
+.fio-thanks-hero h1 {
+  font-size: 1.7rem;
+  margin-bottom: 22px;
+}
+
+.fio-thanks-reasons {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fio-thanks-reasons li,
+.fio-thanks-final {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fio-thanks-fade-up 0.6s ease forwards;
+  animation-delay: calc(var(--i, 0) * 0.35s);
+}
+
+.fio-thanks-final {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--fio-blue);
+  margin-top: 24px;
+}
+
+@keyframes fio-thanks-fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fio-thanks-names {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.fio-thanks-names h2 {
+  margin-bottom: 4px;
+}
+
+.fio-thanks-namelist {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 14px;
+}
+
+.fio-thanks-namelist li {
+  opacity: 0;
+  transform: scale(0.9);
+  animation: fio-thanks-fade-in 0.5s ease forwards;
+  animation-delay: calc(var(--i, 0) * 0.06s);
+  background: var(--fio-blue-tint);
+  border: 1px solid var(--fio-blue-border);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 0.95rem;
+}
+
+@keyframes fio-thanks-fade-in {
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fio-callout-cta {
+  text-align: center;
+}
+
+.fio-callout-cta h2 {
+  margin-top: 0;
+}
+
+.fio-btn-outline-blue {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 1rem;
+  border: 2px solid var(--fio-blue);
+  background-color: transparent;
+  color: var(--fio-blue) !important;
+}
+
+.fio-btn-outline-blue:hover {
+  background-color: var(--fio-blue-tint);
+}

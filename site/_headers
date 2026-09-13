@@ -1,0 +1,26 @@
+# Cabeceras de seguridad para Cloudflare Pages.
+#
+# IMPORTANTE — por qué este fichero no basta por sí solo:
+# GitHub Pages (isaaker.github.io/biblioteca-fio/) NO permite configurar
+# cabeceras HTTP personalizadas de ningún modo: no hay fichero de
+# configuración ni panel para ello, así que un escáner de seguridad que
+# apunte directamente a isaaker.github.io seguirá marcando "no
+# implementado" en CSP/HSTS/X-Frame-Options/etc. pase lo que pase con
+# este fichero. Esto solo tiene efecto si el sitio se sirve desde
+# Cloudflare Pages (biblioteca.fio.es, según el CNAME del repo) — que sí
+# soporta este fichero "_headers" de forma nativa. Si en algún momento
+# se sirve directamente desde isaaker.github.io sin pasar por Cloudflare,
+# la única cabecera de seguridad real posible sería la que se puede
+# aproximar con <meta> en el HTML (ver el <head> de cada página), que
+# es más limitada: no permite HSTS, X-Frame-Options, ni
+# X-Content-Type-Options (esas tres SOLO existen como cabecera HTTP).
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(self), payment=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
