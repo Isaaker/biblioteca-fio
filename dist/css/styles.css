@@ -1078,25 +1078,6 @@ footer.fio-footer a {
   .fio-detail-table td { border-bottom: none; padding: 2px 0; }
 }
 
-.fio-related-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.fio-related-card {
-  border: 1px solid var(--fio-blue-border);
-  border-radius: var(--radius);
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  color: var(--fio-text) !important;
-  display: block;
-}
-
-.fio-related-card:hover { border-color: var(--fio-blue); }
-
 /* ==========================================================================
    Página de búsqueda dedicada
    ========================================================================== */

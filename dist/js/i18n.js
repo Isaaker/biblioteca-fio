@@ -326,6 +326,15 @@ const FIO_DICT = {
     contact_subject_catalog: 'Catálogo / una obra concreta',
     contact_subject_digitization: 'Digitalización',
     contact_subject_other: 'Otros',
+
+    // Página 404
+    notfound_title: 'Página no encontrada — Biblioteca FIO',
+    notfound_heading: 'Esta página no existe',
+    notfound_body: 'Puede que el enlace esté mal escrito, que la página se haya movido, o que el libro que buscabas ya no esté en esa dirección. Prueba con el catálogo o vuelve al inicio.',
+    notfound_cta_home: 'Volver al inicio',
+    notfound_cta_catalog: 'Ir al catálogo',
+    notfound_cta_search: 'Buscar un libro',
+    notfound_cta_contact: 'Contactar',
   },
   en: {
     site_title: 'Library — Infante de Orleans Foundation',
@@ -637,6 +646,15 @@ const FIO_DICT = {
     contact_subject_catalog: 'Catalogue / a specific item',
     contact_subject_digitization: 'Digitisation',
     contact_subject_other: 'Other',
+
+    // 404 page
+    notfound_title: 'Page not found — FIO Library',
+    notfound_heading: 'This page doesn\'t exist',
+    notfound_body: 'The link may be mistyped, the page may have moved, or the book you were looking for may no longer be at that address. Try the catalogue or go back home.',
+    notfound_cta_home: 'Back to home',
+    notfound_cta_catalog: 'Go to catalogue',
+    notfound_cta_search: 'Search for a book',
+    notfound_cta_contact: 'Contact us',
   },
 };
 

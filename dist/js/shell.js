@@ -29,7 +29,7 @@
     { href: 'buscar.html', key: 'nav_search', label: 'Buscar' },
     { href: 'escanear.html', key: 'nav_scan', label: 'Escanear' },
     { href: 'estadisticas.html', key: 'nav_stats', label: 'Estadísticas' },
-    { href: 'gracias.html', key: 'nav_collaborate', label: 'Colabora' },
+    { href: 'donaciones.html', key: 'nav_collaborate', label: 'Colabora' },
     { href: 'contacto.html', key: 'nav_contact', label: 'Contacto' },
   ];
 
