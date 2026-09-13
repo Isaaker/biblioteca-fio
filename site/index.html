@@ -27,7 +27,27 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
+  <link rel="canonical" href="https://biblioteca.fio.es/index.html">
+  <link rel="alternate" type="application/atom+xml" title="Últimas altas — Biblioteca FIO" href="feed.xml">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net; worker-src 'self' blob:; child-src 'self' blob:; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Library",
+    "name": "Biblioteca — Fundación Infante de Orleans",
+    "url": "https://biblioteca.fio.es/",
+    "description": "Catálogo público de la biblioteca de la Fundación Infante de Orleans, especializada en aviación e historia aeronáutica.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Carretera de la Fortuna, 14, Edificio Real Aeroclub",
+      "postalCode": "28054",
+      "addressLocality": "Cuatro Vientos, Madrid",
+      "addressCountry": "ES"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -72,7 +92,22 @@
       </div>
     </div>
 
-    <div class="fio-features-grid">
+    <template x-if="!featuredLoading && featured">
+      <div class="fio-featured-book">
+        <h2 data-i18n="featured_book_title">Libro del mes</h2>
+        <div class="fio-featured-book-body">
+          <a :href="'libro.html?id=' + featured.id" class="fio-cover fio-cover-lg">
+            <img :data-cover-for="featured.id" :alt="'Portada de ' + featured.title" loading="lazy">
+          </a>
+          <div>
+            <h3 class="fio-book-title"><a :href="'libro.html?id=' + featured.id" x-text="featured.title" style="color:inherit; text-decoration:none;"></a></h3>
+            <p class="fio-book-meta" x-text="[featured.author, featured.publication_year, featured.publisher].filter(Boolean).join(' · ')"></p>
+            <p class="fio-book-meta" x-show="featured.topic"><span data-i18n="field_topic">Tema</span>: <span x-text="featured.topic"></span></p>
+            <a :href="'libro.html?id=' + featured.id" class="fio-btn fio-btn-solid" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="featured_book_cta">Ver ficha completa</a>
+          </div>
+        </div>
+      </div>
+    </template>
       <div class="fio-feature-card">
         <div class="fio-feature-icon">
           <svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5v-17ZM6.5 4A.5.5 0 0 0 6 4.5v13.6A2.5 2.5 0 0 1 6.5 18H18V4H6.5Z"/><path d="M8 7h8v1.5H8V7Zm0 3h8v1.5H8V10Zm0 3h5v1.5H8V13Z"/></svg>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="donation_title">Donar libros — Biblioteca FIO</title>
+  <meta name="description" content="Cómo donar libros a la Biblioteca de la Fundación Infante de Orleans: qué tener en cuenta y cómo empezar el proceso.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biblioteca — Fundación Infante de Orleans">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Donar libros — Biblioteca FIO">
+  <meta property="og:description" content="Cómo donar libros a la Biblioteca de la Fundación Infante de Orleans: qué tener en cuenta y cómo empezar el proceso.">
+  <meta property="og:url" content="https://biblioteca.fio.es/donaciones.html">
+  <meta property="og:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Donar libros — Biblioteca FIO">
+  <meta name="twitter:description" content="Cómo donar libros a la Biblioteca de la Fundación Infante de Orleans: qué tener en cuenta y cómo empezar el proceso.">
+  <meta name="twitter:image" content="https://biblioteca.fio.es/assets/img/social-preview.jpg">
+  <link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="assets/img/favicons/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#202d58">
+  <link rel="canonical" href="https://biblioteca.fio.es/donaciones.html">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net; worker-src 'self' blob:; child-src 'self' blob:; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="fio-splash" class="fio-splash">
+    <div class="fio-splash-content">
+      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
+      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main-content" data-i18n="shell_skip_to_content">Saltar al contenido</a>
+
+  <div id="fio-header-mount"></div>
+
+  <main id="main-content" x-data="fioDonation()">
+    <h1 data-i18n="donation_title">Donar libros</h1>
+
+    <p data-i18n="donation_intro">Si has llegado hasta aquí significa que tienes obras que deberían formar parte de nuestra colección. Estaremos encantados de recibirlas, pero antes queremos que tengas en cuenta lo siguiente:</p>
+
+    <p data-i18n="donation_collection_size">Nuestra colección cuenta con más de 3.500 ejemplares. Dependiendo de la obra o volumen donado, es posible que:</p>
+
+    <ul>
+      <li data-i18n="donation_point_1">Sea destinado a nuestro Archivo Histórico en lugar de a la biblioteca, en caso de que se trate de un manual técnico, documento histórico o revista. De momento, los documentos de archivo son solo de acceso interno de la fundación; queremos que esto cambie, pero de momento no tenemos capacidad para ello.</li>
+      <li data-i18n="donation_point_2">Tenemos muchos libros comunes: si donas algún libro que ya tengamos, es posible que lo almacenemos para poder venderlo y financiar así la compra de otros ejemplares que aún no están en nuestra colección.</li>
+      <li data-i18n="donation_point_3">Los libros que no estén relacionados con temas de aviación, ingeniería o historia, o que simplemente no sean relevantes para nuestra colección, podrán ser también vendidos para financiar la compra de nuevos ejemplares, o donados a otras bibliotecas en las que encajen.</li>
+      <li data-i18n="donation_point_4">Es posible que se te pida firmar un documento de cesión: es una necesidad legal para poder aceptar la donación.</li>
+    </ul>
+
+    <p data-i18n="donation_transparency">Queremos que el proceso sea totalmente transparente; por ello, creemos que es importante compartir esta información contigo.</p>
+
+    <p data-i18n="donation_contact_intro">Si deseas continuar con el proceso o tienes más dudas, puedes escribirnos a <a href="mailto:fioteca@fio.es">fioteca@fio.es</a>, o para facilitártelo aún más, puedes rellenar este formulario con la información que necesitamos para poder evaluar la donación.</p>
+
+    <div class="fio-filter-bar" style="display:block;">
+      <h2 data-i18n="donation_form_title" style="margin-top:0;">Formulario de donación</h2>
+      <p class="lang-es" style="color: var(--fio-muted); margin-top:-6px;">Al pulsar "Enviar" se abrirá tu programa de correo con el mensaje ya preparado para <b>fioteca@fio.es</b>. No se envía nada desde esta página ni se guarda en ningún servidor.</p>
+      <p class="lang-en" style="color: var(--fio-muted); margin-top:-6px;">Pressing "Send" opens your own email application with the message ready to send to <b>fioteca@fio.es</b>. Nothing is sent from this page or stored on any server.</p>
+
+      <div style="margin-bottom: 14px;">
+        <label for="d-name" data-i18n="donation_form_name_label">Tu nombre (opcional)</label>
+        <input id="d-name" type="text" x-model="name" style="width:100%;">
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <label for="d-email" data-i18n="donation_form_email_label">Correo de contacto (opcional)</label>
+        <input id="d-email" type="email" x-model="email" style="width:100%;">
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <label for="d-quantity" data-i18n="donation_form_quantity_label">Cantidad aproximada de libros</label>
+        <input id="d-quantity" type="text" x-model="quantity" style="width:100%;">
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <label for="d-items" data-i18n="donation_form_items_label">Títulos, autores o descripción de las obras</label>
+        <textarea id="d-items" x-model="items" rows="6" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit;" data-i18n-attr="placeholder:donation_form_items_placeholder" placeholder="Uno por línea, o una descripción general si son muchos…"></textarea>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <label for="d-comments" data-i18n="donation_form_comments_label">Comentarios adicionales</label>
+        <textarea id="d-comments" x-model="comments" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit;"></textarea>
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
+          <input type="checkbox" x-model="digitalCopyInterest">
+          <span data-i18n="donation_form_digital_copy">Me interesaría recibir copia digital, si la obra es elegible</span>
+        </label>
+      </div>
+
+      <div class="fio-hero-actions" style="justify-content:flex-start;">
+        <button type="button" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="send()" data-i18n="donation_form_submit">Enviar</button>
+      </div>
+    </div>
+
+    <p class="fio-book-meta" data-i18n="donation_digital_copy_note">Algunos libros podrían ser elegibles para que recibas una copia digital gratuita, de manera que puedas continuar accediendo al libro aunque lo hayas donado (siempre podrás verlo físicamente en la biblioteca; la copia digital es un extra).</p>
+
+  </main>
+
+  <div id="fio-footer-mount"></div>
+  <script src="js/shell.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.2/dist/cdn.min.js" integrity="sha384-lcaMFHdvRVsEXVuhit4fTnbxq6eTLm5HPdNzO7vXNZjr8HOCMouPmv4hSGF3PCJV" crossorigin="anonymous"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/fio-ux.js"></script>
+  <script src="js/donation.js"></script>
+  <script src="js/splash.js"></script>
+</body>
+</html>
