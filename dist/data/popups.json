@@ -1,5 +1,5 @@
 {
-  "_comentario": "Popups/avisos emergentes de la web, editables sin programar (igual que digitalizados.json). Ver site/js/popups.js para la explicación completa de cada campo. Recuerda: 'active': false apaga un popup sin necesidad de borrarlo (útil para reactivarlo más adelante).",
+  "_comentario": "Popups/avisos emergentes de la web, editables sin programar (igual que digitalizados.json). Ver site/js/popups.js para la explicación completa de cada campo. Recuerda: 'active': false apaga un popup sin necesidad de borrarlo (útil para reactivarlo más adelante). 'links' (lista) sustituye al antiguo 'link' (uno solo) — se pueden poner varios enlaces, cada uno se muestra como un botón. Este popup en concreto ('casi-listos-2026-09') también se muestra automáticamente y sin poder cerrarse en catalogo.html si el catálogo no carga o está vacío (ver site/js/catalog.js) — no lo borres aunque lo desactives (\"active\": false) para index.html, o se perderá también ese aviso de emergencia.",
   "popups": [
     {
       "id": "casi-listos-2026-09",
@@ -15,13 +15,29 @@
         "es": "Estamos ultimando los preparativos y últimas entradas de nuestro catálogo para poder ofrecer una mejor experiencia a los usuarios de la biblioteca, gracias por su paciencia. Mientras espera puede continuar consultando nuestro catálogo en nuestra antigua web:",
         "en": "We're putting the finishing touches on our catalogue to offer library users a better experience — thank you for your patience. In the meantime, you can keep browsing our catalogue on our previous website:"
       },
-      "link": {
-        "url": "https://fio.es/biblioteca-fio",
-        "text": {
-          "es": "ir a la antigua web del catálogo",
-          "en": "go to the previous catalogue website"
+      "links": [
+        {
+          "url": "https://fio.es/biblioteca-fio",
+          "text": {
+            "es": "ir a la antigua web del catálogo",
+            "en": "go to the previous catalogue website"
+          }
+        },
+        {
+          "url": "https://fio.es/wp-content/uploads/2023/09/Biblio_FIO_por_titulo.pdf",
+          "text": {
+            "es": "descargar el catálogo antiguo en PDF (por título)",
+            "en": "download the old catalogue as PDF (by title)"
+          }
+        },
+        {
+          "url": "https://fio.es/wp-content/uploads/2023/09/Biblio_FIO_por_autor.pdf",
+          "text": {
+            "es": "descargar el catálogo antiguo en PDF (por autor)",
+            "en": "download the old catalogue as PDF (by author)"
+          }
         }
-      }
+      ]
     }
   ]
 }

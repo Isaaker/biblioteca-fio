@@ -54,9 +54,13 @@ function fioCatalog() {
         this.booksById = new Map(this.allBooks.map(b => [String(b.id), b]));
         this.generatedAt = payload.generated_at || null;
         this._recomputeFilteredBooks();
+        if (this.allBooks.length === 0) {
+          window.fioShowBlockingPopup?.('casi-listos-2026-09');
+        }
       } catch (err) {
         this.error = fioT('load_error');
         console.error(err);
+        window.fioShowBlockingPopup?.('casi-listos-2026-09');
       } finally {
         this.loading = false;
         this.$nextTick(() => { this._jumpToHashBook(); this._loadVisibleCovers(); });

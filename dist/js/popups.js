@@ -91,41 +91,41 @@
     }
   }
 
-  function buildLinkElement(popup, lang) {
-    if (
-      !popup.link ||
-      !popup.link.url ||
-      !isSafeLinkUrl(popup.link.url)
-    ) {
-      return null;
-    }
+  function buildLinkElements(popup, lang) {
+    // 'links' (lista) es el formato actual; 'link' (uno solo) se sigue
+    // soportando por compatibilidad con popups ya publicados.
+    const rawLinks = Array.isArray(popup.links) && popup.links.length
+      ? popup.links
+      : (popup.link ? [popup.link] : []);
 
-    const rawText = (
-      popup.link.text &&
-      (
-        popup.link.text[lang] ||
-        popup.link.text.es ||
-        popup.link.text.en
-      )
-    ) || popup.link.url;
+    return rawLinks
+      .filter((entry) => entry && entry.url && isSafeLinkUrl(entry.url))
+      .map((entry) => {
+        const rawText = (
+          entry.text &&
+          (entry.text[lang] || entry.text.es || entry.text.en)
+        ) || entry.url;
 
-    const a = document.createElement('a');
-
-    a.href = popup.link.url;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.textContent = String(rawText);
-
-    return a;
+        const a = document.createElement('a');
+        a.href = entry.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = String(rawText);
+        return a;
+      });
   }
 
-  function appendTextWithLink(parent, text, linkElement) {
-    parent.appendChild(document.createTextNode(text));
+  function buildLinksList(popup, lang) {
+    const links = buildLinkElements(popup, lang);
+    if (!links.length) return null;
 
-    if (linkElement) {
-      parent.appendChild(document.createTextNode(' '));
-      parent.appendChild(linkElement);
-    }
+    const list = document.createElement('div');
+    list.className = 'fio-popup-links';
+    links.forEach((a) => {
+      a.className = 'fio-filter-clear fio-popup-link';
+      list.appendChild(a);
+    });
+    return list;
   }
 
   function createButton(text, className, style) {
@@ -142,7 +142,9 @@
     return button;
   }
 
-  function showModal(popup, lang, onClose) {
+  function showModal(popup, lang, onClose, options) {
+    const dismissable = !options || options.dismissable !== false;
+
     const wrap = document.createElement('div');
     wrap.className = 'fio-modal-backdrop fio-popup-modal';
 
@@ -155,49 +157,55 @@
     const title = document.createElement('h3');
     title.textContent = localizedText(popup.title, lang);
 
-    const closeButton = createButton(
-      '×',
-      'fio-modal-close',
-      ''
-    );
+    header.appendChild(title);
 
-    closeButton.setAttribute(
-      'aria-label',
-      lang === 'en' ? 'Close' : 'Cerrar'
-    );
-
-    header.append(title, closeButton);
+    let closeButton = null;
+    if (dismissable) {
+      closeButton = createButton('×', 'fio-modal-close', '');
+      closeButton.setAttribute('aria-label', lang === 'en' ? 'Close' : 'Cerrar');
+      header.appendChild(closeButton);
+    }
 
     const body = document.createElement('div');
     body.className = 'fio-modal-body';
 
     const paragraph = document.createElement('p');
     paragraph.style.margin = '0';
-
-    const link = buildLinkElement(popup, lang);
-
-    appendTextWithLink(
-      paragraph,
-      localizedText(popup.body, lang),
-      link
-    );
-
+    paragraph.textContent = localizedText(popup.body, lang);
     body.appendChild(paragraph);
 
-    const footer = document.createElement('div');
-    footer.className = 'fio-modal-footer';
+    const linksList = buildLinksList(popup, lang);
+    if (linksList) {
+      linksList.style.marginTop = '14px';
+      body.appendChild(linksList);
+    }
 
-    const okButton = createButton(
-      lang === 'en' ? 'Got it' : 'Entendido',
-      'fio-btn fio-popup-ok',
-      'background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);'
-    );
+    modal.append(header, body);
 
-    footer.appendChild(okButton);
+    let okButton = null;
+    if (dismissable) {
+      const footer = document.createElement('div');
+      footer.className = 'fio-modal-footer';
+      okButton = createButton(
+        lang === 'en' ? 'Got it' : 'Entendido',
+        'fio-btn fio-popup-ok',
+        'background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);'
+      );
+      footer.appendChild(okButton);
+      modal.appendChild(footer);
+    }
 
-    modal.append(header, body, footer);
     wrap.appendChild(modal);
     document.body.appendChild(wrap);
+
+    if (!dismissable) {
+      // El aviso se muestra porque el catálogo no está disponible: no
+      // tiene sentido dejar que la persona lo cierre y se quede
+      // mirando una página de catálogo vacía sin saber por qué, así
+      // que aquí no hay X, ni botón "Entendido", ni cierre al pulsar
+      // fuera del modal.
+      return;
+    }
 
     const close = () => {
       wrap.remove();
@@ -224,16 +232,11 @@
     const strong = document.createElement('strong');
     strong.textContent = localizedText(popup.title, lang);
 
-    const link = buildLinkElement(popup, lang);
-
     paragraph.appendChild(strong);
     paragraph.appendChild(document.createTextNode(' '));
+    paragraph.appendChild(document.createTextNode(localizedText(popup.body, lang)));
 
-    appendTextWithLink(
-      paragraph,
-      localizedText(popup.body, lang),
-      link
-    );
+    const linksList = buildLinksList(popup, lang);
 
     const actions = document.createElement('div');
     actions.className = 'fio-privacy-banner-actions';
@@ -246,7 +249,9 @@
 
     actions.appendChild(closeButton);
 
-    banner.append(paragraph, actions);
+    banner.appendChild(paragraph);
+    if (linksList) banner.appendChild(linksList);
+    banner.appendChild(actions);
     document.body.appendChild(banner);
 
     closeButton.addEventListener('click', () => {
@@ -305,5 +310,32 @@
     showQueue(toShow, lang);
   }
 
+  // Se llama desde fuera (por ejemplo, js/catalog.js) cuando el catálogo
+  // no ha podido cargarse o está vacío: busca el popup indicado en
+  // popups.json y lo muestra como modal SIN posibilidad de cerrarlo,
+  // pase lo que pase con su 'active', 'pages' o 'dismiss' habituales
+  // (esos campos solo gobiernan el aviso "normal" que ve todo el
+  // mundo al entrar; este es un aviso de emergencia y siempre debe
+  // verse si el catálogo está roto, aunque la persona ya hubiera
+  // cerrado el aviso normal antes).
+  async function showBlockingPopup(popupId) {
+    let config;
+    try {
+      const res = await fetch('data/popups.json');
+      if (!res.ok) return;
+      config = await res.json();
+    } catch (err) {
+      return;
+    }
+
+    const popup = (config.popups || []).find((p) => p && p.id === popupId);
+    if (!popup) return;
+
+    const lang = currentLang();
+    showModal(popup, lang, () => {}, { dismissable: false });
+  }
+
   document.addEventListener('DOMContentLoaded', init);
+
+  window.fioShowBlockingPopup = showBlockingPopup;
 })();
