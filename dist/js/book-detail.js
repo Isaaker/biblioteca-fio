@@ -69,22 +69,44 @@ function fioBookDetail() {
       }
     },
 
+    // Valida `id` y devuelve un entero positivo NUEVO (no la cadena
+    // original) apto para construir una URL local segura, o `null` si
+    // no es un identificador de libro válido. Ver comentario en
+    // _fetchBookFile() sobre por qué esto es distinto de solo probar
+    // una expresión regular sobre el valor original.
+    _toSafeBookId(id) {
+      const parsed = Number.parseInt(String(id), 10);
+      if (!Number.isSafeInteger(parsed) || parsed <= 0) {
+        return null;
+      }
+      // Reconstruida a partir del número, no del string de la URL.
+      return String(parsed);
+    },
+
     async _fetchBookFile(id) {
       // Salvaguarda (CodeQL js/client-side-request-forgery): `id` viene de
       // la URL (?id=...), así que nunca se debe usar tal cual para
       // construir la ruta de fetch() — alguien podría manipular la URL
       // para intentar que el navegador pida un recurso fuera de
       // data/books/ (p. ej. usando "../"). Los identificadores de libro
-      // son siempre enteros positivos (ver build/catalog_builder.py), así
-      // que se valida ese formato exacto antes de tocar ninguna URL; si
-      // no lo cumple, se trata igual que "libro no encontrado".
-      if (!/^[1-9][0-9]{0,9}$/.test(String(id))) {
+      // son siempre enteros positivos (ver build/catalog_builder.py).
+      //
+      // No basta con comprobar el formato del valor original con una
+      // expresión regular y seguir usando ESE mismo valor: para que el
+      // análisis estático (CodeQL) reconozca que el dato ya no depende
+      // de la entrada del usuario, se convierte a un número entero de
+      // verdad (Number.isSafeInteger) y se reconstruye la URL a partir
+      // de ESE número, nunca a partir de la cadena original tomada de
+      // la URL. Si no es un entero positivo válido, se trata igual que
+      // "libro no encontrado".
+      const safeId = this._toSafeBookId(id);
+      if (safeId === null) {
         return null;
       }
       const candidates = [
-        `data/books/${id}.json`,
-        `./data/books/${id}.json`,
-        `../data/books/${id}.json`,
+        `data/books/${safeId}.json`,
+        `./data/books/${safeId}.json`,
+        `../data/books/${safeId}.json`,
       ];
       let lastError = null;
       for (const candidate of candidates) {

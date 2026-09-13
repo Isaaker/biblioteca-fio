@@ -40,9 +40,11 @@
         reference: book.reference,
         topic: book.topic,
         publication_year: book.publication_year,
+        isbn: book.isbn,
       };
     }
     fioWriteJSON(FIO_FAVORITES_KEY, favorites);
+    document.dispatchEvent(new CustomEvent('fio:favorites-changed'));
     return Object.keys(favorites).length;
   }
 
@@ -299,6 +301,139 @@
     return suggestions;
   }
 
+  function fioRefreshFavoritesBadge() {
+    const badge = document.querySelector('.fio-favorites-count');
+    if (!badge) return;
+    const count = Object.keys(fioGetFavorites()).length;
+    if (count > 0) {
+      badge.textContent = count > 99 ? '99+' : String(count);
+      badge.hidden = false;
+    } else {
+      badge.hidden = true;
+    }
+  }
+
+  function fioFavoriteCoverNode(item) {
+    const cover = document.createElement('div');
+    cover.className = 'fio-favorites-cover';
+    const placeholder = () => {
+      cover.innerHTML = typeof fioPlaceholderCoverSvg === 'function'
+        ? fioPlaceholderCoverSvg(item.title)
+        : '';
+    };
+    placeholder();
+    if (typeof fioResolveCover === 'function') {
+      fioResolveCover(item).then((url) => {
+        if (!url) return;
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = '';
+        img.loading = 'lazy';
+        cover.innerHTML = '';
+        cover.appendChild(img);
+      }).catch(() => { /* se queda el placeholder */ });
+    }
+    return cover;
+  }
+
+  function fioRenderFavoritesList(listEl) {
+    const lang = typeof fioCurrentLang === 'function' ? fioCurrentLang() : 'es';
+    const t = (key, fallback) => (typeof fioT === 'function' && fioT(key)) || fallback;
+    const favorites = fioGetFavorites();
+    const items = Object.keys(favorites).map((id) => favorites[id]);
+
+    listEl.innerHTML = '';
+
+    if (!items.length) {
+      const empty = document.createElement('p');
+      empty.className = 'fio-favorites-empty';
+      empty.textContent = t('favorites_empty', lang === 'en'
+        ? "You haven't saved any books as favourites yet. Tap the star on a book's page to add it here."
+        : 'Aún no has guardado ningún libro como favorito. Pulsa la estrella en la ficha de un libro para añadirlo aquí.');
+      listEl.appendChild(empty);
+      return;
+    }
+
+    items.forEach((item) => {
+      const row = document.createElement('div');
+      row.className = 'fio-favorites-item';
+
+      row.appendChild(fioFavoriteCoverNode(item));
+
+      const info = document.createElement('div');
+      info.className = 'fio-favorites-info';
+      const title = document.createElement('span');
+      title.className = 'fio-favorites-title';
+      title.textContent = item.title || (lang === 'en' ? 'Untitled' : 'Sin título');
+      const ref = document.createElement('span');
+      ref.className = 'fio-favorites-ref';
+      ref.textContent = item.reference || t('favorites_no_reference', lang === 'en' ? 'No reference' : 'Sin referencia');
+      info.appendChild(title);
+      info.appendChild(ref);
+      row.appendChild(info);
+
+      const actions = document.createElement('div');
+      actions.className = 'fio-favorites-actions';
+
+      const openBtn = document.createElement('a');
+      openBtn.className = 'fio-favorites-icon-btn';
+      openBtn.href = `libro.html?id=${encodeURIComponent(item.id)}`;
+      openBtn.setAttribute('aria-label', t('favorites_open', lang === 'en' ? 'Open book' : 'Abrir ficha'));
+      openBtn.title = t('favorites_open', lang === 'en' ? 'Open book' : 'Abrir ficha');
+      openBtn.innerHTML = '<span class="fio-icon" aria-hidden="true">arrow_forward</span>';
+      actions.appendChild(openBtn);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'fio-favorites-icon-btn fio-favorites-remove';
+      removeBtn.setAttribute('aria-label', t('favorites_remove', lang === 'en' ? 'Remove from favourites' : 'Quitar de favoritos'));
+      removeBtn.title = t('favorites_remove', lang === 'en' ? 'Remove from favourites' : 'Quitar de favoritos');
+      removeBtn.innerHTML = '<span class="fio-icon" aria-hidden="true">delete</span>';
+      removeBtn.addEventListener('click', () => {
+        fioToggleFavorite(item);
+        fioRenderFavoritesList(listEl);
+      });
+      actions.appendChild(removeBtn);
+
+      row.appendChild(actions);
+      listEl.appendChild(row);
+    });
+  }
+
+  function fioOpenFavoritesModal() {
+    if (document.querySelector('.fio-favorites-modal')) return;
+    const lang = typeof fioCurrentLang === 'function' ? fioCurrentLang() : 'es';
+    const t = (key, fallback) => (typeof fioT === 'function' && fioT(key)) || fallback;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'fio-modal-backdrop fio-favorites-modal';
+    wrap.innerHTML = `
+      <div class="fio-modal">
+        <div class="fio-modal-header">
+          <h3>${t('favorites_title', lang === 'en' ? 'My favourites' : 'Mis favoritos')}</h3>
+          <button type="button" class="fio-modal-close" aria-label="${t('favorites_close', lang === 'en' ? 'Close' : 'Cerrar')}">&times;</button>
+        </div>
+        <div class="fio-modal-body">
+          <div class="fio-favorites-list"></div>
+        </div>
+      </div>`;
+    document.body.appendChild(wrap);
+    fioRenderFavoritesList(wrap.querySelector('.fio-favorites-list'));
+
+    const close = () => {
+      wrap.remove();
+      document.removeEventListener('keydown', onKeydown);
+      document.removeEventListener('fio:favorites-changed', onChange);
+    };
+    const onKeydown = (event) => { if (event.key === 'Escape') close(); };
+    const onChange = () => fioRenderFavoritesList(wrap.querySelector('.fio-favorites-list'));
+
+    wrap.querySelector('.fio-modal-close').addEventListener('click', close);
+    wrap.addEventListener('click', (event) => { if (event.target === wrap) close(); });
+    document.addEventListener('keydown', onKeydown);
+    document.addEventListener('fio:favorites-changed', onChange);
+  }
+
   function fioInjectGlobalUX() {
     const headerRight = document.querySelector('.fio-header-right');
     if (!headerRight) return;
@@ -325,16 +460,11 @@
       favBtn.type = 'button';
       favBtn.className = 'fio-favorites-trigger';
       favBtn.setAttribute('title', 'Mis favoritos');
-      favBtn.innerHTML = fioIcon('star', 'Favoritos');
-      favBtn.addEventListener('click', () => {
-        const favorites = fioGetFavorites();
-        const ids = Object.keys(favorites);
-        const items = ids.map((id) => favorites[id]).slice(0, 5);
-        const list = items.length ? items.map((item) => `- ${item.title || 'Libro'} (${item.reference || 'Sin referencia'})`).join('\n') : 'No hay favoritos aún.';
-        window.alert('Favoritos:\n\n' + list);
-      });
+      favBtn.innerHTML = fioIcon('star', 'Favoritos') + '<span class="fio-favorites-count" hidden></span>';
+      favBtn.addEventListener('click', fioOpenFavoritesModal);
       headerRight.appendChild(favBtn);
     }
+    fioRefreshFavoritesBadge();
 
     const currentTheme = localStorage.getItem(FIO_THEME_KEY) === 'dark' ? 'dark' : 'light';
     fioApplyTheme(currentTheme);
@@ -381,6 +511,7 @@
     fioInjectGlobalUX();
     fioInitKeyboardShortcuts();
   });
+  document.addEventListener('fio:favorites-changed', fioRefreshFavoritesBadge);
 
   window.fioToggleTheme = fioToggleTheme;
   window.fioBuildCitation = fioBuildCitation;

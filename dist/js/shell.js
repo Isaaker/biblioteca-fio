@@ -117,6 +117,8 @@
       <span>·</span>
       <a href="acceso-copias-digitales.html" data-i18n="footer_access_restricted">Acceso restringido</a>
       <span>·</span>
+      <a href="contacto.html" data-i18n="footer_contact">Contacto</a>
+      <span>·</span>
       <a href="privacidad.html" data-i18n="footer_privacy">Política de privacidad</a>
     </div>
     <p class="fio-footer-credits">Creado con ❤️ por Carlos Chevallier e Isaac Hernán</p>
