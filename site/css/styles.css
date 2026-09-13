@@ -1605,3 +1605,125 @@ body[data-theme="dark"] .fio-favorites-icon-btn.fio-favorites-remove {
 }
 
 .fio-ai-btn svg { flex-shrink: 0; }
+
+/* --- Libro del mes (portada) ------------------------------------------ */
+.fio-featured-book {
+  border: 1px solid var(--fio-blue-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 28px 0;
+  background: var(--fio-blue-tint);
+}
+
+.fio-featured-book h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.fio-featured-book-body {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.fio-featured-book-body > div {
+  flex: 1;
+  min-width: 220px;
+}
+
+/* --- Línea del tiempo --------------------------------------------------- */
+.fio-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 24px 0;
+  border-left: 3px solid var(--fio-blue-border);
+  padding-left: 0;
+}
+
+.fio-timeline-era {
+  position: relative;
+  padding: 0 0 28px 28px;
+}
+
+.fio-timeline-era::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--fio-blue);
+  border: 3px solid var(--fio-white);
+}
+
+.fio-timeline-era h3 {
+  margin: 0 0 4px;
+}
+
+.fio-timeline-era .fio-timeline-years {
+  color: var(--fio-muted);
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* --- Alto contraste / accesibilidad --------------------------------------
+   Modo independiente del claro/oscuro: aumenta el contraste de texto,
+   elimina sombras y degradados decorativos, y fuerza el subrayado de
+   los enlaces (para quien no distinga bien los enlaces solo por color).
+   No sustituye al modo oscuro: se pueden combinar los dos a la vez. */
+body[data-contrast="on"] {
+  --fio-blue-tint: transparent;
+  --fio-blue-border: currentColor;
+  background: var(--fio-white) !important;
+  color: var(--fio-text);
+}
+
+body[data-contrast="on"].fio-featured-book,
+body[data-contrast="on"] .fio-hero {
+  background-image: none !important;
+}
+
+body[data-contrast="on"] * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  background-image: none !important;
+  border-radius: 0 !important;
+}
+
+body[data-contrast="on"] a {
+  text-decoration: underline !important;
+}
+
+body[data-contrast="on"] .fio-book-card,
+body[data-contrast="on"] .fio-filter-bar,
+body[data-contrast="on"] .fio-callout,
+body[data-contrast="on"] .fio-citation-box,
+body[data-contrast="on"] .fio-synopsis-box,
+body[data-contrast="on"] .fio-conservation-box,
+body[data-contrast="on"] .fio-related-card,
+body[data-contrast="on"] .fio-feature-card,
+body[data-contrast="on"] .fio-visit-card,
+body[data-contrast="on"] .fio-featured-book,
+body[data-contrast="on"] .fio-timeline-era {
+  border: 2px solid !important;
+}
+
+body[data-contrast="on"] .fio-contrast-toggle {
+  border: 2px solid currentColor !important;
+}
+
+/* --- Enlaces de los popups (varios enlaces, uno por línea) ------------- */
+.fio-popup-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.fio-popup-link {
+  text-decoration: none;
+}
