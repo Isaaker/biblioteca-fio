@@ -29,8 +29,7 @@
     { href: 'buscar.html', key: 'nav_search', label: 'Buscar' },
     { href: 'escanear.html', key: 'nav_scan', label: 'Escanear' },
     { href: 'estadisticas.html', key: 'nav_stats', label: 'Estadísticas' },
-    { href: 'donaciones.html', key: 'nav_collaborate', label: 'Colabora' },
-    { href: 'contacto.html', key: 'nav_contact', label: 'Contacto' },
+    { href: 'eventos.html', key: 'nav_events', label: 'Eventos' },
   ];
 
   function currentPageFile() {
@@ -110,23 +109,15 @@
     <div class="fio-footer-links">
       <span>Biblioteca de la Fundación Infante de Orleans</span>
       <span>·</span>
-      <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+      <a href="data/catalogo.mrc" data-i18n="footer_export_marc">Exportar catálogo MARC21</a>
       <span>·</span>
-      <a href="linea-tiempo.html" data-i18n="footer_timeline">Línea del tiempo</a>
-      <span>·</span>
-      <a href="donaciones.html" data-i18n="thanks_help_donate">Quiero donar un volumen</a>
-      <span>·</span>
-      <a href="contacto.html" data-i18n="footer_contact">Contacto</a>
+      <a href="data/catalogo_marcxml.xml" data-i18n="footer_export_marcxml">Exportar MARCXML</a>
       <span>·</span>
       <a href="interoperabilidad.html" data-i18n="footer_connect_library">Conecta con la biblioteca</a>
       <span>·</span>
       <a href="acceso-copias-digitales.html" data-i18n="footer_access_restricted">Acceso restringido</a>
       <span>·</span>
-      <a href="data/catalogo.mrc" data-i18n="footer_export_marc">Exportar catálogo MARC21</a>
-      <span>·</span>
-      <a href="data/catalogo_marcxml.xml" data-i18n="footer_export_marcxml">Exportar MARCXML</a>
-      <span>·</span>
-      <a href="feed.xml" data-i18n="footer_rss_feed">Últimas altas (RSS)</a>
+      <a href="contacto.html" data-i18n="footer_contact">Contacto</a>
       <span>·</span>
       <a href="privacidad.html" data-i18n="footer_privacy">Política de privacidad</a>
     </div>

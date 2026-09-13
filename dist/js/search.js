@@ -200,16 +200,6 @@ function fioSearch() {
       this._syncUrlState();
     },
 
-    // --- Exportación de resultados (ver js/export-utils.js) -------------------
-    exportResultsCsv() {
-      window.fioExportBooksCsv?.(this.results, 'biblioteca-fio-busqueda');
-    },
-
-    exportResultsBibtex() {
-      window.fioExportBooksBibtex?.(this.results, 'biblioteca-fio-busqueda');
-    },
-
-
     _loadVisibleCovers() {
       const container = document.querySelector('.fio-search-results');
       if (!container) return;
