@@ -27,9 +27,6 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
-  <link rel="canonical" href="https://biblioteca.fio.es/contacto.html">  <!-- nosemgrep: html.security.audit.missing-integrity -- self-referencing canonical URL, not a fetched subresource -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net; worker-src 'self' blob:; child-src 'self' blob:; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -93,8 +90,8 @@
 
     <div class="fio-filter-bar" style="display:block;">
       <h2 data-i18n="contact_form_title" style="margin-top:0;">Escríbenos</h2>
-      <p class="lang-es" style="color: var(--fio-muted); margin-top:-6px;">Rellena el formulario: al pulsar "Enviar" se abrirá tu programa de correo con el mensaje ya preparado para <b>fioteca@fio.es</b>. No se envía nada desde esta página ni se guarda en ningún servidor.</p>
-      <p class="lang-en" style="color: var(--fio-muted); margin-top:-6px;">Fill in the form: pressing "Send" opens your own email application with the message ready to send to <b>fioteca@fio.es</b>. Nothing is sent from this page or stored on any server.</p>
+      <p class="lang-es" style="color: var(--fio-muted); margin-top:-6px;">Rellena el formulario: al pulsar "Enviar" se abrirá tu programa de correo con el mensaje ya preparado para <b>fioteca@fi[...]
+      <p class="lang-en" style="color: var(--fio-muted); margin-top:-6px;">Fill in the form: pressing "Send" opens your own email application with the message ready to send to <b>fioteca@fio.es</b[...]
 
       <div style="margin-bottom: 14px;">
         <label for="c-subject" data-i18n="contact_form_subject_label">Asunto</label>
@@ -112,11 +109,11 @@
 
       <div style="margin-bottom: 14px;">
         <label for="c-message" data-i18n="contact_form_message_label">Mensaje</label>
-        <textarea id="c-message" x-model="message" rows="6" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit;" data-i18n-attr="placeholder:contact_form_message_placeholder" placeholder="Cuéntanos en qué podemos ayudarte…"></textarea>
+        <textarea id="c-message" x-model="message" rows="6" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit;" data-i18n-attr="[...]
       </div>
 
       <div class="fio-hero-actions" style="justify-content:flex-start;">
-        <button type="button" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="send()" data-i18n="contact_form_submit">Enviar</button>
+        <button type="button" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="send()" data-i18n="contact_form[...]
       </div>
     </div>
 
@@ -124,7 +121,7 @@
 
   <div id="fio-footer-mount"></div>
   <script src="js/shell.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.2/dist/cdn.min.js" integrity="sha384-lcaMFHdvRVsEXVuhit4fTnbxq6eTLm5HPdNzO7vXNZjr8HOCMouPmv4hSGF3PCJV" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.2/dist/cdn.min.js" integrity="sha384-lcaMFHdvRVsEXVuhit4fTnbxq6eTLm5HPdNzO7vXNZjr8HOCMouPmv4hSGF3PCJV" crossorigin="anonymous"></sc[...]
   <script src="js/i18n.js"></script>
   <script src="js/alerts.js"></script>
   <script src="js/popups.js"></script>
