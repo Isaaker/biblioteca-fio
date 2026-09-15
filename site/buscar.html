@@ -46,14 +46,14 @@
     <div class="fio-search-hero">
       <h1 data-i18n="search_title">Buscar en el catálogo</h1>
       <p data-i18n="search_lead">Busca por título, autor, tema, editorial, idioma, serie, ISBN o referencia. También puedes usar la búsqueda por escáner.</p>
-      <p><a href="escanear.html" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="search_scan_cta">Buscar co[...]
+      <p><a href="escanear.html" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="search_scan_cta">Buscar con la cámara (código de barras o etiqueta)</a></p>
     </div>
 
     <!-- Búsqueda avanzada -->
     <div class="fio-filter-bar" style="display:block;">
       <div style="margin-bottom: 14px;">
         <label for="s-q" data-i18n="search_field_general">Búsqueda general</label>
-        <input id="s-q" type="text" x-model="q" @input="onGeneralInput()" @keyup.enter="submitSearch()" data-i18n-attr="placeholder:filter_q_placeholder" placeholder="Buscar por título, autor, te[...]
+        <input id="s-q" type="text" x-model="q" @input="onGeneralInput()" @keyup.enter="submitSearch()" data-i18n-attr="placeholder:filter_q_placeholder" placeholder="Buscar por título, autor, tema, ISBN…" style="width:100%;">
         <small style="color: var(--fio-muted); display:block; margin-top:4px;" data-i18n="filter_q_help">Admite "frases exactas", -excluir, opción1|opción2, y tolera alguna errata.</small>
       </div>
 
@@ -129,7 +129,7 @@
       </div>
 
       <div class="fio-hero-actions" style="justify-content:flex-start; margin-top:14px;">
-        <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="submitSearch()" data-i18n="search_submit">Bus[...]
+        <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="submitSearch()" data-i18n="search_submit">Buscar</button>
         <button class="fio-filter-clear" @click="clearForm()" data-i18n="search_clear">Limpiar formulario</button>
       </div>
     </div>
@@ -140,25 +140,25 @@
       <p class="fio-book-meta" data-i18n="ai_search_lead">Si prefieres describir lo que buscas con tus propias palabras, copia este prompt y pégalo en tu asistente de IA favorito.</p>
 
       <label for="ai-what" data-i18n="ai_search_what_label">Qué estás buscando (opcional, para completar el prompt):</label>
-      <input id="ai-what" type="text" x-model="aiWhat" data-i18n-attr="placeholder:ai_search_what_placeholder" placeholder="Ej. libros sobre meteorología aeronáutica en español" style="width:1[...]
+      <input id="ai-what" type="text" x-model="aiWhat" data-i18n-attr="placeholder:ai_search_what_placeholder" placeholder="Ej. libros sobre meteorología aeronáutica en español" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit; margin: 8px 0 14px;">
 
-      <textarea readonly rows="6" x-text="aiPrompt" style="width:100%; padding:10px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family: monospace; font-size:0.85rem; co[...]
+      <textarea readonly rows="6" x-text="aiPrompt" style="width:100%; padding:10px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family: monospace; font-size:0.85rem; color: var(--fio-muted); margin-bottom: 12px;"></textarea>
 
       <div class="fio-hero-actions" style="justify-content:flex-start;">
-        <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="copyAiPrompt()" data-i18n="ai_search_copy">Co[...]
+        <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="copyAiPrompt()" data-i18n="ai_search_copy">Copiar el prompt</button>
       </div>
       <p style="margin: 14px 0 6px; color: var(--fio-muted);" data-i18n="ai_search_open_with">O ábrelo directamente en:</p>
       <div class="fio-ai-buttons">
         <button class="fio-ai-btn" @click="openAiWith('chatgpt')">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" d="M18.38 27.[...]
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" d="M18.38 27.94v-14.4l11.19-6.46c6.2-3.58 17.3 5.25 12.64 13.33"/><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" d="m18.38 20.94l12.47-7.2l11.19 6.46c6.2 3.58 4.1 17.61-5.23 17.61"/><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" d="m24.44 17.44l12.47 7.2v12.93c0 7.16-13.2 12.36-17.86 4.28"/><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" d="M30.5 21.2v14.14L19.31 41.8c-6.2 3.58-17.3-5.25-12.64-13.33"/><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" d="m30.5 27.94l-12.47 7.2l-11.19-6.46c-6.21-3.59-4.11-17.61 5.22-17.61"/><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" d="m24.44 31.44l-12.47-7.2V11.31c0-7.16 13.2-12.36 17.86-4.28"/></svg>
           ChatGPT
         </button>
         <button class="fio-ai-btn" @click="openAiWith('perplexity')">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="currentColor" d="M22.398 7.09h-2.31V.068l-7.51 6.354V.158h-1.156v6.196L4.49 0v7.09H1[...]
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="currentColor" d="M22.398 7.09h-2.31V.068l-7.51 6.354V.158h-1.156v6.196L4.49 0v7.09H1.602v10.397H4.49V24l6.933-6.36v6.201h1.155v-6.047l6.932 6.181v-6.488h2.888zm-3.466-4.531v4.53h-5.355zm-13.286.067l4.869 4.464h-4.87zM2.758 16.332V8.245h7.847L4.49 14.36v1.972zm2.888 5.04v-6.534l5.776-5.776v7.011zm12.708.025l-5.776-5.15V9.061l5.776 5.776zm2.889-5.065H19.51V14.36l-6.115-6.115h7.848z"/></svg>
           Perplexity
         </button>
         <button class="fio-ai-btn" @click="openAiWith('duck')">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="-128 -128 256 256"><rect width="256" height="256" rx="15%" x="-128" y="-128" fill="#de5833"/><circle r="108[...]
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="-128 -128 256 256"><rect width="256" height="256" rx="15%" x="-128" y="-128" fill="#de5833"/><circle r="108" fill="#de5833"/><circle r="96" fill="none" stroke="#ffffff" stroke-width="7"/><path d="M-32-55C-62-48-51-6-51-6l19 93 7 3M-39-73h-8l11 4s-11 0-11 7c24-1 35 5 35 5" fill="#ddd"/><path d="M25 95S1 57 1 32c0-47 31-7 31-44S1-58 1-58c-15-19-44-15-44-15l7 4s-7 2-9 4 19-3 28 5c-37 3-31 33-31 33l21 120" fill="#fff"/><path d="M25-1l38-10c34 5-29 24-33 23C0 7 9 32 45 24s9 20-24 9C-26 20-1-3 25-1" fill="#fc0"/><path d="M15 78l2-3c22 8 23 11 22-9s0-20-23-3c0-5-13-3-15 0-21-9-23-12-22 2 2 29 1 24 21 14" fill="#6b5"/><path d="M-1 67v12c1 2 17 2 17-2s-8 3-13 1-2-13-2-13" fill="#4a4"/><path d="M-23-32c-5-6-18-1-15 7 1-4 8-10 15-7m32 0c1-6 11-7 14-1-4-2-10-2-14 1m-33 16a2 2 0 1 1 0 1m-8 3a7 7 0 1 0 0-1m52-6a2 2 0 1 1 0 1m-6 3a6 6 0 1 0 0-1" fill="#148"/></svg>
           Duck AI
         </button>
       </div>
@@ -166,7 +166,7 @@
 
     <template x-if="hasSearched">
       <div style="margin-top: 22px;">
-        <p class="fio-result-count"><span x-text="results.length"></span> <span data-i18n="search_results_count">resultado(s)</span></p>
+        <p class="fio-result-count" aria-live="polite"><span x-text="results.length"></span> <span data-i18n="search_results_count">resultado(s)</span></p>
 
         <template x-if="results.length === 0">
           <p class="fio-empty" data-i18n="search_no_results">No se ha encontrado ningún libro con esos criterios.</p>
@@ -197,7 +197,7 @@
 
   <div id="fio-footer-mount"></div>
   <script src="js/shell.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.2/dist/cdn.min.js" integrity="sha384-lcaMFHdvRVsEXVuhit4fTnbxq6eTLm5HPdNzO7vXNZjr8HOCMouPmv4hSGF3PCJV" crossorigin="anonymous"></sc[...]
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.2/dist/cdn.min.js" integrity="sha384-lcaMFHdvRVsEXVuhit4fTnbxq6eTLm5HPdNzO7vXNZjr8HOCMouPmv4hSGF3PCJV" crossorigin="anonymous"></script>
   <script src="js/i18n.js"></script>
   <script src="js/alerts.js"></script>
   <script src="js/popups.js"></script>

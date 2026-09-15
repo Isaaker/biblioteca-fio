@@ -56,7 +56,14 @@ function fioPlaceholderCoverSvg(title) {
   const [bg, accent] = FIO_COVER_PALETTE[hash % FIO_COVER_PALETTE.length];
   const width = 140, height = 200;
   const spine = Math.max(Math.floor(width / 14), 6);
-  const escaped = cleanTitle.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const escapeSvgText = (s) => s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+  const escaped = escapeSvgText(cleanTitle);
+  const safeInitial = escapeSvgText(initial);
 
   return `<svg viewBox="0 0 ${width} ${height}" width="100%" height="100%" ` +
     `preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" ` +
@@ -66,7 +73,7 @@ function fioPlaceholderCoverSvg(title) {
     `<text x="${width / 2 + spine / 2}" y="${height / 2}" ` +
     `font-family="Georgia, 'Times New Roman', serif" font-size="${Math.floor(height * 0.32)}" ` +
     `font-weight="700" fill="#ffffff" text-anchor="middle" dominant-baseline="central">` +
-    `${initial}</text></svg>`;
+    `${safeInitial}</text></svg>`;
 }
 
 function _fioCleanIsbn(isbn) {

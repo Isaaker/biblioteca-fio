@@ -1078,6 +1078,25 @@ footer.fio-footer a {
   .fio-detail-table td { border-bottom: none; padding: 2px 0; }
 }
 
+.fio-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.fio-related-card {
+  border: 1px solid var(--fio-blue-border);
+  border-radius: var(--radius);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--fio-text) !important;
+  display: block;
+}
+
+.fio-related-card:hover { border-color: var(--fio-blue); }
+
 /* ==========================================================================
    Página de búsqueda dedicada
    ========================================================================== */
@@ -1709,110 +1728,41 @@ body[data-contrast="on"] .fio-contrast-toggle {
   text-decoration: none;
 }
 
-/* --- Accesibilidad: respeta "reducir movimiento" del sistema ---------- */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* --- Página de agradecimientos (gracias.html) --------------------------- */
-.fio-thanks-hero {
-  text-align: center;
-  padding: 32px 12px 8px;
-}
-
-.fio-thanks-hero h1 {
-  font-size: 1.7rem;
-  margin-bottom: 22px;
-}
-
-.fio-thanks-reasons {
-  list-style: none;
-  padding: 0;
+/* --- Banner de instalación como PWA (Android/desktop) ------------------ */
+.fio-pwa-banner {
+  display: none;
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 900;
+  max-width: 520px;
   margin: 0 auto;
-  max-width: 640px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.fio-thanks-reasons li,
-.fio-thanks-final {
-  opacity: 0;
-  transform: translateY(14px);
-  animation: fio-thanks-fade-up 0.6s ease forwards;
-  animation-delay: calc(var(--i, 0) * 0.35s);
-}
-
-.fio-thanks-final {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: var(--fio-blue);
-  margin-top: 24px;
-}
-
-@keyframes fio-thanks-fade-up {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fio-thanks-names {
-  margin: 40px 0;
-  text-align: center;
-}
-
-.fio-thanks-names h2 {
-  margin-bottom: 4px;
-}
-
-.fio-thanks-namelist {
-  list-style: none;
-  padding: 0;
-  margin: 18px 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 14px;
-}
-
-.fio-thanks-namelist li {
-  opacity: 0;
-  transform: scale(0.9);
-  animation: fio-thanks-fade-in 0.5s ease forwards;
-  animation-delay: calc(var(--i, 0) * 0.06s);
-  background: var(--fio-blue-tint);
+  background: var(--fio-white);
   border: 1px solid var(--fio-blue-border);
-  border-radius: 999px;
-  padding: 6px 16px;
-  font-size: 0.95rem;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 24px rgba(20, 24, 40, 0.18);
+  padding: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
-@keyframes fio-thanks-fade-in {
-  to { opacity: 1; transform: scale(1); }
+.fio-pwa-banner p {
+  margin: 0;
+  flex: 1 1 220px;
+  font-size: 0.92rem;
+  color: var(--fio-text);
 }
 
-.fio-callout-cta {
-  text-align: center;
+.fio-pwa-banner-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.fio-callout-cta h2 {
-  margin-top: 0;
-}
-
-.fio-btn-outline-blue {
-  display: inline-block;
-  padding: 10px 22px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-size: 1rem;
-  border: 2px solid var(--fio-blue);
-  background-color: transparent;
-  color: var(--fio-blue) !important;
-}
-
-.fio-btn-outline-blue:hover {
-  background-color: var(--fio-blue-tint);
+body[data-theme="dark"] .fio-pwa-banner {
+  background: var(--fio-dark-surface, #1c2340);
+  border-color: rgba(255,255,255,0.2);
 }

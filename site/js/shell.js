@@ -29,7 +29,7 @@
     { href: 'buscar.html', key: 'nav_search', label: 'Buscar' },
     { href: 'escanear.html', key: 'nav_scan', label: 'Escanear' },
     { href: 'estadisticas.html', key: 'nav_stats', label: 'Estadísticas' },
-    { href: 'donaciones.html', key: 'nav_collaborate', label: 'Colabora' },
+    { href: 'eventos.html', key: 'nav_events', label: 'Eventos' },
     { href: 'contacto.html', key: 'nav_contact', label: 'Contacto' },
   ];
 
@@ -110,28 +110,72 @@
     <div class="fio-footer-links">
       <span>Biblioteca de la Fundación Infante de Orleans</span>
       <span>·</span>
-      <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+      <a href="data/catalogo.mrc" data-i18n="footer_export_marc">Exportar catálogo MARC21</a>
       <span>·</span>
-      <a href="linea-tiempo.html" data-i18n="footer_timeline">Línea del tiempo</a>
-      <span>·</span>
-      <a href="donaciones.html" data-i18n="thanks_help_donate">Quiero donar un volumen</a>
-      <span>·</span>
-      <a href="contacto.html" data-i18n="footer_contact">Contacto</a>
+      <a href="data/catalogo_marcxml.xml" data-i18n="footer_export_marcxml">Exportar MARCXML</a>
       <span>·</span>
       <a href="interoperabilidad.html" data-i18n="footer_connect_library">Conecta con la biblioteca</a>
       <span>·</span>
       <a href="acceso-copias-digitales.html" data-i18n="footer_access_restricted">Acceso restringido</a>
       <span>·</span>
-      <a href="data/catalogo.mrc" data-i18n="footer_export_marc">Exportar catálogo MARC21</a>
-      <span>·</span>
-      <a href="data/catalogo_marcxml.xml" data-i18n="footer_export_marcxml">Exportar MARCXML</a>
-      <span>·</span>
-      <a href="feed.xml" data-i18n="footer_rss_feed">Últimas altas (RSS)</a>
+      <a href="contacto.html" data-i18n="footer_contact">Contacto</a>
       <span>·</span>
       <a href="privacidad.html" data-i18n="footer_privacy">Política de privacidad</a>
     </div>
     <p class="fio-footer-credits">Creado con ❤️ por Carlos Chevallier e Isaac Hernán</p>
   </footer>`;
+  }
+
+  /**
+   * Banner de instalación como PWA (Android/desktop vía evento nativo
+   * `beforeinstallprompt`; en iOS Safari ese evento no existe, así que
+   * ahí no se muestra nada — no hay forma fiable de detectar "instalable"
+   * sin él, y preferimos no mostrar instrucciones que no aplican).
+   * Se crea aquí (no en cada página a mano) para que aparezca en todo
+   * el sitio con un único punto de mantenimiento.
+   */
+  function renderPwaBanner() {
+    if (document.getElementById('fio-pwa-banner')) return;
+    const banner = document.createElement('div');
+    banner.id = 'fio-pwa-banner';
+    banner.className = 'fio-pwa-banner';
+    banner.style.display = 'none';
+    banner.innerHTML = `
+      <p data-i18n="pwa_install_text">¿Quieres acceso rápido a la biblioteca? Instala esta web como aplicación.</p>
+      <div class="fio-pwa-banner-actions">
+        <button type="button" id="fio-pwa-install" class="fio-btn fio-btn-solid" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="pwa_install_button">Instalar</button>
+        <button type="button" id="fio-pwa-dismiss" class="fio-ghost-btn" data-i18n="pwa_dismiss_button">Ahora no</button>
+      </div>`;
+    document.body.appendChild(banner);
+
+    let deferredPrompt = null;
+    const installBtn = banner.querySelector('#fio-pwa-install');
+    const dismissBtn = banner.querySelector('#fio-pwa-dismiss');
+
+    if (sessionStorage.getItem('fio-pwa-banner-dismissed')) return;
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+      banner.style.display = 'flex';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      banner.style.display = 'none';
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    });
+
+    dismissBtn.addEventListener('click', () => {
+      banner.style.display = 'none';
+      sessionStorage.setItem('fio-pwa-banner-dismissed', 'true');
+    });
+
+    window.addEventListener('appinstalled', () => {
+      banner.style.display = 'none';
+    });
   }
 
   // Se ejecuta de inmediato (sin esperar a DOMContentLoaded): así la
@@ -140,4 +184,5 @@
   // traducir visible un instante.
   renderHeader();
   renderFooter();
+  renderPwaBanner();
 })();

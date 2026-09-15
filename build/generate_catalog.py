@@ -36,6 +36,7 @@ from ai_catalog_formats import (
     write_catalog_index,
 )
 from book_files import write_book_files, write_ref_index
+from sitemap_builder import write_sitemap
 
 
 def _project_root() -> str:
@@ -158,6 +159,10 @@ def main() -> int:
 
     print(f"Escribiendo {marc_binary_path} y {marc_xml_path} ...")
     write_marc_collection(public_records, marc_binary_path, marc_xml_path)
+
+    sitemap_path = _abs(root, "site/sitemap.xml")
+    sitemap_urls = write_sitemap(public_records, sitemap_path)
+    print(f"Sitemap escrito en {sitemap_path} ({sitemap_urls} URLs).")
 
     print("Comprobando que ningún dato interno se ha filtrado al registro público de cada libro...")
     text_warnings = check_no_internal_text_leaked(raw_inventory, public_records)
