@@ -226,9 +226,11 @@ function fioSearch() {
         `Antes de responder, lee estas dos URLs (son de acceso público, sin necesidad de ` +
         `autenticación):\n` +
         `1. ${origin}llm.txt — explica cómo está organizado el catálogo.\n` +
-        `2. ${origin}data/catalog.json — el catálogo completo, en JSON.\n\n` +
+        `2. ${origin}data/catalog-lite.json — el catálogo completo en formato ligero, en JSON.\n\n` +
         `Con esa información, recomiéndame libros del catálogo (con título exacto, autor y ` +
-        `referencia tal como aparecen en catalog.json) que encajen con lo que busco:\n\n` +
+        `referencia tal como aparecen en catalog-lite.json) que encajen con lo que busco. ` +
+        `Si necesitas datos que no estén ahí, consulta catalog-index.json y las partes del catálogo ` +
+        `completo antes de responder:\n\n` +
         `${what}`;
     },
 

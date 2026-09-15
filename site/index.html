@@ -29,7 +29,7 @@
   <meta name="theme-color" content="#202d58">
   <link rel="canonical" href="https://biblioteca.fio.es/index.html">  <!-- nosemgrep: html.security.audit.missing-integrity -- self-referencing canonical URL, not a fetched subresource -->
   <link rel="alternate" type="application/atom+xml" title="Últimas altas — Biblioteca FIO" href="feed.xml">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net; worker-src 'self' blob:; child-src 'self' blob:; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/styles.css">
   <script type="application/ld+json">
@@ -62,7 +62,7 @@
 
   <div id="fio-header-mount"></div>
 
-  <main id="main-content" x-data="fioLanding()" x-init="init()">
+  <main id="main-content" x-data="fioLanding" x-init="init()">
 
     <div class="fio-hero" style="background-image: url('assets/img/portada.jpg');">
       <h1 data-i18n="hero_title">Biblioteca Fundación Infante de Orleans</h1>
@@ -75,7 +75,7 @@
 
     <div class="fio-stats-grid">
       <div class="fio-stat">
-        <div class="fio-stat-value" x-text="loading ? '…' : stats.total"></div>
+        <div class="fio-stat-value" x-text="loading ? '…' : stats.totalDisplay"></div>
         <div class="fio-stat-label" data-i18n="stat_total_books">libros catalogados</div>
       </div>
       <div class="fio-stat">
@@ -168,7 +168,7 @@
             </div>
             <div>
               <b data-i18n="visit_catalog_label">Catálogo disponible</b><br>
-              Más de <span x-text="loading ? '…' : stats.total"></span> <span data-i18n="visit_catalog_body">volúmenes de temática aeronáutica: libros de consulta, monografías de aviones, manuales técnicos, textos históricos, biografías, novelas y cómics, la mayoría en castellano e inglés.</span>
+              <span x-text="loading ? '…' : stats.totalDisplay"></span> <span data-i18n="visit_catalog_body">volúmenes de temática aeronáutica: libros de consulta, monografías de aviones, manuales técnicos, textos históricos, biografías, novelas y cómics, la mayoría en castellano e inglés.</span>
             </div>
           </div>
         </div>

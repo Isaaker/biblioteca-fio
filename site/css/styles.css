@@ -1546,28 +1546,43 @@ body[data-theme="dark"] .fio-favorites-icon-btn.fio-favorites-remove {
    ========================================================================== */
 .fio-privacy-banner {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  inset: 0;
   background-color: var(--fio-blue-dark);
   color: var(--fio-white);
-  padding: 14px 18px;
+  padding: 32px;
   display: flex;
   gap: 16px;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  align-content: center;
   z-index: 900;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  text-align: center;
 }
 
-.fio-privacy-banner p { margin: 0; max-width: 640px; }
+.fio-privacy-banner p { margin: 0; max-width: 720px; flex-basis: 100%; }
+
+.fio-privacy-banner h2 {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--fio-white);
+  font-size: 1.35rem;
+}
+
+.fio-privacy-banner-icon {
+  flex-basis: 100%;
+  font-size: 2.5rem;
+  line-height: 1;
+}
 
 .fio-privacy-banner-actions {
   display: flex;
   gap: 12px;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
 .fio-privacy-banner-actions a {

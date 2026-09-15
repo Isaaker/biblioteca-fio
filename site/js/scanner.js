@@ -150,7 +150,7 @@ function fioScanner() {
     // --- Modo código de barras -----------------------------------------------
     async _ensureQuagga() {
       if (window.Quagga) return;
-      this.statusMessage = 'Cargando fallback de lectura de códigos de barras…';
+      this.statusMessage = fioT('scan_loading_barcode');
       await new Promise((resolve, reject) => {
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js';
@@ -200,7 +200,7 @@ function fioScanner() {
 
     _startQuaggaLoop(video) {
       if (!window.Quagga) return;
-      this.statusMessage = 'Leyendo código de barras…';
+      this.statusMessage = fioT('scan_reading_barcode');
       window.Quagga.init({
         inputStream: {
           name: 'Live',

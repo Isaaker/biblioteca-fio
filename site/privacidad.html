@@ -28,11 +28,11 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
   <link rel="canonical" href="https://biblioteca.fio.es/privacidad.html">  <!-- nosemgrep: html.security.audit.missing-integrity -- self-referencing canonical URL, not a fetched subresource -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net; worker-src 'self' blob:; child-src 'self' blob:; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body data-no-analytics="true">
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
@@ -66,9 +66,7 @@
       <li><span class="lang-es">El idioma que elijas (español/inglés), para no tener que
         volver a elegirlo en cada visita.</span><span class="lang-en">Your chosen language (Spanish/English), so you don't have to
         pick it again on every visit.</span></li>
-      <li><span class="lang-es">Si ya has visto el aviso de privacidad de la parte inferior
-        de la pantalla, para no volver a mostrártelo.</span><span class="lang-en">Whether you've already seen the privacy notice at the
-        bottom of the screen, so it isn't shown again.</span></li>
+      <li><span class="lang-es">La decisión que tomes sobre Analytics (aceptar o rechazarlo), para respetarla en visitas posteriores.</span><span class="lang-en">Your Analytics choice (accept or reject), so it is respected on later visits.</span></li>
       <li><span class="lang-es">Si usas el buscador o el catálogo, las portadas de libros ya
         consultadas (para no volver a pedirlas cada vez).</span><span class="lang-en">If you use the search or catalogue pages, the book covers
         already looked up (so they aren't requested again each
@@ -115,6 +113,8 @@
         the label scanner, Tesseract.js.</span></li>
       <li><b>Google Fonts</b> (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) —
         <span class="lang-es">para cargar la tipografía del sitio.</span><span class="lang-en">to load the site's typeface.</span></li>
+      <li><b>Google Analytics</b> (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) —
+        <span class="lang-es">solo se carga si lo aceptas en el aviso de privacidad. Mide páginas consultadas y datos técnicos de navegación para elaborar estadísticas agregadas. Se configura con anonimización de IP y puedes retirar el consentimiento borrando los datos de este sitio.</span><span class="lang-en">is loaded only if you accept it in the privacy notice. It measures visited pages and technical browsing data to produce aggregate statistics. IP anonymisation is enabled, and you can withdraw consent by clearing this site's data.</span></li>
       <li><b>Open Library</b> (<a href="https://openlibrary.org/dev/docs/api/covers" target="_blank" rel="noopener">Internet Archive</a>) <span class="lang-es">y</span> <b>Google Books</b> (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) — <span class="lang-es">para mostrar la portada de cada libro cuando existe (se
         consulta por ISBN o por título/autor). Ninguno de los dos
         recibe datos personales tuyos: solo el título o ISBN del
@@ -122,6 +122,8 @@
         ISBN or by title/author). Neither service receives any
         personal data of yours: only the title or ISBN of the book
         being shown.</span></li>
+      <li><b>Mailvelope</b> (<a href="https://www.mailvelope.com/en/privacy-policy" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) —
+        <span class="lang-es">se consulta si abres el enlace de la clave pública PGP desde la página de contacto.</span><span class="lang-en">is contacted if you open the public PGP key link from the contact page.</span></li>
     </ul>
 
     <h2><span class="lang-es">El escáner de la cámara</span><span class="lang-en">The camera scanner</span></h2>
@@ -142,12 +144,8 @@
       browser's settings.</p>
 
     <h2><span class="lang-es">Cookies</span><span class="lang-en">Cookies</span></h2>
-    <p class="lang-es">Este sitio no usa cookies de analítica, seguimiento ni
-      publicidad. Toda la información descrita arriba se guarda con
-      <code>localStorage</code>, no con cookies.</p>
-    <p class="lang-en">This site doesn't use analytics, tracking or advertising
-      cookies. All the information described above is stored with
-      <code>localStorage</code>, not cookies.</p>
+    <p class="lang-es">Este sitio no usa cookies propias de analítica, pero Google Analytics puede establecer cookies y tecnologías similares si aceptas el consentimiento. Sin consentimiento, Analytics no se carga. La preferencia se guarda en <code>localStorage</code>; puedes cambiarla borrando los datos de este sitio.</p>
+    <p class="lang-en">This site does not set its own analytics cookies, but Google Analytics may set cookies and similar technologies if you accept consent. Without consent, Analytics is not loaded. Your choice is stored in <code>localStorage</code>; you can change it by clearing this site's data.</p>
 
     <h2><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></h2>
     <p class="lang-es">Para cualquier duda sobre esta política, escribe a

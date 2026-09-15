@@ -35,6 +35,9 @@ const FIO_DICT = {
     stat_languages: 'idiomas',
     stat_digitized: 'libros digitalizados',
 
+    featured_book_title: 'Libro del mes',
+    featured_book_cta: 'Ver ficha completa',
+
     feature_catalog_title: 'Catálogo abierto',
     feature_catalog_body: 'Explora el fondo bibliográfico de la Fundación sin necesidad de registro: títulos, autores, editoriales y materias.',
     feature_search_title: 'Buscador',
@@ -131,6 +134,8 @@ const FIO_DICT = {
     scan_no_match: 'No se ha encontrado ningún libro con ese código o referencia.',
     scan_found: 'Libro encontrado:',
     scan_camera_error: 'No se ha podido acceder a la cámara. Comprueba los permisos del navegador.',
+    scan_loading_barcode: 'Cargando lector de códigos de barras…',
+    scan_reading_barcode: 'Leyendo código de barras…',
     scan_upload_alt: 'O sube una foto de la etiqueta:',
     scan_view_book: 'Ver ficha del libro',
 
@@ -167,6 +172,7 @@ const FIO_DICT = {
     filter_subtopic: 'Subtema',
     filter_language: 'Idioma',
     filter_sort_by: 'Ordenar por',
+    filter_sort_order: 'Orden de resultados',
     filter_sort_title: 'Título',
     filter_sort_author: 'Autor',
     filter_sort_year: 'Año',
@@ -209,9 +215,11 @@ const FIO_DICT = {
 
     // Privacidad
     privacy_title: 'Política de privacidad',
-    privacy_banner_text: 'Esta web no usa cookies de analítica ni publicidad. Solo guarda en tu propio dispositivo tu idioma preferido y, si usas el escáner, las portadas ya consultadas — nada se envía a nuestros servidores.',
+    privacy_banner_title: 'Privacidad y Analytics',
+    privacy_banner_text: 'Usamos Google Analytics solo si lo aceptas, para conocer qué páginas se consultan. Puedes aceptar o rechazarlo.',
     privacy_banner_link: 'Más información',
-    privacy_banner_ok: 'Entendido',
+    privacy_banner_accept: 'Aceptar',
+    privacy_banner_reject: 'Rechazar',
 
     // Estadísticas ampliadas
     stats_by_author: 'Autores con más obras en el catálogo',
@@ -290,6 +298,9 @@ const FIO_DICT = {
     stat_topics: 'distinct topics',
     stat_languages: 'languages',
     stat_digitized: 'digitised books',
+
+    featured_book_title: 'Book of the month',
+    featured_book_cta: 'View full record',
 
     feature_catalog_title: 'Open catalogue',
     feature_catalog_body: 'Explore the Foundation\'s collection with no registration required: titles, authors, publishers and subjects.',
@@ -385,6 +396,8 @@ const FIO_DICT = {
     scan_no_match: 'No book was found with that code or reference.',
     scan_found: 'Book found:',
     scan_camera_error: 'Could not access the camera. Check your browser permissions.',
+    scan_loading_barcode: 'Loading barcode reader…',
+    scan_reading_barcode: 'Reading barcode…',
     scan_upload_alt: 'Or upload a photo of the label:',
     scan_view_book: 'View book',
 
@@ -421,6 +434,7 @@ const FIO_DICT = {
     filter_subtopic: 'Subtopic',
     filter_language: 'Language',
     filter_sort_by: 'Sort by',
+    filter_sort_order: 'Result order',
     filter_sort_title: 'Title',
     filter_sort_author: 'Author',
     filter_sort_year: 'Year',
@@ -463,9 +477,11 @@ const FIO_DICT = {
 
     // Privacy
     privacy_title: 'Privacy policy',
-    privacy_banner_text: "This website doesn't use analytics or advertising cookies. It only stores your preferred language on your own device and, if you use the scanner, covers already looked up — nothing is sent to our servers.",
+    privacy_banner_title: 'Privacy and Analytics',
+    privacy_banner_text: 'We use Google Analytics only if you accept it, to understand which pages are visited. You can accept or reject it.',
     privacy_banner_link: 'More information',
-    privacy_banner_ok: 'Got it',
+    privacy_banner_accept: 'Accept',
+    privacy_banner_reject: 'Reject',
 
     // Extended statistics
     stats_by_author: 'Authors with most works in the catalogue',

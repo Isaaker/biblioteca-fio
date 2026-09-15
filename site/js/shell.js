@@ -52,7 +52,8 @@
     const current = currentPageFile();
     const navHtml = NAV_LINKS.map(link => {
       const active = link.href === current ? ' class="active"' : '';
-      return `<a href="${link.href}"${active} data-i18n="${link.key}">${link.label}</a>`;
+      const currentAttribute = active ? ' aria-current="page"' : '';
+      return `<a href="${link.href}"${active}${currentAttribute} data-i18n="${link.key}">${link.label}</a>`;
     }).join('\n          ');
 
     mount.outerHTML = `
@@ -67,7 +68,7 @@
         <span></span><span></span><span></span>
       </button>
       <div class="fio-header-right">
-        <nav class="fio-nav">
+        <nav class="fio-nav" aria-label="Navegación principal">
           ${navHtml}
         </nav>
         <select class="fio-lang-switch" aria-label="Idioma / Language">

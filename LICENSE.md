@@ -118,6 +118,34 @@ c) **Evaluación técnica limitada:** La instalación temporal del Software en u
 
 ## 4. USO PERMITIDO DEL CONTENIDO PUBLICADO (biblioteca.fio.es)
 
+### 4.0. Endpoints autorizados y prohibición de extracción del repositorio
+
+El acceso automatizado o programático al Contenido Publicado solo está
+autorizado a través de los endpoints públicos que la Fundación identifique
+expresamente como autorizados en la documentación del sitio, actualmente
+los ficheros JSON de catálogo y sus índices enlazados desde
+`https://biblioteca.fio.es/llm.txt`, además de las rutas que la Fundación
+señale posteriormente en esa documentación. La autorización se limita a
+consultas razonables y no concede acceso al repositorio, a sus ramas,
+historial, artefactos de compilación, copias `dist/` ni a ningún fichero
+interno.
+
+Queda prohibido obtener datos del repositorio GitHub, de clones, cachés,
+copias offline o del HTML de las páginas mediante scraping, crawling,
+automatización del navegador o cualquier técnica equivalente. La consulta
+humana normal de la web no constituye scraping, pero no autoriza la
+extracción automatizada fuera de los endpoints indicados.
+
+La Fundación podrá permitir que bibliotecas, archivos, universidades y
+sistemas de interoperabilidad redistribuyan respuestas o extractos obtenidos
+exclusivamente de esos endpoints autorizados, siempre que la redistribución
+sea gratuita, no se cobre por el acceso al Contenido Publicado ni se use para
+crear un catálogo competidor, se mantenga la atribución a la Biblioteca de la
+Fundación Infante de Orleans, se enlace `https://biblioteca.fio.es/` y se
+respeten los derechos de terceros y las condiciones de esta licencia. Esta
+autorización no permite redistribuir el Software ni los ficheros del
+repositorio.
+
 **4.1. Disponibilidad pública y acceso gratuito**
 
 El Contenido Publicado, tal y como se define en 1.2 y únicamente tal y como aparece publicado en el dominio oficial **biblioteca.fio.es**, se pone a disposición del público de forma gratuita para su consulta, con sujeción a las condiciones de esta sección.
