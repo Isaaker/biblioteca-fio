@@ -13,8 +13,9 @@
   <link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
+  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -- canonical URL, not a fetched subresource -->
   <link rel="canonical" href="https://biblioteca.fio.es/contacto.html">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -50,7 +51,7 @@
   </main>
   <div id="fio-footer-mount"></div>
   <script src="js/shell.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.2/dist/cdn.min.js" integrity="sha384-lcaMFHdvRVsEXVuhit4fTnbxq6eTLm5HPdNzO7vXNZjr8HOCMouPmv4hSGF3PCJV" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
   <script src="js/i18n.js"></script>
   <script src="js/alerts.js"></script>
   <script src="js/popups.js"></script>

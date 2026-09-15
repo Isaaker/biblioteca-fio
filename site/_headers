@@ -16,7 +16,7 @@
 # X-Content-Type-Options (esas tres SOLO existen como cabecera HTTP).
 
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-P5dWw1QqY05W5HBxz++APGd4yigKYI6XQnk3MLZN5GM=' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff

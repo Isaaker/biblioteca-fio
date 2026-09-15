@@ -1,5 +1,8 @@
 ![Logo de la Fundación Infante de Orleans](./site/assets/img/logo.png)
 
+[![Generar y publicar catálogo](https://github.com/isaaker/biblioteca-fio/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/isaaker/biblioteca-fio/actions/workflows/build-and-deploy.yml)
+[![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/biblioteca.fio.es?label=Mozilla%20Observatory)](https://observatory.mozilla.org/analyze/biblioteca.fio.es)
+
 # Catálogo de la Biblioteca — Fundación Infante de Orleans
 
 Este repositorio contiene el código fuente del catálogo público de la
