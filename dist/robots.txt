@@ -1,0 +1,11 @@
+# Catálogo público de la Biblioteca de la Fundación Infante de Orleans.
+# Sin registro, sin datos personales de terceros, sin páginas privadas:
+# se permite el acceso a todos los rastreadores, incluidos los de
+# asistentes de IA.
+User-agent: *
+Allow: /
+
+Sitemap: https://biblioteca.fio.es/sitemap.xml
+
+# Ver también /llm.txt: guía pensada específicamente para asistentes de
+# IA que ayuden a alguien a buscar en este catálogo.

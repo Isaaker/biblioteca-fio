@@ -30,6 +30,7 @@
  */
 (function () {
   const STORAGE_PREFIX = 'fio-popup-dismissed-';
+  const blockingPopupRequests = new Set();
 
   function currentPageFile() {
     const path = window.location.pathname;
@@ -147,14 +148,22 @@
 
     const wrap = document.createElement('div');
     wrap.className = 'fio-modal-backdrop fio-popup-modal';
+    if (options && options.blockingId) {
+      wrap.dataset.fioBlockingId = options.blockingId;
+    }
 
     const modal = document.createElement('div');
     modal.className = 'fio-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    const titleId = 'fio-popup-title-' + Math.random().toString(36).slice(2, 8);
+    modal.setAttribute('aria-labelledby', titleId);
 
     const header = document.createElement('div');
     header.className = 'fio-modal-header';
 
     const title = document.createElement('h3');
+    title.id = titleId;
     title.textContent = localizedText(popup.title, lang);
 
     header.appendChild(title);
@@ -195,22 +204,55 @@
       modal.appendChild(footer);
     }
 
+    modal.setAttribute('tabindex', '-1');
     wrap.appendChild(modal);
     document.body.appendChild(wrap);
+
+    const backgroundNodes = [...document.body.children].filter((child) => child !== wrap);
+    backgroundNodes.forEach((node) => {
+      node.setAttribute('aria-hidden', 'true');
+      node.inert = true;
+    });
+
+    const previouslyFocused = document.activeElement;
+    (closeButton || modal).focus();
 
     if (!dismissable) {
       // El aviso se muestra porque el catálogo no está disponible: no
       // tiene sentido dejar que la persona lo cierre y se quede
       // mirando una página de catálogo vacía sin saber por qué, así
       // que aquí no hay X, ni botón "Entendido", ni cierre al pulsar
-      // fuera del modal.
+      // fuera del modal, ni con Escape.
       return;
     }
 
     const close = () => {
       wrap.remove();
+      document.removeEventListener('keydown', onKeydown);
+      backgroundNodes.forEach((node) => {
+        node.removeAttribute('aria-hidden');
+        node.inert = false;
+      });
+      if (previouslyFocused && previouslyFocused.focus) previouslyFocused.focus();
       onClose();
     };
+
+    const onKeydown = (e) => {
+      if (e.key === 'Escape') close();
+      if (e.key !== 'Tab') return;
+      const focusable = [...modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeydown);
 
     closeButton.addEventListener('click', close);
     okButton.addEventListener('click', close);
@@ -319,20 +361,33 @@
   // verse si el catálogo está roto, aunque la persona ya hubiera
   // cerrado el aviso normal antes).
   async function showBlockingPopup(popupId) {
+    if (
+      blockingPopupRequests.has(popupId) ||
+      document.querySelector('.fio-popup-modal[data-fio-blocking-id="' + popupId + '"]')
+    ) return;
+    blockingPopupRequests.add(popupId);
+
     let config;
     try {
       const res = await fetch('data/popups.json');
-      if (!res.ok) return;
+      if (!res.ok) {
+        blockingPopupRequests.delete(popupId);
+        return;
+      }
       config = await res.json();
     } catch (err) {
+      blockingPopupRequests.delete(popupId);
       return;
     }
 
     const popup = (config.popups || []).find((p) => p && p.id === popupId);
-    if (!popup) return;
+    if (!popup) {
+      blockingPopupRequests.delete(popupId);
+      return;
+    }
 
     const lang = currentLang();
-    showModal(popup, lang, () => {}, { dismissable: false });
+    showModal(popup, lang, () => {}, { dismissable: false, blockingId: popupId });
   }
 
   document.addEventListener('DOMContentLoaded', init);
