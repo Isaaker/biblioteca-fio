@@ -261,3 +261,11 @@ function fioFieldMatches(value, needle) {
   if (!value) return false;
   return fioNormalizeKey(value).includes(fioNormalizeKey(needle));
 }
+
+// Alpine (build CSP) no evalúa expresiones arbitrarias: x-data solo puede
+// referenciar componentes registrados explícitamente vía Alpine.data().
+// Sin este registro, Alpine lanza "Undefined variable: <nombre>" y la
+// página queda inaccesible (main con aria-hidden/inert).
+document.addEventListener('alpine:init', () => {
+  Alpine.data('fioSearch', fioSearch);
+});
