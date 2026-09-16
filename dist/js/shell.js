@@ -123,7 +123,7 @@
       <span>·</span>
       <a href="privacidad.html" data-i18n="footer_privacy">Política de privacidad</a>
     </div>
-    <p class="fio-footer-credits">Creado con ❤️ por Carlos Chevallier e Isaac Hernán</p>
+    <p class="fio-footer-credits">Creado con ❤️ por Carlos Chevallier Marina e Isaac Hernán Martí</p>
   </footer>`;
   }
 
