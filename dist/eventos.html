@@ -51,27 +51,43 @@
     <p class="fio-book-meta" data-i18n="events_lead">Charlas, jornadas de puertas abiertas y actividades relacionadas con la biblioteca y la Fundación.</p>
 
     <section id="fio-events-list">
-      <!-- EVENTOS FUTUROS: añade aquí arriba los eventos nuevos -->
+      <!-- EVENTOS FUTUROS: añade aquí arriba los eventos nuevos. Usa la estructura
+           .fio-event-card > .fio-event-date + .fio-event-body, y pon la fecha
+           en data-event-date="YYYY-MM-DD" en el <article> para que
+           events-expiry.js pueda ordenarlo y ocultarlo cuando pase. -->
 
-      <article class="fio-event-card">
-        <h2 class="fio-event-title">Mercadillo aeronáutico en el Corralillo de la FIO</h2>
-        <p class="fio-event-meta">
-          <time datetime="2026-09-26">26 de septiembre de 2026</time> · 10:30 – 19:00
-        </p>
-        <p class="fio-event-meta">Corralillo de la FIO, Aeródromo de Cuatro Vientos (junto a la terraza del Mirador de Cuatro Vientos)</p>
-        <p class="fio-event-description">
-          La FIO tiene previsto abrir el corralillo el próximo día 26 de septiembre para realizar un mercadillo aeronáutico.
-          Libros, maquetas, láminas, instrumentos y más objetos relacionados con la aviación serán puestos a la venta en nuestra tienda montada para tal efecto.
-          ¡Os esperamos!
-        </p>
-        <p class="fio-event-link">
-          <a href="https://www.facebook.com/story.php?story_fbid=1521524486667938&amp;id=100064312046270" target="_blank" rel="noopener noreferrer">Ver en Facebook</a>
-        </p>
+      <article class="fio-event-card" data-event-date="2026-09-26">
+        <div class="fio-event-date">
+          <span class="day">26</span>
+          <span class="month">SEP</span>
+        </div>
+        <div class="fio-event-body">
+          <h3>
+            <span class="lang-es">Mercadillo aeronáutico en el Corralillo de la FIO</span>
+            <span class="lang-en">Aviation flea market at the FIO Corralillo</span>
+          </h3>
+          <p class="fio-book-meta">
+            <span class="lang-es">Sábado 26 de septiembre de 2026 · 10:30 – 19:00</span>
+            <span class="lang-en">Saturday 26 September 2026 · 10:30 AM – 7:00 PM</span>
+          </p>
+          <p class="fio-book-meta">
+            <span class="lang-es">Corralillo de la FIO, Aeródromo de Cuatro Vientos (junto a la terraza del Mirador de Cuatro Vientos)</span>
+            <span class="lang-en">FIO Corralillo, Cuatro Vientos aerodrome (next to the Mirador de Cuatro Vientos terrace)</span>
+          </p>
+          <p>
+            <span class="lang-es">La FIO tiene previsto abrir el corralillo el próximo día 26 de septiembre para realizar un mercadillo aeronáutico. Libros, maquetas, láminas, instrumentos y más objetos relacionados con la aviación serán puestos a la venta en nuestra tienda montada para tal efecto. ¡Os esperamos!</span>
+            <span class="lang-en">The FIO will open the corralillo on 26 September for an aviation flea market. Books, models, prints, instruments and other aviation-related items will be on sale at our pop-up shop. Everyone is welcome!</span>
+          </p>
+          <p>
+            <a href="https://www.facebook.com/story.php?story_fbid=1521524486667938&amp;id=100064312046270" target="_blank" rel="noopener noreferrer">
+              <span class="lang-es">Ver en Facebook</span>
+              <span class="lang-en">View on Facebook</span>
+            </a>
+          </p>
+        </div>
       </article>
 
       <p class="fio-empty" data-i18n="events_empty" style="display:none;">No hay eventos programados actualmente. Vuelve a consultar esta página más adelante.</p>
-
-      <!-- Plantilla de eventos oculta. Añade nuevos bloques .fio-event-card aquí cuando proceda. -->
     </section>
 
   </main>
@@ -87,6 +103,7 @@
   <script src="js/search-utils.js"></script>
   <script src="js/events.js"></script>
   <script src="js/events-expiry.js"></script>
+  <script src="js/events-recurring.js"></script>
   <script src="js/splash.js"></script>
 </body>
 </html>
