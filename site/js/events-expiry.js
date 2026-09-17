@@ -1,31 +1,37 @@
 /**
- * Oculta automáticamente las tarjetas de eventos (.fio-event-card) cuya fecha
- * (definida en el <time datetime="YYYY-MM-DD"> de la tarjeta) ya ha pasado.
- * Si no quedan eventos visibles, muestra el mensaje de "no hay eventos".
+ * Ordena las tarjetas de evento (.fio-event-card[data-event-date]) por
+ * fecha ascendente y oculta las que ya han pasado. Si no queda ningún
+ * evento manual visible, muestra el aviso de "no hay eventos" (a menos
+ * que events-recurring.js añada su propia tarjeta después).
+ *
+ * Solo actúa sobre tarjetas con data-event-date; la tarjeta del evento
+ * recurrente (generada por events-recurring.js) no lleva ese atributo
+ * y se gestiona a sí misma.
  */
 (function () {
-  function hideExpiredEvents() {
+  function run() {
     var list = document.getElementById('fio-events-list');
     if (!list) return;
 
-    var cards = list.querySelectorAll('.fio-event-card');
-    var emptyMsg = list.querySelector('.fio-empty');
+    var cards = Array.prototype.slice.call(
+      list.querySelectorAll('.fio-event-card[data-event-date]')
+    );
 
-    // Comparamos solo por fecha (sin hora) para no ocultar un evento el mismo día que termina.
     var today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    var visibleCount = 0;
-
+    // Ordena por fecha ascendente.
+    cards.sort(function (a, b) {
+      return new Date(a.dataset.eventDate) - new Date(b.dataset.eventDate);
+    });
     cards.forEach(function (card) {
-      var timeEl = card.querySelector('time[datetime]');
-      if (!timeEl) {
-        // Sin fecha: no la tocamos, se asume vigente.
-        visibleCount++;
-        return;
-      }
+      list.insertBefore(card, list.querySelector('.fio-empty') || null);
+    });
 
-      var eventDate = new Date(timeEl.getAttribute('datetime'));
+    // Oculta las que ya pasaron.
+    var visibleCount = 0;
+    cards.forEach(function (card) {
+      var eventDate = new Date(card.dataset.eventDate);
       if (isNaN(eventDate.getTime())) {
         visibleCount++;
         return;
@@ -35,18 +41,22 @@
       if (eventDate < today) {
         card.style.display = 'none';
       } else {
+        card.style.display = '';
         visibleCount++;
       }
     });
 
-    if (emptyMsg) {
-      emptyMsg.style.display = visibleCount === 0 ? '' : 'none';
+    var emptyMsg = list.querySelector('.fio-empty');
+    if (emptyMsg && visibleCount === 0) {
+      // Deja que events-recurring.js decida si oculta esto de nuevo
+      // cuando añada su propia tarjeta (se ejecuta después).
+      emptyMsg.style.display = '';
     }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', hideExpiredEvents);
+    document.addEventListener('DOMContentLoaded', run);
   } else {
-    hideExpiredEvents();
+    run();
   }
 })();
