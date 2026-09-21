@@ -205,7 +205,7 @@ a:hover { color: var(--fio-blue-dark); }
 
 .fio-nav {
   display: flex;
-  gap: 16px;
+  gap: 12px 14px;
   flex-wrap: wrap;
 }
 
@@ -798,7 +798,7 @@ footer.fio-footer a {
    detrás de un botón hamburguesa, en vez de amontonarse envueltos
    junto al logo y el título (que es lo que pasaba antes: 6 enlaces +
    selector de idioma intentando caber en una sola fila estrecha). */
-@media (max-width: 780px) {
+@media (max-width: 1000px) {
   .fio-header-inner {
     position: relative;
     padding-right: 52px; /* deja sitio al botón hamburguesa, que se posiciona absoluto */

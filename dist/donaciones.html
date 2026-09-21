@@ -51,12 +51,12 @@
 
     <p data-i18n="donation_intro">Si has llegado hasta aquí significa que tienes obras que deberían formar parte de nuestra colección. Estaremos encantados de recibirlas, pero antes queremos que tengas en cuenta lo siguiente:</p>
 
-    <p data-i18n="donation_collection_size">Nuestra colección cuenta con más de 3.500 ejemplares. Dependiendo de la obra o volumen donado, es posible que:</p>
+    <p data-i18n="donation_collection_size">Nuestra colección cuenta con más de 3.500 ejemplares. Dependiendo de la obra o del volumen donado, ten en cuenta lo siguiente:</p>
 
     <ul>
-      <li data-i18n="donation_point_1">Sea destinado a nuestro Archivo Histórico en lugar de a la biblioteca, en caso de que se trate de un manual técnico, documento histórico o revista. De momento, los documentos de archivo son solo de acceso interno de la fundación; queremos que esto cambie, pero de momento no tenemos capacidad para ello.</li>
-      <li data-i18n="donation_point_2">Tenemos muchos libros comunes: si donas algún libro que ya tengamos, es posible que lo almacenemos para poder venderlo y financiar así la compra de otros ejemplares que aún no están en nuestra colección.</li>
-      <li data-i18n="donation_point_3">Los libros que no estén relacionados con temas de aviación, ingeniería o historia, o que simplemente no sean relevantes para nuestra colección, podrán ser también vendidos para financiar la compra de nuevos ejemplares, o donados a otras bibliotecas en las que encajen.</li>
+      <li data-i18n="donation_point_1">Algunas donaciones pueden recategorizarse: por ejemplo, las revistas pasarán a formar parte de nuestra hemeroteca y no de la biblioteca.</li>
+      <li data-i18n="donation_point_2">Tenemos muchos libros comunes: si donas un libro que ya tenemos, es posible que lo guardemos para venderlo y financiar así la compra de ejemplares que aún no están en nuestra colección. También podría destinarse a préstamo o a otros usos, para evitar dañar el ejemplar de la biblioteca.</li>
+      <li data-i18n="donation_point_3">Los libros que no estén relacionados con la aviación, la ingeniería o la historia, es decir, que no sean relevantes para nuestra colección, también podrán venderse para financiar la compra de nuevos ejemplares o donarse a otras bibliotecas en las que encajen.</li>
       <li data-i18n="donation_point_4">Es posible que se te pida firmar un documento de cesión: es una necesidad legal para poder aceptar la donación.</li>
     </ul>
 
@@ -70,13 +70,18 @@
       <p class="lang-en" style="color: var(--fio-muted); margin-top:-6px;">Pressing "Send" opens your own email application with the message ready to send to <b>fioteca@fio.es</b>. Nothing is sent from this page or stored on any server.</p>
 
       <div style="margin-bottom: 14px;">
-        <label for="d-name" data-i18n="donation_form_name_label">Tu nombre (opcional)</label>
-        <input id="d-name" type="text" x-model="name" style="width:100%;">
+        <label for="d-name" data-i18n="form_name_label">Tu nombre *</label>
+        <input id="d-name" type="text" x-model="name" required aria-required="true" autocomplete="name" style="width:100%;">
       </div>
 
       <div style="margin-bottom: 14px;">
-        <label for="d-email" data-i18n="donation_form_email_label">Correo de contacto (opcional)</label>
-        <input id="d-email" type="email" x-model="email" style="width:100%;">
+        <label for="d-email" data-i18n="form_email_label">Correo de contacto *</label>
+        <input id="d-email" type="email" x-model="email" required aria-required="true" autocomplete="email" style="width:100%;">
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <label for="d-member" data-i18n="form_member_label">Número de socio (opcional)</label>
+        <input id="d-member" type="text" x-model="memberNumber" style="width:100%;">
       </div>
 
       <div style="margin-bottom: 14px;">
@@ -100,6 +105,8 @@
           <span data-i18n="donation_form_digital_copy">Me interesaría recibir copia digital, si la obra es elegible</span>
         </label>
       </div>
+
+      <p x-show="error" x-text="error" role="alert" style="color:#b3261e; font-weight:600; margin:0 0 12px;"></p>
 
       <div class="fio-hero-actions" style="justify-content:flex-start;">
         <button type="button" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="send()" data-i18n="donation_form_submit">Enviar</button>

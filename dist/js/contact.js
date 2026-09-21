@@ -22,6 +22,9 @@ function fioContact() {
       { value: 'OTROS', key: 'contact_subject_other', fallback: 'Otros' },
     ],
     name: '',
+    email: '',
+    memberNumber: '',
+    error: '',
     message: '',
 
     subjectLabel(entry) {
@@ -35,9 +38,9 @@ function fioContact() {
     mailtoHref() {
       const subjectLine = `[${this.subject}]`;
       let body = this.message.trim();
-      if (this.name.trim()) {
-        body = body ? `${body}\n\n—\n${this.name.trim()}` : `—\n${this.name.trim()}`;
-      }
+      const signature = [`Nombre: ${this.name.trim()}`, `Correo de contacto: ${this.email.trim()}`];
+      if (this.memberNumber.trim()) signature.push(`Número de socio: ${this.memberNumber.trim()}`);
+      body = body ? `${body}\n\n—\n${signature.join('\n')}` : `—\n${signature.join('\n')}`;
       const params = new URLSearchParams();
       params.set('subject', subjectLine);
       if (body) params.set('body', body);
@@ -47,7 +50,24 @@ function fioContact() {
       return `mailto:${this.recipient}?${params.toString().replace(/\+/g, '%20')}`;
     },
 
+    // Nombre y correo son obligatorios (el número de socio no).
+    validate() {
+      const t = (k) => (window.fioT && window.fioT(k)) || k;
+      let key = '';
+      let field = '';
+      if (!this.name.trim()) { key = 'form_error_name'; field = 'c-name'; }
+      else if (!this.email.trim()) { key = 'form_error_email'; field = 'c-email'; }
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email.trim())) { key = 'form_error_email_invalid'; field = 'c-email'; }
+      this.error = key ? t(key) : '';
+      if (key) {
+        const el = document.getElementById(field);
+        if (el) el.focus();
+      }
+      return !key;
+    },
+
     send() {
+      if (!this.validate()) return;
       window.location.href = this.mailtoHref();
     },
   };

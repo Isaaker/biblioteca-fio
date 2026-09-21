@@ -30,6 +30,8 @@
     { href: 'escanear.html', key: 'nav_scan', label: 'Escanear' },
     { href: 'estadisticas.html', key: 'nav_stats', label: 'Estadísticas' },
     { href: 'eventos.html', key: 'nav_events', label: 'Eventos' },
+    { href: 'colaborar.html', key: 'nav_collaborate', label: 'Colaborar' },
+    { href: 'gracias.html', key: 'nav_thanks', label: 'Agradecimientos' },
     { href: 'contacto.html', key: 'nav_contact', label: 'Contacto' },
   ];
 

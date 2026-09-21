@@ -10,6 +10,8 @@ function fioDonation() {
     recipient: 'fioteca@fio.es',
     name: '',
     email: '',
+    memberNumber: '',
+    error: '',
     items: '',
     quantity: '',
     digitalCopyInterest: false,
@@ -17,8 +19,9 @@ function fioDonation() {
 
     mailtoHref() {
       const lines = [];
-      if (this.name.trim()) lines.push(`Nombre: ${this.name.trim()}`);
-      if (this.email.trim()) lines.push(`Correo de contacto: ${this.email.trim()}`);
+      lines.push(`Nombre: ${this.name.trim()}`);
+      lines.push(`Correo de contacto: ${this.email.trim()}`);
+      if (this.memberNumber.trim()) lines.push(`Número de socio: ${this.memberNumber.trim()}`);
       if (this.quantity.trim()) lines.push(`Cantidad aproximada de libros: ${this.quantity.trim()}`);
       lines.push('');
       lines.push('Títulos / autores / descripción de las obras:');
@@ -41,7 +44,24 @@ function fioDonation() {
       return `mailto:${this.recipient}?${params.toString().replace(/\+/g, '%20')}`;
     },
 
+    // Nombre y correo son obligatorios (el número de socio no).
+    validate() {
+      const t = (k) => (window.fioT && window.fioT(k)) || k;
+      let key = '';
+      let field = '';
+      if (!this.name.trim()) { key = 'form_error_name'; field = 'd-name'; }
+      else if (!this.email.trim()) { key = 'form_error_email'; field = 'd-email'; }
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email.trim())) { key = 'form_error_email_invalid'; field = 'd-email'; }
+      this.error = key ? t(key) : '';
+      if (key) {
+        const el = document.getElementById(field);
+        if (el) el.focus();
+      }
+      return !key;
+    },
+
     send() {
+      if (!this.validate()) return;
       window.location.href = this.mailtoHref();
     },
   };

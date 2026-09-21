@@ -44,8 +44,11 @@
       <p class="lang-es" style="color:var(--fio-muted);margin-top:-6px;">Rellena el formulario: al pulsar "Enviar" se abrirá tu programa de correo con el mensaje ya preparado para <b>fioteca@fio.es</b>.</p>
       <p class="lang-en" style="color:var(--fio-muted);margin-top:-6px;">Fill in the form: pressing "Send" opens your email application with the message ready to send to <b>fioteca@fio.es</b>.</p>
       <div style="margin-bottom:14px;"><label for="c-subject" data-i18n="contact_form_subject_label">Asunto</label><select id="c-subject" x-model="subject"><template x-for="s in subjects" :key="s.value"><option :value="s.value" x-text="subjectLabel(s)"></option></template></select></div>
-      <div style="margin-bottom:14px;"><label for="c-name" data-i18n="contact_form_name_label">Tu nombre (opcional)</label><input id="c-name" type="text" x-model="name" style="width:100%;"></div>
+      <div style="margin-bottom:14px;"><label for="c-name" data-i18n="form_name_label">Tu nombre *</label><input id="c-name" type="text" x-model="name" required aria-required="true" autocomplete="name" style="width:100%;"></div>
+      <div style="margin-bottom:14px;"><label for="c-email" data-i18n="form_email_label">Correo de contacto *</label><input id="c-email" type="email" x-model="email" required aria-required="true" autocomplete="email" style="width:100%;"></div>
+      <div style="margin-bottom:14px;"><label for="c-member" data-i18n="form_member_label">Número de socio (opcional)</label><input id="c-member" type="text" x-model="memberNumber" style="width:100%;"></div>
       <div style="margin-bottom:14px;"><label for="c-message" data-i18n="contact_form_message_label">Mensaje</label><textarea id="c-message" x-model="message" rows="6" style="width:100%;padding:9px 12px;border:1px solid var(--fio-blue-border);border-radius:6px;font-family:inherit;" data-i18n-attr="placeholder:contact_form_message_placeholder" placeholder="Cuéntanos en qué podemos ayudarte…"></textarea></div>
+      <p x-show="error" x-text="error" role="alert" style="color:#b3261e;font-weight:600;margin:0 0 12px;"></p>
       <div class="fio-hero-actions" style="justify-content:flex-start;"><button type="button" class="fio-btn" style="background-color:var(--fio-blue);color:var(--fio-white)!important;border-color:var(--fio-blue);" @click="send()" data-i18n="contact_form_submit">Enviar</button></div>
     </div>
   </main>
