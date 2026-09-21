@@ -64,23 +64,39 @@
     <section class="fio-thanks-names" aria-labelledby="donors-heading">
       <h2 id="donors-heading" data-i18n="thanks_donors_title">Donantes</h2>
       <p class="fio-book-meta" data-i18n="thanks_donors_lead">Personas y familias que han donado libros a nuestra colección a lo largo de los años.</p>
-      <ul class="fio-thanks-namelist">
-        <template x-for="(name, index) in donantes" :key="'d-' + index">
-          <li :style="'--i:' + (index % 40)" x-text="name"></li>
-        </template>
-      </ul>
-      <p class="fio-empty" x-show="!loading && donantes.length === 0" data-i18n="thanks_donors_empty">Todavía no hay nombres cargados aquí.</p>
+      <template x-for="grupo in grupos" :key="grupo.id">
+        <div class="fio-thanks-group">
+          <h3 class="fio-thanks-group-title" x-text="grupo.etiqueta"></h3>
+          <ul class="fio-thanks-namelist" :class="grupo.clase">
+            <template x-for="(item, index) in grupo.nombres" :key="index">
+              <li x-text="item.nombre"></li>
+            </template>
+          </ul>
+        </div>
+      </template>
+      <p class="fio-empty" x-show="!loading && !hayDonantes" data-i18n="thanks_donors_empty">Todavía no hay nombres cargados aquí.</p>
     </section>
 
     <section class="fio-thanks-names" aria-labelledby="volunteers-heading">
       <h2 id="volunteers-heading" data-i18n="thanks_volunteers_title">Voluntarios</h2>
       <p class="fio-book-meta" data-i18n="thanks_volunteers_lead">Personas que han dedicado su tiempo a mantener y hacer crecer la biblioteca.</p>
       <ul class="fio-thanks-namelist">
-        <template x-for="(name, index) in voluntarios" :key="'v-' + index">
-          <li :style="'--i:' + (index % 40)" x-text="name"></li>
+        <template x-for="(item, index) in voluntarios" :key="index">
+          <li x-text="item.nombre"></li>
         </template>
       </ul>
-      <p class="fio-empty" x-show="!loading && voluntarios.length === 0" data-i18n="thanks_volunteers_empty">Todavía no hay nombres cargados aquí.</p>
+      <p class="fio-empty" x-show="!loading && !hayVoluntarios" data-i18n="thanks_volunteers_empty">Todavía no hay nombres cargados aquí.</p>
+    </section>
+
+    <section class="fio-thanks-names" aria-labelledby="sponsors-heading">
+      <h2 id="sponsors-heading" data-i18n="thanks_sponsors_title">Patrocinadores</h2>
+      <div class="fio-logo-panel">
+        <img src="assets/img/patrocinadores.png" alt="Patrocinadores: Fundación ENAIRE, SEPLA, Airbus, Iberia, Repsol, ITP Aero e Indra Group" loading="lazy">
+      </div>
+      <h2 data-i18n="thanks_partners_title">Entidades colaboradoras</h2>
+      <div class="fio-logo-panel">
+        <img src="assets/img/entidades-colaboradoras.png" alt="Entidades colaboradoras: Real Aeroclub de España, INTA, Boeing, Padecasa, Aerohélice, UMILES, BAI Aeronáutica, COPAC, Mailrelay, GAZC, Layônair, Ingeniería Semasa y Aviation Group" loading="lazy">
+      </div>
     </section>
 
     <div class="fio-callout" role="note">

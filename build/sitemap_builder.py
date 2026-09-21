@@ -28,6 +28,7 @@ STATIC_PAGES = [
     ("eventos.html", "0.6", "weekly"),
     ("linea-tiempo.html", "0.6", "monthly"),
     ("gracias.html", "0.5", "monthly"),
+    ("colaborar.html", "0.6", "monthly"),
     ("donaciones.html", "0.6", "monthly"),
     ("contacto.html", "0.5", "monthly"),
     ("interoperabilidad.html", "0.4", "monthly"),

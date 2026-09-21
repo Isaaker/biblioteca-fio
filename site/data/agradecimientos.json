@@ -1,7 +1,56 @@
 {
-  "_comentario": "Nombres que aparecen en la página de agradecimientos (gracias.html). Añadir un nombre nuevo es tan sencillo como añadir una línea más a la lista que corresponda y guardar — no hace falta tocar ningún otro fichero. El orden de esta lista es el orden en que aparecen en la animación. Si un nombre debe estar en ambas listas (donó libros Y ha sido voluntario), simplemente repítelo en las dos.",
+  "_comentario": "Datos de gracias.html. Para añadir a alguien basta con una línea nueva en la lista que corresponda; no hace falta tocar nada más. DONANTES: {\"nombre\":\"...\",\"donaciones\":N}. Según N, el nombre se muestra más grande y con color de bronce/plata/oro (umbrales en \"niveles\"; los que no llegan al mínimo salen en tamaño normal). VOLUNTARIOS: solo el nombre. Los logos de patrocinadores y entidades colaboradoras son dos imágenes fijas (assets/img/patrocinadores.png y entidades-colaboradoras.png): para cambiarlos basta con sustituir esas imágenes.",
+  "niveles": [
+    {
+      "id": "oro",
+      "minimo": 10,
+      "etiqueta": {
+        "es": "Donantes de oro",
+        "en": "Gold donors"
+      }
+    },
+    {
+      "id": "plata",
+      "minimo": 5,
+      "etiqueta": {
+        "es": "Donantes de plata",
+        "en": "Silver donors"
+      }
+    },
+    {
+      "id": "bronce",
+      "minimo": 2,
+      "etiqueta": {
+        "es": "Donantes de bronce",
+        "en": "Bronze donors"
+      }
+    },
+    {
+      "id": "base",
+      "minimo": 1,
+      "etiqueta": {
+        "es": "Donantes",
+        "en": "Donors"
+      }
+    }
+  ],
   "donantes": [
-    "Ejemplo: Familia Pérez"
+    {
+      "nombre": "Ejemplo: Familia Pérez",
+      "donaciones": 12
+    },
+    {
+      "nombre": "Ejemplo: Ana Ruiz",
+      "donaciones": 6
+    },
+    {
+      "nombre": "Ejemplo: Luis Gómez",
+      "donaciones": 3
+    },
+    {
+      "nombre": "Ejemplo: María López",
+      "donaciones": 1
+    }
   ],
   "voluntarios": [
     "Ejemplo: Juan García"
