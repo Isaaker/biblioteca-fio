@@ -34,25 +34,10 @@
       }
     }
   ],
-  "donantes": [
-    {
-      "nombre": "Ejemplo: Familia Pérez",
-      "donaciones": 12
-    },
-    {
-      "nombre": "Ejemplo: Ana Ruiz",
-      "donaciones": 6
-    },
-    {
-      "nombre": "Ejemplo: Luis Gómez",
-      "donaciones": 3
-    },
-    {
-      "nombre": "Ejemplo: María López",
-      "donaciones": 1
-    }
-  ],
+  "donantes": [],
   "voluntarios": [
-    "Ejemplo: Juan García"
+    "Antonio Utrilla",
+    "Carlos Chevallier Marina",
+    "Isaac Hernán"
   ]
 }
