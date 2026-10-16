@@ -12,6 +12,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
   <link rel="manifest" href="./images/site.webmanifest">
+  <meta http-equiv="refresh" content="10; url=https://biblioteca.fio.es" />
   <title>JavaScript desactivado · JavaScript is disabled — Fundación Infante de Orleans</title>
   <style>
     :root { color-scheme: light; --page-bg:#202d58; --brand:#202d58; --text:#242424; --muted:#555; --border:#e7e7e7; --focus:#175cd3; --card:#fff; --hover:#eef1f8; }
@@ -50,6 +51,39 @@
     .footer { margin-top:18px; padding-top:14px; border-top:1px solid var(--border); font-size:.82rem; color:var(--muted); }
     @media(max-width:420px) { .intro { align-items:flex-start; gap:13px; } .js-icon { width:54px; height:54px; } .browser-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition-duration:.01ms!important; } }
+    .redirect-notice {
+      margin: 22px 0;
+      padding: 18px;
+      border: 1px solid #cbd5ef;
+      border-radius: 12px;
+      background: #f3f6ff;
+    }
+    
+    .redirect-notice strong {
+      display: block;
+      color: #202d58;
+      margin-bottom: 8px;
+    }
+    
+    .redirect-button {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 11px 18px;
+      border-radius: 8px;
+      background: #202d58;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 650;
+    }
+    
+    .redirect-button:hover {
+      background: #34477f;
+    }
+    
+    .redirect-button:focus-visible {
+      outline: 3px solid #175cd3;
+      outline-offset: 3px;
+    }
   </style>
 </head>
 <body>
@@ -86,8 +120,8 @@
     <p class="es" lang="es">Esta plataforma necesita JavaScript para funcionar, pero parece que está desactivado en tu navegador o que una extensión está bloqueando su ejecución.</p>
     <p class="en" lang="en">This platform requires JavaScript to work, but it appears to be disabled in your browser or blocked by an extension.</p>
 
-    <p class="es" lang="es">Selecciona tu navegador para consultar la ayuda y activar JavaScript. Después, vuelve a cargar esta página.</p>
-    <p class="en" lang="en">Choose your browser to find help enabling JavaScript. Then reload this page.</p>
+    <p class="es" lang="es">Selecciona tu navegador para consultar la ayuda y activar JavaScript.</p>
+    <p class="en" lang="en">Choose your browser to find help enabling JavaScript.</p>
 
     <h2 class="section-title es" lang="es">Instrucciones por navegador</h2>
     <h2 class="section-title en" lang="en">Instructions by browser</h2>
@@ -103,6 +137,28 @@
       <a class="browser-link" href="https://help.vivaldi.com/desktop/privacy/javascript/" target="_blank" rel="noopener noreferrer"><svg class="bi c-vivaldi" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-vivaldi"/></svg><span class="browser-name">Vivaldi</span></a>
       <a class="browser-link" href="https://www.chromium.org/" target="_blank" rel="noopener noreferrer"><svg class="bi c-chromium" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-chromium"/></svg><span class="browser-name">Chromium</span></a>
     </nav>
+
+    <section class="redirect-notice">
+      <h2 class="es" lang="es">Reintento automático activado</h2>
+      <h2 class="en" lang="en">Automatic retry enabled</h2>
+    
+      <p class="es" lang="es">
+        Volveremos a intentar abrir la página principal cada 10 segundos.
+        Cuando JavaScript esté habilitado, podrás acceder automáticamente
+        sin tener que recargar esta página manualmente.
+      </p>
+    
+      <p class="en" lang="en">
+        We will retry opening the home page every 10 seconds.
+        Once JavaScript is enabled, you should be able to access it
+        automatically without manually reloading this page.
+      </p>
+    
+      <a class="redirect-button" href="https://biblioteca.fio.es/">
+        <span class="es" lang="es">Intentar ahora</span>
+        <span class="en" lang="en">Try now</span>
+      </a>
+    </section>
 
     <p class="tip es" lang="es"><strong>¿Sigue sin funcionar?</strong> Revisa si tienes una extensión de privacidad, un bloqueador de scripts o una política del dispositivo que impida ejecutar JavaScript. En navegadores basados en Chromium, también puedes buscar “JavaScript” en los ajustes del navegador.</p>
     <p class="tip en" lang="en"><strong>Still not working?</strong> Check whether a privacy extension, script blocker, or device policy is preventing JavaScript from running. In Chromium-based browsers, you can also search for “JavaScript” in the browser settings.</p>
