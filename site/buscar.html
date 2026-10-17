@@ -167,6 +167,60 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="-128 -128 256 256"><rect width="256" height="256" rx="15%" x="-128" y="-128" fill="#de5833"/><circle r="108" fill="#de5833"/><circle r="96" fill="none" stroke="#ffffff" stroke-width="7"/><path d="M-32-55C-62-48-51-6-51-6l19 93 7 3M-39-73h-8l11 4s-11 0-11 7c24-1 35 5 35 5" fill="#ddd"/><path d="M25 95S1 57 1 32c0-47 31-7 31-44S1-58 1-58c-15-19-44-15-44-15l7 4s-7 2-9 4 19-3 28 5c-37 3-31 33-31 33l21 120" fill="#fff"/><path d="M25-1l38-10c34 5-29 24-33 23C0 7 9 32 45 24s9 20-24 9C-26 20-1-3 25-1" fill="#fc0"/><path d="M15 78l2-3c22 8 23 11 22-9s0-20-23-3c0-5-13-3-15 0-21-9-23-12-22 2 2 29 1 24 21 14" fill="#6b5"/><path d="M-1 67v12c1 2 17 2 17-2s-8 3-13 1-2-13-2-13" fill="#4a4"/><path d="M-23-32c-5-6-18-1-15 7 1-4 8-10 15-7m32 0c1-6 11-7 14-1-4-2-10-2-14 1m-33 16a2 2 0 1 1 0 1m-8 3a7 7 0 1 0 0-1m52-6a2 2 0 1 1 0 1m-6 3a6 6 0 1 0 0-1" fill="#148"/></svg>
           Duck AI
         </button>
+        <button class="fio-ai-btn" @click="openAiWith('claude')">
+          <span class="fio-icon" aria-hidden="true">auto_awesome</span>
+          Claude
+        </button>
+        <button class="fio-ai-btn" @click="openAiWith('copilot')">
+          <span class="fio-icon" aria-hidden="true">flight_takeoff</span>
+          Copilot
+        </button>
+        <button class="fio-ai-btn" @click="openAiWith('mistral')">
+          <span class="fio-icon" aria-hidden="true">air</span>
+          Le Chat (Mistral)
+        </button>
+        <button class="fio-ai-btn fio-ai-btn-groq" @click="openGroq()">
+          <span class="fio-icon" aria-hidden="true">bolt</span>
+          <span data-i18n="groq_open">Groq (con tu clave)</span>
+        </button>
+      </div>
+
+      <!-- Groq: respuesta directa en la página (clave de API del propio usuario) -->
+      <div class="fio-groq-panel" x-show="groqOpen" style="display:none;">
+        <div class="fio-groq-header">
+          <h3 data-i18n="groq_title">Preguntar a Groq</h3>
+          <button type="button" class="fio-modal-close" @click="closeGroq()" data-i18n-attr="aria-label:groq_close" aria-label="Cerrar">&times;</button>
+        </div>
+        <p class="fio-book-meta" data-i18n="groq_lead">Groq responde directamente en esta página. Necesita tu propia clave de API de Groq, que se guarda solo en este navegador. Se le envía tu pregunta junto con los libros del catálogo que mejor encajan.</p>
+
+        <div class="fio-groq-fields">
+          <div>
+            <label for="groq-key" data-i18n="groq_key_label">Clave de API de Groq</label>
+            <input id="groq-key" type="password" autocomplete="off" spellcheck="false" x-model="groqKey" placeholder="gsk_…">
+          </div>
+          <div>
+            <label for="groq-model" data-i18n="groq_model_label">Modelo</label>
+            <input id="groq-model" type="text" list="groq-models" autocomplete="off" spellcheck="false" x-model="groqModel">
+            <datalist id="groq-models">
+              <option value="llama-3.3-70b-versatile"></option>
+              <option value="llama-3.1-8b-instant"></option>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="fio-hero-actions" style="justify-content:flex-start; margin-top:12px;">
+          <button type="button" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="askGroq()" :disabled="groqLoading" data-i18n="groq_ask">Preguntar</button>
+          <button type="button" class="fio-filter-clear" @click="saveGroqKey()" data-i18n="groq_save_key">Guardar clave</button>
+          <button type="button" class="fio-filter-clear" @click="forgetGroqKey()" data-i18n="groq_forget_key">Olvidar clave</button>
+          <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" data-i18n="groq_get_key">Obtener una clave en console.groq.com</a>
+        </div>
+
+        <p class="fio-groq-status" x-show="groqLoading" style="display:none;" data-i18n="groq_working">Consultando a Groq…</p>
+        <p class="fio-groq-error" role="alert" x-show="groqShowError" style="display:none;" x-text="groqError"></p>
+        <div class="fio-groq-answer" x-show="groqShowAnswer" style="display:none;">
+          <h4 data-i18n="groq_answer_title">Respuesta de Groq</h4>
+          <div class="fio-groq-answer-text" x-text="groqAnswer"></div>
+        </div>
       </div>
     </div>
 

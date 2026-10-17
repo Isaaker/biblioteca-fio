@@ -29,6 +29,15 @@ function fioSearch() {
 
     aiWhat: '',
 
+    // Groq (respuesta directa en la página, con clave de API del propio usuario).
+    groqOpen: false,
+    groqKey: '',
+    groqModel: 'llama-3.3-70b-versatile',
+    groqLoading: false,
+    groqAnswer: '',
+    groqError: '',
+    _historyTimer: null,
+
     // Resultado de la búsqueda. Antes era un getter (`get results()`) que
     // Alpine reevaluaba desde cero —contador, lista vacía, x-for— cada vez
     // que se leía en la plantilla, varias veces por cada tecla pulsada.
@@ -39,6 +48,7 @@ function fioSearch() {
 
     async init() {
       this._applyUrlState();
+      this._loadGroqPrefs();
       try {
         const payload = await window.fioFetchCatalog?.();
         if (!payload || !Array.isArray(payload.records)) {
@@ -73,7 +83,7 @@ function fioSearch() {
       this.hasSearched = !!(this.q || this._hasAdvancedFilters());
     },
 
-    _syncUrlState() {
+    _buildParams() {
       const params = new URLSearchParams();
       if (this.q) params.set('q', this.q);
       if (this.fTitle) params.set('title', this.fTitle);
@@ -88,7 +98,11 @@ function fioSearch() {
       if (this.fYearFrom) params.set('year_from', this.fYearFrom);
       if (this.fYearTo) params.set('year_to', this.fYearTo);
       if (this.fDigitizedOnly) params.set('digitized', '1');
-      const query = params.toString();
+      return params;
+    },
+
+    _syncUrlState() {
+      const query = this._buildParams().toString();
       const next = query ? `?${query}` : window.location.pathname;
       if (window.history && window.history.replaceState) {
         window.history.replaceState({}, '', next);
@@ -135,11 +149,34 @@ function fioSearch() {
       this.results = list;
     },
 
+    // --- Historial de búsquedas (ver fio-ux.js) -----------------------------
+    // Texto legible de la búsqueda actual: la consulta general más los
+    // valores de los filtros avanzados que estén rellenos.
+    _historyLabel() {
+      return [
+        this.q, this.fTitle, this.fAuthor, this.fReference, this.fTopic,
+        this.fSubtopic, this.fPublisher, this.fLanguage, this.fSeries,
+        this.fIsbn,
+        this.fYearFrom ? '≥ ' + this.fYearFrom : '',
+        this.fYearTo ? '≤ ' + this.fYearTo : '',
+        this.fDigitizedOnly ? fioT('filter_digitized_only') : '',
+      ].map(v => String(v || '').trim()).filter(Boolean).join(' · ');
+    },
+
+    _recordHistory() {
+      if (typeof window.fioRecordSearch !== 'function') return;
+      const query = this._buildParams().toString();
+      if (!query) return;
+      window.fioRecordSearch('buscar.html?' + query, this._historyLabel());
+    },
+
     submitSearch() {
       clearTimeout(this._queryDebounceTimer);
+      clearTimeout(this._historyTimer);
       this.hasSearched = true;
       this._recomputeResults();
       this._syncUrlState();
+      this._recordHistory();
       this.$nextTick(() => {
         this._loadVisibleCovers();
         this._scrollToResults();
@@ -169,6 +206,12 @@ function fioSearch() {
           this._recomputeResults();
           this._syncUrlState();
           this.$nextTick(() => this._loadVisibleCovers());
+          // La búsqueda instantánea no se guarda en cada tecla: solo si la
+          // persona se detiene un momento (1,5 s) con al menos 3 caracteres.
+          clearTimeout(this._historyTimer);
+          if (this.q.trim().length >= 3) {
+            this._historyTimer = setTimeout(() => this._recordHistory(), 1500);
+          }
         } else if (!this._hasAdvancedFilters()) {
           this.hasSearched = false;
           this.results = [];
@@ -249,9 +292,130 @@ function fioSearch() {
         chatgpt: 'https://chatgpt.com/?q=' + encoded,
         perplexity: 'https://www.perplexity.ai/?q=' + encoded,
         duck: 'https://duck.ai/chat?ia=chat&origin=funnel_home_website&t=h_&kp=1&duckai=1&home=1&prompt=1&chip-select=chat&q=' + encoded,
+        claude: 'https://claude.ai/new?q=' + encoded,
+        copilot: 'https://copilot.microsoft.com/?q=' + encoded,
+        mistral: 'https://chat.mistral.ai/chat?q=' + encoded,
       };
       const url = urls[service];
       if (url) window.open(url, '_blank', 'noopener');
+    },
+
+    // --- Groq: respuesta directa en la página ------------------------------
+    // A diferencia del resto de asistentes (que se abren en su web y leen el
+    // catálogo por URL), la API de Groq no navega por internet. Por eso aquí
+    // se preseleccionan en el navegador los libros que mejor encajan con la
+    // pregunta y se envían solo esos (no el catálogo entero) junto a ella.
+    // La clave de API es la de la propia persona y solo se guarda en este
+    // navegador (localStorage); nunca pasa por servidores de la Fundación.
+    _loadGroqPrefs() {
+      try {
+        this.groqKey = localStorage.getItem('fio-groq-key-v1') || '';
+        this.groqModel = localStorage.getItem('fio-groq-model-v1') || this.groqModel;
+      } catch (err) { /* storage bloqueado: se usa solo en memoria */ }
+    },
+
+    get groqHasKey() { return !!this.groqKey.trim(); },
+    get groqNoKey() { return !this.groqKey.trim(); },
+    get groqShowAnswer() { return !!this.groqAnswer; },
+    get groqShowError() { return !!this.groqError; },
+    get groqIdle() { return !this.groqLoading; },
+
+    openGroq() {
+      this.groqOpen = true;
+      this.groqError = '';
+    },
+
+    closeGroq() {
+      this.groqOpen = false;
+    },
+
+    saveGroqKey() {
+      try {
+        localStorage.setItem('fio-groq-key-v1', this.groqKey.trim());
+        localStorage.setItem('fio-groq-model-v1', (this.groqModel || '').trim());
+      } catch (err) { /* ignorado */ }
+      fioShowToast(fioT('groq_key_saved'));
+    },
+
+    forgetGroqKey() {
+      this.groqKey = '';
+      try { localStorage.removeItem('fio-groq-key-v1'); } catch (err) { /* ignorado */ }
+      fioShowToast(fioT('groq_key_removed'));
+    },
+
+    // Libros del catálogo que mejor encajan con el texto de la pregunta.
+    _groqCandidates(limit) {
+      const stop = new Set(['sobre', 'para', 'como', 'libro', 'libros', 'quiero', 'busco', 'buscar',
+        'with', 'about', 'books', 'book', 'looking', 'that', 'the', 'and', 'por', 'una', 'uno',
+        'los', 'las', 'del', 'que', 'con', 'publicado', 'publicados', 'antes', 'despues']);
+      const terms = fioTokenize(this.aiWhat)
+        .filter(t => t.length >= 3 && !stop.has(t))
+        .map(t => (t.length > 4 ? t.replace(/(es|s)$/, '') : t));
+      if (!terms.length) return [];
+      const scored = [];
+      for (const book of this.catalog) {
+        const hay = fioNormalizeKey(fioBookSearchableText(book));
+        let score = 0;
+        for (const t of terms) if (hay.includes(t)) score += 1;
+        if (score > 0) scored.push({ book, score });
+      }
+      scored.sort((a, b) => b.score - a.score || String(a.book.title).localeCompare(String(b.book.title), 'es'));
+      return scored.slice(0, limit).map(x => x.book);
+    },
+
+    async askGroq() {
+      this.groqError = '';
+      this.groqAnswer = '';
+      const key = this.groqKey.trim();
+      const question = this.aiWhat.trim();
+      if (!key) { this.groqError = fioT('groq_need_key'); return; }
+      if (!question) { this.groqError = fioT('groq_need_question'); return; }
+
+      const picks = this._groqCandidates(40);
+      const list = picks.length
+        ? picks.map(b => `- [${b.reference || 's/ref'}] ${b.title}` +
+            `${b.author ? ' — ' + b.author : ''}` +
+            `${b.publication_year ? ' (' + b.publication_year + ')' : ''}` +
+            `${b.topic ? ' · ' + b.topic : ''}`).join('\n')
+        : '(ningún libro del catálogo coincide con las palabras de la pregunta)';
+
+      const messages = [
+        {
+          role: 'system',
+          content: 'Eres el asistente de la Biblioteca de la Fundación Infante de Orleans (FIO), ' +
+            'especializada en aviación e historia aeronáutica. Responde en el mismo idioma que la pregunta, ' +
+            'de forma breve. Recomienda ÚNICAMENTE libros de la lista que se te da, citando título exacto, ' +
+            'autor y referencia tal como aparecen. Si ninguno encaja, dilo claramente sin inventar títulos.',
+        },
+        { role: 'user', content: `Pregunta: ${question}\n\nLibros candidatos del catálogo:\n${list}` },
+      ];
+
+      this.groqLoading = true;
+      try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
+          body: JSON.stringify({
+            model: (this.groqModel || '').trim() || 'llama-3.3-70b-versatile',
+            messages,
+            temperature: 0.3,
+            max_tokens: 900,
+          }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          const detail = (data && data.error && data.error.message) || ('HTTP ' + response.status);
+          throw new Error(detail);
+        }
+        this.groqAnswer = (data.choices && data.choices[0] && data.choices[0].message &&
+          data.choices[0].message.content || '').trim();
+        if (!this.groqAnswer) throw new Error('respuesta vacía');
+      } catch (err) {
+        console.error(err);
+        this.groqError = fioT('groq_error') + ': ' + (err && err.message ? err.message : err);
+      } finally {
+        this.groqLoading = false;
+      }
     },
   };
 }
