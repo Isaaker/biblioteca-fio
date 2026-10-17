@@ -5,6 +5,7 @@ on:
     paths:
       - "data/indice_general.xlsx"
       - "data/digitalizados.json"
+      - "data/agradecimientos.json"
       - "build/**"
       - "site/**"
       - ".github/workflows/build-and-deploy.yml"
