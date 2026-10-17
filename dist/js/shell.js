@@ -35,6 +35,39 @@
     { href: 'contacto.html', key: 'nav_contact', label: 'Contacto' },
   ];
 
+  // Enlaces del pie, agrupados en pestañas.
+  const FOOTER_GROUPS = [
+    {
+      id: 'library', key: 'footer_tab_library', label: 'Biblioteca',
+      links: [
+        { href: 'data/catalogo.mrc', key: 'footer_export_marc', label: 'Exportar catálogo MARC21' },
+        { href: 'data/catalogo_marcxml.xml', key: 'footer_export_marcxml', label: 'Exportar MARCXML' },
+        { href: 'interoperabilidad.html', key: 'footer_connect_library', label: 'Conecta con la biblioteca' },
+      ],
+    },
+    {
+      id: 'foundation', key: 'footer_tab_foundation', label: 'Fundación',
+      links: [
+        { href: 'colaborar.html', key: 'footer_collaborate', label: 'Colaborar' },
+        { href: 'gracias.html', key: 'footer_thanks', label: 'Gracias' },
+        { href: 'contacto.html', key: 'footer_contact', label: 'Contacto' },
+      ],
+    },
+    {
+      id: 'legal', key: 'footer_tab_legal', label: 'Información legal',
+      links: [
+        { href: 'acceso-copias-digitales.html', key: 'footer_access_restricted', label: 'Acceso restringido' },
+        { href: 'privacidad.html', key: 'footer_privacy', label: 'Política de privacidad' },
+      ],
+    },
+    {
+      id: 'admin', key: 'footer_tab_admin', label: 'Administración',
+      links: [
+        { href: 'acceso-administradores.html', key: 'footer_admin_access', label: 'Acceso de administradores' },
+      ],
+    },
+  ];
+
   function currentPageFile() {
     let path = window.location.pathname;
     let last = path.substring(path.lastIndexOf('/') + 1);
@@ -108,29 +141,69 @@
     const mount = document.getElementById('fio-footer-mount');
     if (!mount) return;
 
+    // Los enlaces del pie se agrupan por temas en pestañas (antes eran una
+    // única fila de ~10 enlaces). Para añadir un enlace, basta con
+    // incluirlo en el grupo que corresponda; para un grupo nuevo, añadir
+    // una entrada más a FOOTER_GROUPS.
+    const groupsHtml = FOOTER_GROUPS.map((group, index) => {
+      const selected = index === 0;
+      return `<button type="button" role="tab" class="fio-footer-tab${selected ? ' active' : ''}" id="fio-ftab-${group.id}" aria-controls="fio-fpanel-${group.id}" aria-selected="${selected}" tabindex="${selected ? '0' : '-1'}" data-i18n="${group.key}">${group.label}</button>`;
+    }).join('');
+    const panelsHtml = FOOTER_GROUPS.map((group, index) => {
+      const links = group.links.map(link =>
+        `<a href="${link.href}" data-i18n="${link.key}">${link.label}</a>`
+      ).join('\n        <span aria-hidden="true">·</span>\n        ');
+      return `<div role="tabpanel" class="fio-footer-links" id="fio-fpanel-${group.id}" aria-labelledby="fio-ftab-${group.id}"${index === 0 ? '' : ' hidden'}>
+        ${links}
+      </div>`;
+    }).join('\n      ');
+
     mount.outerHTML = `
   <footer class="fio-footer">
-    <div class="fio-footer-links">
-      <span>Biblioteca de la Fundación Infante de Orleans</span>
-      <span>·</span>
-      <a href="data/catalogo.mrc" data-i18n="footer_export_marc">Exportar catálogo MARC21</a>
-      <span>·</span>
-      <a href="data/catalogo_marcxml.xml" data-i18n="footer_export_marcxml">Exportar MARCXML</a>
-      <span>·</span>
-      <a href="interoperabilidad.html" data-i18n="footer_connect_library">Conecta con la biblioteca</a>
-      <span>·</span>
-      <a href="acceso-copias-digitales.html" data-i18n="footer_access_restricted">Acceso restringido</a>
-      <span>·</span>
-      <a href="colaborar.html" data-i18n="footer_collaborate">Colaborar</a>
-      <span>·</span>
-      <a href="gracias.html" data-i18n="footer_thanks">Gracias</a>
-      <span>·</span>
-      <a href="contacto.html" data-i18n="footer_contact">Contacto</a>
-      <span>·</span>
-      <a href="privacidad.html" data-i18n="footer_privacy">Política de privacidad</a>
+    <p class="fio-footer-org">Biblioteca de la Fundación Infante de Orleans</p>
+    <div class="fio-footer-tabs" role="tablist" aria-label="Enlaces del pie de página" data-i18n-attr="aria-label:footer_tabs_label">${groupsHtml}</div>
+    <div class="fio-footer-panels">
+      ${panelsHtml}
     </div>
     <p class="fio-footer-credits">Creado con ❤️ por Carlos Chevallier Marina e Isaac Hernán Martí</p>
   </footer>`;
+
+    initFooterTabs();
+  }
+
+  // Pestañas accesibles (patrón WAI-ARIA "tabs"): clic, y flechas /
+  // Inicio / Fin para moverse entre pestañas con el teclado.
+  function initFooterTabs() {
+    const tablist = document.querySelector('.fio-footer-tabs');
+    if (!tablist) return;
+    const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+
+    function activate(tab, focus) {
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) panel.hidden = !on;
+      });
+      if (focus) tab.focus();
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => activate(tab, false));
+      tab.addEventListener('keydown', (event) => {
+        let target = null;
+        if (event.key === 'ArrowRight') target = tabs[(i + 1) % tabs.length];
+        else if (event.key === 'ArrowLeft') target = tabs[(i - 1 + tabs.length) % tabs.length];
+        else if (event.key === 'Home') target = tabs[0];
+        else if (event.key === 'End') target = tabs[tabs.length - 1];
+        if (target) {
+          event.preventDefault();
+          activate(target, true);
+        }
+      });
+    });
   }
 
   /**

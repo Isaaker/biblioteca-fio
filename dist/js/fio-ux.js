@@ -2,6 +2,8 @@
   const FIO_THEME_KEY = 'fio-theme-v1';
   const FIO_CONTRAST_KEY = 'fio-contrast-v1';
   const FIO_FAVORITES_KEY = 'fio-favorites-v1';
+  const FIO_HISTORY_KEY = 'fio-search-history-v1';
+  const FIO_HISTORY_MAX = 30;
 
   function fioReadJSON(key, fallback) {
     try {
@@ -451,6 +453,162 @@
     document.addEventListener('fio:favorites-changed', onChange);
   }
 
+  // --- Historial de búsquedas ------------------------------------------------
+  // Se guarda en localStorage (solo en este navegador, nunca se envía a
+  // ningún servidor). Cada entrada es { url, label, ts }, donde `url` es la
+  // búsqueda ya codificada ("buscar.html?q=..."), de modo que repetirla es
+  // simplemente navegar a ella.
+  function fioGetHistory() {
+    const list = fioReadJSON(FIO_HISTORY_KEY, []);
+    return Array.isArray(list) ? list.filter(fioHistoryEntryIsValid) : [];
+  }
+
+  // Solo se admiten URLs internas de búsqueda: el contenido de localStorage
+  // no es de fiar (p. ej. una extensión o un valor manipulado), y nunca
+  // debe poder acabar en un enlace "javascript:" o hacia otro dominio.
+  function fioHistoryEntryIsValid(entry) {
+    return !!entry
+      && typeof entry.url === 'string'
+      && /^(buscar|catalogo)\.html\?[^#\s]*$/.test(entry.url)
+      && typeof entry.label === 'string';
+  }
+
+  function fioRecordSearch(url, label) {
+    if (!fioHistoryEntryIsValid({ url, label })) return;
+    const cleanLabel = label.trim().slice(0, 140);
+    if (!cleanLabel) return;
+    const list = fioGetHistory().filter((e) => e.url !== url);
+    list.unshift({ url, label: cleanLabel, ts: Date.now() });
+    fioWriteJSON(FIO_HISTORY_KEY, list.slice(0, FIO_HISTORY_MAX));
+    document.dispatchEvent(new CustomEvent('fio:history-changed'));
+  }
+
+  function fioRemoveHistoryEntry(url) {
+    fioWriteJSON(FIO_HISTORY_KEY, fioGetHistory().filter((e) => e.url !== url));
+    document.dispatchEvent(new CustomEvent('fio:history-changed'));
+  }
+
+  function fioClearHistory() {
+    fioWriteJSON(FIO_HISTORY_KEY, []);
+    document.dispatchEvent(new CustomEvent('fio:history-changed'));
+  }
+
+  function fioFormatHistoryDate(ts) {
+    const lang = typeof fioCurrentLang === 'function' ? fioCurrentLang() : 'es';
+    try {
+      return new Date(ts).toLocaleString(lang === 'en' ? 'en-GB' : 'es-ES', {
+        day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+      });
+    } catch (err) {
+      return '';
+    }
+  }
+
+  function fioRenderHistoryList(listEl, footerEl) {
+    const t = (key, fallback) => (typeof fioT === 'function' && fioT(key)) || fallback;
+    const items = fioGetHistory();
+
+    listEl.innerHTML = '';
+    footerEl.hidden = items.length === 0;
+
+    if (!items.length) {
+      const empty = document.createElement('p');
+      empty.className = 'fio-favorites-empty';
+      empty.textContent = t('history_empty', 'Todavía no hay búsquedas guardadas.');
+      listEl.appendChild(empty);
+      return;
+    }
+
+    items.forEach((item) => {
+      const row = document.createElement('div');
+      row.className = 'fio-favorites-item fio-history-item';
+
+      const icon = document.createElement('span');
+      icon.className = 'fio-icon fio-history-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      icon.textContent = 'search';
+      row.appendChild(icon);
+
+      const info = document.createElement('div');
+      info.className = 'fio-favorites-info';
+      const title = document.createElement('span');
+      title.className = 'fio-favorites-title';
+      title.textContent = item.label;
+      title.title = item.label;
+      const when = document.createElement('span');
+      when.className = 'fio-favorites-ref';
+      when.textContent = fioFormatHistoryDate(item.ts);
+      info.appendChild(title);
+      info.appendChild(when);
+      row.appendChild(info);
+
+      const actions = document.createElement('div');
+      actions.className = 'fio-favorites-actions';
+
+      const openBtn = document.createElement('a');
+      openBtn.className = 'fio-favorites-icon-btn';
+      openBtn.href = item.url;
+      openBtn.setAttribute('aria-label', t('history_open', 'Repetir búsqueda'));
+      openBtn.title = t('history_open', 'Repetir búsqueda');
+      openBtn.innerHTML = '<span class="fio-icon" aria-hidden="true">arrow_forward</span>';
+      actions.appendChild(openBtn);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'fio-favorites-icon-btn fio-favorites-remove';
+      removeBtn.setAttribute('aria-label', t('history_remove', 'Quitar del historial'));
+      removeBtn.title = t('history_remove', 'Quitar del historial');
+      removeBtn.innerHTML = '<span class="fio-icon" aria-hidden="true">delete</span>';
+      removeBtn.addEventListener('click', () => fioRemoveHistoryEntry(item.url));
+      actions.appendChild(removeBtn);
+
+      row.appendChild(actions);
+      listEl.appendChild(row);
+    });
+  }
+
+  function fioOpenHistoryModal() {
+    if (document.querySelector('.fio-history-modal')) return;
+    const t = (key, fallback) => (typeof fioT === 'function' && fioT(key)) || fallback;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'fio-modal-backdrop fio-favorites-modal fio-history-modal';
+    wrap.innerHTML = `
+      <div class="fio-modal" role="dialog" aria-modal="true" aria-labelledby="fio-history-title">
+        <div class="fio-modal-header">
+          <h3 id="fio-history-title">${t('history_title', 'Historial de búsquedas')}</h3>
+          <button type="button" class="fio-modal-close" aria-label="${t('history_close', 'Cerrar')}">&times;</button>
+        </div>
+        <div class="fio-modal-body">
+          <div class="fio-favorites-list fio-history-list"></div>
+          <div class="fio-history-footer" hidden>
+            <small>${t('history_note', 'Se guarda solo en este navegador.')}</small>
+            <button type="button" class="fio-filter-clear fio-history-clear">${t('history_clear', 'Borrar historial')}</button>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(wrap);
+
+    const listEl = wrap.querySelector('.fio-history-list');
+    const footerEl = wrap.querySelector('.fio-history-footer');
+    const render = () => fioRenderHistoryList(listEl, footerEl);
+    render();
+
+    const close = () => {
+      wrap.remove();
+      document.removeEventListener('keydown', onKeydown);
+      document.removeEventListener('fio:history-changed', render);
+    };
+    const onKeydown = (event) => { if (event.key === 'Escape') close(); };
+
+    wrap.querySelector('.fio-modal-close').addEventListener('click', close);
+    wrap.querySelector('.fio-history-clear').addEventListener('click', fioClearHistory);
+    wrap.addEventListener('click', (event) => { if (event.target === wrap) close(); });
+    document.addEventListener('keydown', onKeydown);
+    document.addEventListener('fio:history-changed', render);
+    wrap.querySelector('.fio-modal-close').focus();
+  }
+
   function fioInjectGlobalUX() {
     const headerRight = document.querySelector('.fio-header-right');
     if (!headerRight) return;
@@ -463,6 +621,9 @@
     }
     if (document.querySelector('.fio-favorites-trigger')) {
       document.querySelector('.fio-favorites-trigger').remove();
+    }
+    if (document.querySelector('.fio-history-trigger')) {
+      document.querySelector('.fio-history-trigger').remove();
     }
 
     if (!document.querySelector('.fio-theme-toggle')) {
@@ -496,6 +657,16 @@
     }
     fioRefreshFavoritesBadge();
 
+    const historyLabel = (typeof fioT === 'function' && fioT('history_trigger')) || 'Historial de búsquedas';
+    const historyBtn = document.createElement('button');
+    historyBtn.type = 'button';
+    historyBtn.className = 'fio-favorites-trigger fio-history-trigger';
+    historyBtn.setAttribute('title', historyLabel);
+    historyBtn.setAttribute('aria-label', historyLabel);
+    historyBtn.innerHTML = '<span class="fio-icon" aria-hidden="true">history</span>';
+    historyBtn.addEventListener('click', fioOpenHistoryModal);
+    headerRight.appendChild(historyBtn);
+
     const currentTheme = localStorage.getItem(FIO_THEME_KEY) === 'dark' ? 'dark' : 'light';
     fioApplyTheme(currentTheme);
 
@@ -517,6 +688,7 @@
         'libro.html': 'Detalle del libro',
         'privacidad.html': 'Privacidad',
         'acceso-copias-digitales.html': 'Acceso restringido',
+        'acceso-administradores.html': 'Acceso de administradores',
         'interoperabilidad.html': 'Interoperabilidad',
         'contacto.html': 'Contacto',
         'linea-tiempo.html': 'Línea del tiempo',
@@ -563,5 +735,7 @@
   window.fioToggleFavorite = fioToggleFavorite;
   window.fioIsFavorite = fioIsFavorite;
   window.fioGetFavorites = fioGetFavorites;
+  window.fioRecordSearch = fioRecordSearch;
+  window.fioGetHistory = fioGetHistory;
   window.fioGetOpenLibrarySynopsis = fioGetOpenLibrarySynopsis;
 })();

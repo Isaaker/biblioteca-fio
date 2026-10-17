@@ -1794,3 +1794,134 @@ body[data-theme="dark"] .fio-thanks-namelist li { color: inherit; }
 .fio-tier-bronce li { font-size: 1.08rem; font-weight: 600; background: linear-gradient(135deg, #f6e0cd, #d29a6a); border-color: #9a5f33; color: #4a2711 !important; }
 .fio-logo-panel { background: #fff; border-radius: 8px; padding: .75rem; margin: 1rem 0 1.5rem; }
 .fio-logo-panel img { display: block; width: 100%; height: auto; }
+
+/* ==========================================================================
+   Pie de página con pestañas
+   ========================================================================== */
+.fio-footer-org {
+  margin: 0 0 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.fio-footer-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.fio-footer-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--fio-white);
+  opacity: 0.75;
+  font: inherit;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.fio-footer-tab:hover { opacity: 1; }
+
+.fio-footer-tab.active {
+  opacity: 1;
+  border-bottom-color: var(--fio-white);
+  font-weight: 700;
+}
+
+.fio-footer-tab:focus-visible {
+  outline: 2px solid var(--fio-white);
+  outline-offset: 2px;
+}
+
+.fio-footer-panels .fio-footer-links[hidden] { display: none; }
+
+/* ==========================================================================
+   Acceso de administradores
+   ========================================================================== */
+.fio-admin-gate {
+  border: 1px solid var(--fio-blue-border);
+  border-radius: var(--radius);
+  background: var(--fio-blue-tint);
+  padding: 28px;
+}
+
+.fio-admin-gate-icon {
+  font-size: 2.2rem;
+  color: var(--fio-blue);
+}
+
+.fio-admin-gate-external {
+  color: var(--fio-muted);
+  font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   Historial de búsquedas
+   ========================================================================== */
+.fio-history-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--fio-blue-tint);
+  color: var(--fio-blue);
+}
+
+.fio-history-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  color: var(--fio-muted);
+}
+
+.fio-history-footer[hidden] { display: none; }
+
+/* ==========================================================================
+   Panel de Groq (búsqueda con IA)
+   ========================================================================== */
+.fio-groq-panel {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid var(--fio-blue-border);
+  border-radius: var(--radius);
+  background-color: var(--fio-blue-tint);
+}
+
+.fio-groq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fio-groq-header h3 { margin: 0; font-size: 1.1rem; }
+
+.fio-groq-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.fio-groq-fields input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--fio-blue-border);
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.fio-groq-status { color: var(--fio-muted); }
+.fio-groq-error { color: #b3261e; }
+body[data-theme="dark"] .fio-groq-error { color: #ff8a80; }
+
+.fio-groq-answer-text {
+  white-space: pre-wrap;
+  padding: 12px;
+  border: 1px solid var(--fio-blue-border);
+  border-radius: 6px;
+  background-color: var(--fio-white);
+}
