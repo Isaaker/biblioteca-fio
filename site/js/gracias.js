@@ -1,6 +1,6 @@
 /**
  * Página de agradecimientos (gracias.html). Todo sale de
- * data/agradecimientos.json (editable a mano, sin build; ver su "_comentario").
+ * data/agradecimientos.json (editable a mano; el build lo copia a site/data/; ver su "_comentario").
  *
  * - Donantes: {nombre, donaciones}. Según "niveles" (oro/plata/bronce/base)
  *   el nombre se muestra más grande y con el color del nivel.

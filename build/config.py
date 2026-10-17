@@ -26,6 +26,15 @@ CATALOG_JSON_PATH = "site/data/catalog.json"
 MARC_BINARY_PATH = "site/data/catalogo.mrc"
 MARC_XML_PATH = "site/data/catalogo_marcxml.xml"
 
+# Ficheros editables a mano que viven en data/ (fuente de verdad) y que
+# el frontend lee desde site/data/. El build los copia tal cual (tras
+# comprobar que son JSON válido), para que editar data/<fichero> basta
+# y no haga falta acordarse de duplicarlo en site/data/.
+# Formato: (origen, destino), ambos relativos a la raíz del repo.
+STATIC_DATA_COPIES = [
+    ("data/agradecimientos.json", "site/data/agradecimientos.json"),
+]
+
 # Un fichero JSON diminuto por libro (site/data/books/<id>.json), con el
 # registro público completo de ESE libro y sus relacionados ya calculados.
 # Existe para que libro.html no tenga que descargar catalog.json entero

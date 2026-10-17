@@ -9,6 +9,7 @@ Lee data/indice_general.xlsx (ver build/config.py) y genera:
   - site/data/catalog.json       catálogo público en JSON, para el frontend
   - site/data/catalogo.mrc       exportación MARC21 binaria (ISO 2709)
   - site/data/catalogo_marcxml.xml  exportación MARCXML
+  - site/data/agradecimientos.json  copia de data/agradecimientos.json
 
 Antes de terminar, comprueba que ningún dato interno (notas, donante,
 signatura, medidas, estado de conservación detallado...) se ha colado en
@@ -18,7 +19,9 @@ continuará con el despliegue (ver .github/workflows/build-and-deploy.yml).
 """
 from __future__ import annotations
 
+import json
 import os
+import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -46,6 +49,21 @@ def _project_root() -> str:
 
 def _abs(root: str, relative_path: str) -> str:
     return os.path.join(root, relative_path)
+
+
+def copy_static_data(root: str) -> None:
+    """Copia a site/data/ los ficheros editables a mano de data/ (ver
+    config.STATIC_DATA_COPIES). Falla con un error claro si falta alguno o
+    no es JSON válido, para no publicar una página rota (p. ej. gracias.html)."""
+    for src_rel, dst_rel in config.STATIC_DATA_COPIES:
+        src, dst = _abs(root, src_rel), _abs(root, dst_rel)
+        if not os.path.isfile(src):
+            raise FileNotFoundError(f"No existe {src_rel}")
+        with open(src, encoding="utf-8") as fh:
+            json.load(fh)  # lanza ValueError si no es JSON válido
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copyfile(src, dst)
+        print(f"  Copiado {src_rel} -> {dst_rel}")
 
 
 def main() -> int:
@@ -111,6 +129,13 @@ def main() -> int:
                 f"::warning::{len(not_found)} referencia(s) de data/digitalizados.json no existen "
                 f"en el Excel (revisar posible error tipográfico): {', '.join(not_found)}"
             )
+
+    print("Copiando ficheros de datos editables a mano...")
+    try:
+        copy_static_data(root)
+    except (OSError, ValueError) as exc:
+        print(f"ERROR al copiar datos estáticos: {exc}", file=sys.stderr)
+        return 1
 
     print("Construyendo registros públicos...")
     public_records = build_catalog(raw_inventory)
