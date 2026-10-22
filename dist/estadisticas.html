@@ -43,8 +43,8 @@
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
-      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
 
@@ -57,12 +57,12 @@
     <p class="fio-book-meta" data-i18n="stats_lead">Cifras generadas automáticamente a partir del catálogo público.</p>
 
     <template x-if="loading">
-      <p class="fio-empty" data-i18n="loading">Cargando estadísticas…</p>
+      <p class="fio-empty" data-i18n="loading_stats">Cargando estadísticas…</p>
     </template>
 
     <template x-if="!loading && error">
       <div class="fio-callout" style="border-color: rgba(191, 95, 95, 0.45); background: rgba(191, 95, 95, 0.06);">
-        <strong>No se pudieron cargar las estadísticas.</strong>
+        <strong data-i18n="stats_load_error">No se pudieron cargar las estadísticas.</strong>
         <p x-text="error" style="margin: 8px 0 0;"></p>
       </div>
     </template>
@@ -90,7 +90,7 @@
 
         <div class="fio-stats-section">
           <h2 data-i18n="stats_by_topic">Libros por tema</h2>
-          <p class="fio-meta" x-text="'Top ' + byTopic.length + ' temas (de ' + totalTopics + ' temas totales)'"></p>
+          <p class="fio-meta" x-text="summaryLabel('topic', byTopic.length, totalTopics)"></p>
           <template x-for="row in byTopic" :key="row.label">
             <div class="fio-bar-row">
               <div class="fio-bar-label" x-text="row.label"></div>
@@ -102,7 +102,7 @@
 
         <div class="fio-stats-section">
           <h2 data-i18n="stats_by_language">Libros por idioma</h2>
-          <p class="fio-meta" x-text="'Top ' + byLanguage.length + ' idiomas (de ' + totalLanguages + ' idiomas totales)'"></p>
+          <p class="fio-meta" x-text="summaryLabel('language', byLanguage.length, totalLanguages)"></p>
           <template x-for="row in byLanguage" :key="row.label">
             <div class="fio-bar-row">
               <div class="fio-bar-label" x-text="row.label"></div>

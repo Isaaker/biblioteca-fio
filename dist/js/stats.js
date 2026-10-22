@@ -8,6 +8,7 @@
 function fioStats() {
   return {
     loading: true,
+      lang: fioCurrentLang(),
     error: '',
     total: 0,
     totalTopics: 0,
@@ -24,6 +25,9 @@ function fioStats() {
     avgPages: 0,
 
     async init() {
+      document.addEventListener('fio-lang-changed', (event) => {
+        if (event.detail && event.detail.lang) this.lang = event.detail.lang;
+      });
       try {
         const payload = await window.fioFetchCatalog?.();
         if (!payload || !Array.isArray(payload.records)) {
@@ -61,7 +65,7 @@ function fioStats() {
           ? Math.round(withPages.reduce((sum, b) => sum + b.num_pages, 0) / withPages.length)
           : 0;
       } catch (err) {
-        this.error = err && err.message ? err.message : 'No se pudo cargar el catálogo.';
+        this.error = err && err.message ? err.message : fioT('load_error');
         console.error(err);
       } finally {
         this.loading = false;
@@ -105,6 +109,11 @@ function fioStats() {
     barWidth(count, list) {
       const max = Math.max(...list.map(x => x.count), 1);
       return Math.round((count / max) * 100) + '%';
+    },
+
+    summaryLabel(kind, count, total) {
+      const key = kind === 'topic' ? 'stats_top_topics' : 'stats_top_languages';
+      return this.lang && fioT(key).replace('{count}', count).replace('{total}', total);
     },
 
     get digitizedPercent() {

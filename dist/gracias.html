@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="thanks_title">Gracias — Biblioteca FIO</title>
+  <title data-i18n="thanks_title">Agradecimientos — Biblioteca FIO</title>
   <meta name="description" content="Gracias a todas las personas que han donado libros o colaborado como voluntarias en la Biblioteca de la Fundación Infante de Orleans.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Biblioteca — Fundación Infante de Orleans">
@@ -43,8 +43,8 @@
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
-      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
 
@@ -84,7 +84,7 @@
     </section>
 
     <section class="fio-thanks-names" aria-labelledby="volunteers-heading">
-      <h2 id="volunteers-heading" data-i18n="thanks_volunteers_title">Voluntarios</h2>
+      <h2 id="volunteers-heading" data-i18n="thanks_volunteers_title">Voluntariado</h2>
       <p class="fio-book-meta" data-i18n="thanks_volunteers_lead">Personas que han dedicado su tiempo a mantener y hacer crecer la biblioteca.</p>
       <ul class="fio-thanks-namelist">
         <template x-for="(item, index) in voluntarios" :key="index">

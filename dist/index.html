@@ -46,6 +46,23 @@
     "name": "Biblioteca — Fundación Infante de Orleans",
     "url": "https://biblioteca.fio.es/",
     "description": "Catálogo público de la biblioteca de la Fundación Infante de Orleans, especializada en aviación e historia aeronáutica.",
+    "inLanguage": ["es", "en"],
+    "isAccessibleForFree": true,
+    "parentOrganization": {
+      "@type": "NonprofitOrganization",
+      "name": "Fundación Infante de Orleans",
+      "url": "https://fio.es/"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Colecciones de la biblioteca",
+      "itemListElement": [
+        { "@type": "OfferCatalog", "name": "Biblioteca" },
+        { "@type": "OfferCatalog", "name": "Hemeroteca" },
+        { "@type": "OfferCatalog", "name": "Videoteca" },
+        { "@type": "OfferCatalog", "name": "Archivo fotográfico Francisco Andreu" }
+      ]
+    },
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Carretera de la Fortuna, 14, Edificio Real Aeroclub",
@@ -60,8 +77,8 @@
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logo Fundación Infante de Orleans" class="fio-splash-logo">
-      <p class="fio-splash-copyright">Fundación Infante de Orleans © 2026<br>All rights reserved</p>
+      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
 
@@ -79,6 +96,11 @@
         <a href="buscar.html" class="fio-btn fio-btn-outline" data-i18n="hero_cta_search">Buscar un libro</a>
       </div>
     </div>
+
+    <section class="fio-about" aria-labelledby="about-heading">
+      <h2 id="about-heading" data-i18n="about_title">Sobre nosotros</h2>
+      <p data-i18n="about_body">La Biblioteca de la Fundación Infante de Orleans es la mayor biblioteca aeronáutica civil de nuestro país. Cuenta con una amplia colección que incluye más de 3.500 libros, una hemeroteca, una videoteca y el archivo fotográfico «Francisco Andreu». La biblioteca es de acceso público y gratuito, y está financiada de forma privada por la Fundación Infante de Orleans.</p>
+    </section>
 
     <div class="fio-stats-grid">
       <div class="fio-stat">

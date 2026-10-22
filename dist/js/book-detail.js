@@ -17,6 +17,7 @@
 function fioBookDetail() {
   return {
     loading: true,
+      lang: fioCurrentLang(),
     notFound: false,
     book: null,
     relatedBooks: [],
@@ -27,6 +28,9 @@ function fioBookDetail() {
     synopsisLoading: false,
 
     async init() {
+      document.addEventListener('fio-lang-changed', (event) => {
+        if (event.detail && event.detail.lang) this.lang = event.detail.lang;
+      });
       try {
         const params = new URLSearchParams(window.location.search);
         const idParam = params.get('id');
@@ -67,6 +71,10 @@ function fioBookDetail() {
         this.notFound = true;
         this.loading = false;
       }
+    },
+
+    favoriteLabel() {
+      return this.lang && fioT(this.isFavorite() ? 'favorite_in_list' : 'favorite_add');
     },
 
     // Valida `id` y devuelve un entero positivo NUEVO (no la cadena
@@ -219,13 +227,13 @@ function fioBookDetail() {
       if (!this.book) return;
       const text = this.bookCitation();
       if (!navigator.clipboard) {
-        window.prompt('Cita bibliográfica:', text);
+        window.prompt(fioT('citation_prompt'), text);
         return;
       }
       navigator.clipboard.writeText(text).then(() => {
-        fioShowToast('Cita copiada');
+        fioShowToast(fioT('citation_copied'));
       }).catch(() => {
-        window.prompt('Cita bibliográfica:', text);
+        window.prompt(fioT('citation_prompt'), text);
       });
     },
 
@@ -233,7 +241,7 @@ function fioBookDetail() {
       if (!this.book) return;
       const count = window.fioToggleFavorite ? window.fioToggleFavorite(this.book) : 0;
       this.favoritesEnabled = !!count;
-      fioShowToast(count ? 'Añadido a favoritos' : 'Eliminado de favoritos');
+      fioShowToast(fioT(count ? 'favorite_added' : 'favorite_removed'));
     },
 
     isFavorite() {
@@ -243,8 +251,8 @@ function fioBookDetail() {
 
     copyShareLink() {
       if (!this.shareUrl) return;
-      navigator.clipboard.writeText(this.shareUrl).then(() => fioShowToast('Enlace copiado')).catch(() => {
-        window.prompt('Enlace a la ficha:', this.shareUrl);
+      navigator.clipboard.writeText(this.shareUrl).then(() => fioShowToast(fioT('link_copied'))).catch(() => {
+        window.prompt(fioT('share_link_prompt'), this.shareUrl);
       });
     }
   };

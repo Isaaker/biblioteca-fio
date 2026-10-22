@@ -18,28 +18,19 @@ function fioDonation() {
     comments: '',
 
     mailtoHref() {
-      const lines = [];
-      lines.push(`Nombre: ${this.name.trim()}`);
-      lines.push(`Correo de contacto: ${this.email.trim()}`);
-      if (this.memberNumber.trim()) lines.push(`Número de socio: ${this.memberNumber.trim()}`);
-      if (this.quantity.trim()) lines.push(`Cantidad aproximada de libros: ${this.quantity.trim()}`);
-      lines.push('');
-      lines.push('Títulos / autores / descripción de las obras:');
-      lines.push(this.items.trim() || '(sin especificar)');
-      if (this.comments.trim()) {
-        lines.push('');
-        lines.push('Comentarios adicionales:');
-        lines.push(this.comments.trim());
-      }
-      lines.push('');
-      lines.push(
-        this.digitalCopyInterest
-          ? 'Sí, me interesa recibir copia digital si la obra donada es elegible.'
-          : 'No me interesa recibir copia digital.'
-      );
+      const t = (key) => window.fioT ? window.fioT(key) : key;
+      const lines = [
+        `${t('donation_mail_name')}: ${this.name.trim()}`,
+        `${t('donation_mail_email')}: ${this.email.trim()}`,
+      ];
+      if (this.memberNumber.trim()) lines.push(`${t('donation_mail_member')}: ${this.memberNumber.trim()}`);
+      if (this.quantity.trim()) lines.push(`${t('donation_mail_quantity')}: ${this.quantity.trim()}`);
+      lines.push('', `${t('donation_mail_items')}:`, this.items.trim() || t('donation_mail_unspecified'));
+      if (this.comments.trim()) lines.push('', `${t('donation_mail_comments')}:`, this.comments.trim());
+      lines.push('', t(this.digitalCopyInterest ? 'donation_mail_digital_yes' : 'donation_mail_digital_no'));
 
       const params = new URLSearchParams();
-      params.set('subject', '[DONACION DE LIBROS]');
+      params.set('subject', t('donation_mail_subject'));
       params.set('body', lines.join('\n'));
       return `mailto:${this.recipient}?${params.toString().replace(/\+/g, '%20')}`;
     },

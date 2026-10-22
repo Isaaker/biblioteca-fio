@@ -94,19 +94,19 @@
     mount.outerHTML = `
   <header class="fio-header">
     <div class="fio-header-inner">
-      <img src="assets/img/logo.png" alt="Logotipo FIO">
+      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt">
       <div>
         <h1 data-i18n="site_title">Biblioteca — Fundación Infante de Orleans</h1>
         <p data-i18n="site_tagline">Catálogo público de la biblioteca</p>
       </div>
-      <button type="button" class="fio-nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <button type="button" class="fio-nav-toggle" aria-label="Abrir menú" data-i18n-attr="aria-label:nav_menu_open" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <div class="fio-header-right">
-        <nav class="fio-nav" aria-label="Navegación principal">
+        <nav class="fio-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav_main_label">
           ${navHtml}
         </nav>
-        <select class="fio-lang-switch" aria-label="Idioma / Language">
+        <select class="fio-lang-switch" aria-label="Idioma / Language" data-i18n-attr="aria-label:language_label">
           <option value="es">Español</option>
           <option value="en">English</option>
         </select>
@@ -125,6 +125,7 @@
       toggle.addEventListener('click', () => {
         const isOpen = headerRight.classList.toggle('open');
         toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        toggle.setAttribute('aria-label', window.fioT ? window.fioT(isOpen ? 'nav_menu_close' : 'nav_menu_open') : (isOpen ? 'Cerrar menú' : 'Abrir menú'));
       });
       // Al navegar a otra página (o volver a pulsar un enlace del
       // propio menú) se cierra solo, para no dejarlo abierto de fondo.

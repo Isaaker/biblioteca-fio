@@ -67,7 +67,7 @@ function fioPlaceholderCoverSvg(title) {
 
   return `<svg viewBox="0 0 ${width} ${height}" width="100%" height="100%" ` +
     `preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" ` +
-    `role="img" aria-label="Portada no disponible: ${escaped}">` +
+    `role="img" aria-label="${window.fioT ? window.fioT('cover_unavailable') : 'Portada no disponible'}: ${escaped}">` +
     `<rect width="${width}" height="${height}" rx="8" fill="${bg}"/>` +
     `<rect width="${spine}" height="${height}" fill="${accent}"/>` +
     `<text x="${width / 2 + spine / 2}" y="${height / 2}" ` +
