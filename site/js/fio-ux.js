@@ -92,9 +92,12 @@
     const toggle = document.querySelector('.fio-theme-toggle');
     if (toggle) {
       toggle.setAttribute('aria-pressed', String(next === 'dark'));
+      const label = fioT(next === 'dark' ? 'theme_switch_light' : 'theme_switch_dark');
+      toggle.setAttribute('aria-label', label);
+      toggle.setAttribute('title', label);
       toggle.innerHTML = next === 'dark'
-        ? fioIcon('light_mode', 'Claro')
-        : fioIcon('dark_mode', 'Oscuro');
+        ? fioIcon('light_mode', fioT('theme_light'))
+        : fioIcon('dark_mode', fioT('theme_dark'));
     }
   }
 
@@ -110,7 +113,10 @@
     const toggle = document.querySelector('.fio-contrast-toggle');
     if (toggle) {
       toggle.setAttribute('aria-pressed', String(next === 'on'));
-      toggle.innerHTML = fioIcon('contrast', next === 'on' ? 'Contraste: ON' : 'Alto contraste');
+      const label = fioT(next === 'on' ? 'contrast_on' : 'contrast_off');
+      toggle.setAttribute('aria-label', label);
+      toggle.setAttribute('title', label);
+      toggle.innerHTML = fioIcon('contrast', label);
     }
   }
 
@@ -121,10 +127,10 @@
 
   function fioBuildCitation(book, style) {
     if (!book) return '';
-    const title = book.title || 'Sin título';
-    const author = book.author || 'Autor desconocido';
+    const title = book.title || window.fioT('untitled_book');
+    const author = book.author || window.fioT('unknown_author');
     const year = book.publication_year || 's.f.';
-    const publisher = book.publisher || 'Editorial no indicada';
+    const publisher = book.publisher || window.fioT('publisher_missing');
 
     if (style === 'chicago') {
       return `${author}. ${title}. ${publisher}, ${year}.`;
@@ -630,8 +636,8 @@
       const themeBtn = document.createElement('button');
       themeBtn.type = 'button';
       themeBtn.className = 'fio-theme-toggle';
-      themeBtn.setAttribute('aria-label', 'Cambiar tema');
-      themeBtn.setAttribute('title', 'Cambiar tema');
+      themeBtn.setAttribute('aria-label', fioT('theme_switch_dark'));
+      themeBtn.setAttribute('title', fioT('theme_switch_dark'));
       themeBtn.addEventListener('click', fioToggleTheme);
       headerRight.appendChild(themeBtn);
     }
@@ -640,8 +646,8 @@
       const contrastBtn = document.createElement('button');
       contrastBtn.type = 'button';
       contrastBtn.className = 'fio-theme-toggle fio-contrast-toggle';
-      contrastBtn.setAttribute('aria-label', 'Alto contraste');
-      contrastBtn.setAttribute('title', 'Alto contraste');
+      contrastBtn.setAttribute('aria-label', fioT('contrast_off'));
+      contrastBtn.setAttribute('title', fioT('contrast_off'));
       contrastBtn.addEventListener('click', fioToggleContrast);
       headerRight.appendChild(contrastBtn);
     }
@@ -650,8 +656,9 @@
       const favBtn = document.createElement('button');
       favBtn.type = 'button';
       favBtn.className = 'fio-favorites-trigger';
-      favBtn.setAttribute('title', 'Mis favoritos');
-      favBtn.innerHTML = fioIcon('star', 'Favoritos') + '<span class="fio-favorites-count" hidden></span>';
+      favBtn.setAttribute('title', fioT('favorites_trigger'));
+      favBtn.setAttribute('aria-label', fioT('favorites_trigger'));
+      favBtn.innerHTML = fioIcon('star', fioT('favorites_short')) + '<span class="fio-favorites-count" hidden></span>';
       favBtn.addEventListener('click', fioOpenFavoritesModal);
       headerRight.appendChild(favBtn);
     }
@@ -667,6 +674,25 @@
     historyBtn.addEventListener('click', fioOpenHistoryModal);
     headerRight.appendChild(historyBtn);
 
+    document.addEventListener('fio-lang-changed', () => {
+      const theme = document.body.dataset.theme === 'dark' ? 'dark' : 'light';
+      const contrast = document.body.dataset.contrast === 'on' ? 'on' : 'off';
+      fioApplyTheme(theme);
+      fioApplyContrast(contrast);
+      const favorites = document.querySelector('.fio-favorites-trigger');
+      if (favorites) {
+        favorites.setAttribute('title', fioT('favorites_trigger'));
+        favorites.setAttribute('aria-label', fioT('favorites_trigger'));
+        favorites.querySelector('.fio-icon-label').textContent = fioT('favorites_short');
+      }
+      const history = document.querySelector('.fio-history-trigger');
+      if (history) {
+        const label = fioT('history_trigger');
+        history.setAttribute('title', label);
+        history.setAttribute('aria-label', label);
+      }
+    });
+
     const currentTheme = localStorage.getItem(FIO_THEME_KEY) === 'dark' ? 'dark' : 'light';
     fioApplyTheme(currentTheme);
 
@@ -679,24 +705,35 @@
       crumbs.className = 'fio-breadcrumbs';
       const pathname = window.location.pathname.split('/').filter(Boolean).pop() || 'index.html';
       const map = {
-        'index.html': 'Inicio',
-        'catalogo.html': 'Catálogo',
-        'buscar.html': 'Buscar',
-        'escanear.html': 'Escanear',
-        'estadisticas.html': 'Estadísticas',
-        'eventos.html': 'Eventos',
-        'libro.html': 'Detalle del libro',
-        'privacidad.html': 'Privacidad',
-        'acceso-copias-digitales.html': 'Acceso restringido',
-        'acceso-administradores.html': 'Acceso de administradores',
-        'interoperabilidad.html': 'Interoperabilidad',
-        'contacto.html': 'Contacto',
-        'linea-tiempo.html': 'Línea del tiempo',
-        'gracias.html': 'Colabora',
-        'donaciones.html': 'Donar libros',
+        'index.html': 'nav_home',
+        'catalogo.html': 'nav_catalog',
+        'buscar.html': 'nav_search',
+        'escanear.html': 'nav_scan',
+        'estadisticas.html': 'nav_stats',
+        'eventos.html': 'nav_events',
+        'libro.html': 'book_details_title',
+        'privacidad.html': 'privacy_title',
+        'acceso-copias-digitales.html': 'access_restricted_title',
+        'acceso-administradores.html': 'admin_access_title',
+        'interoperabilidad.html': 'interoperability_title',
+        'contacto.html': 'contact_title',
+        'linea-tiempo.html': 'timeline_title',
+        'gracias.html': 'thanks_title',
+        'donaciones.html': 'donation_title',
       };
-      crumbs.innerHTML = `<a href="index.html">Inicio</a> / <span>${map[pathname] || 'Página'}</span>`;
+      crumbs.setAttribute('aria-label', window.fioT('breadcrumbs_label'));
+      const home = document.createElement('a');
+      home.href = 'index.html';
+      home.textContent = window.fioT('breadcrumbs_home');
+      const currentPage = document.createElement('span');
+      currentPage.textContent = window.fioT(map[pathname]) || window.fioT('breadcrumbs_page');
+      crumbs.append(home, document.createTextNode(' / '), currentPage);
       main.insertBefore(crumbs, main.firstChild);
+      document.addEventListener('fio-lang-changed', () => {
+        home.textContent = window.fioT('breadcrumbs_home');
+        currentPage.textContent = window.fioT(map[pathname]) || window.fioT('breadcrumbs_page');
+        crumbs.setAttribute('aria-label', window.fioT('breadcrumbs_label'));
+      });
     }
   }
 

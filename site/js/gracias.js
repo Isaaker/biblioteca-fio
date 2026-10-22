@@ -40,6 +40,8 @@ function fioGracias() {
     voluntarios: [],
     hayDonantes: false,
     hayVoluntarios: false,
+    donantes: [],
+    niveles: FIO_NIVELES_DEFECTO,
 
     construirGrupos(donantes, niveles) {
       const ordenados = niveles.slice().sort((a, b) => b.minimo - a.minimo);
@@ -63,12 +65,16 @@ function fioGracias() {
     },
 
     async init() {
+      document.addEventListener('fio-lang-changed', () => {
+        this.grupos = this.construirGrupos(this.donantes, this.niveles);
+      });
       try {
         const res = await fetch('data/agradecimientos.json');
         if (!res.ok) throw new Error('No se pudo cargar agradecimientos.json');
         const data = await res.json();
-        const niveles = Array.isArray(data.niveles) && data.niveles.length ? data.niveles : FIO_NIVELES_DEFECTO;
-        this.grupos = this.construirGrupos(Array.isArray(data.donantes) ? data.donantes : [], niveles);
+        this.niveles = Array.isArray(data.niveles) && data.niveles.length ? data.niveles : FIO_NIVELES_DEFECTO;
+        this.donantes = Array.isArray(data.donantes) ? data.donantes : [];
+        this.grupos = this.construirGrupos(this.donantes, this.niveles);
         this.voluntarios = fioShuffle(
           (Array.isArray(data.voluntarios) ? data.voluntarios : [])
             .map(v => (typeof v === 'string' ? v : v && v.nombre))
