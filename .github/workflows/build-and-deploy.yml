@@ -23,8 +23,38 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 jobs:
+  semgrep:
+      runs-on: ubuntu-latest
+      container:
+        image: semgrep/semgrep
+      steps:
+        - name: Descargar el repositorio
+          uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+  
+        - name: Ejecutar Semgrep
+          # "auto" descarga un conjunto de reglas ajustado automáticamente
+          # al contenido del repo (Python, JavaScript...); no requiere
+          # login ni token de Semgrep para uso público/gratuito. --error
+          # hace que el workflow falle (en rojo) si encuentra algún
+          # hallazgo, para que sea imposible pasarlo por alto.
+          run: semgrep scan --config auto --error
+
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio (con todo el historial)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+
+      - name: Ejecutar Gitleaks
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
   build:
     runs-on: ubuntu-latest
+    needs: [semgrep, gitleaks]
     steps:
       - name: Descargar el repositorio
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
