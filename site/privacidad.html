@@ -27,17 +27,21 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
-  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -- canonical URL, not a fetched subresource -->
+  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity: canonical URL, not a fetched subresource -->
   <link rel="canonical" href="https://biblioteca.fio.es/privacidad.html">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
 </head>
 <body data-no-analytics="true">
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -49,48 +53,51 @@
   <main id="main-content">
     <h1 data-i18n="privacy_title">Política de privacidad</h1>
 
-    <p class="lang-es">Esta web es un catálogo público de consulta, sin cuentas de usuario, sin
+    <p class="lang-es" lang="es">Esta web es un catálogo público de consulta, sin cuentas de usuario, sin
       préstamo online y sin ningún servidor propio que procese tus
       datos: es un conjunto de ficheros estáticos (HTML, CSS,
       JavaScript y un catálogo en JSON) servidos por GitHub Pages.</p>
-    <p class="lang-en">This website is a public read-only catalogue, with no user accounts,
+    <p class="lang-en" lang="en">This website is a public read-only catalogue, with no user accounts,
       no online lending, and no server of our own processing your
       data: it's a set of static files (HTML, CSS, JavaScript and a
       JSON catalogue) served by GitHub Pages.</p>
 
-    <h2><span class="lang-es">Qué se guarda en tu dispositivo</span><span class="lang-en">What is stored on your device</span></h2>
-    <p class="lang-es">Únicamente en tu propio navegador (nunca se envía a ningún
+    <h2><span class="lang-es" lang="es">Qué se guarda en tu dispositivo</span><span class="lang-en" lang="en">What is stored on your device</span></h2>
+    <p class="lang-es" lang="es">Únicamente en tu propio navegador (nunca se envía a ningún
       servidor nuestro), mediante <code>localStorage</code>:</p>
-    <p class="lang-en">Only in your own browser (never sent to any server of ours), via
+    <p class="lang-en" lang="en">Only in your own browser (never sent to any server of ours), via
       <code>localStorage</code>:</p>
     <ul>
-      <li><span class="lang-es">El idioma que elijas (español/inglés), para no tener que
-        volver a elegirlo en cada visita.</span><span class="lang-en">Your chosen language (Spanish/English), so you don't have to
+      <li><span class="lang-es" lang="es">El idioma que elijas (español/inglés), para no tener que
+        volver a elegirlo en cada visita.</span><span class="lang-en" lang="en">Your chosen language (Spanish/English), so you don't have to
         pick it again on every visit.</span></li>
-      <li><span class="lang-es">La decisión que tomes sobre Analytics (aceptar o rechazarlo), para respetarla en visitas posteriores.</span><span class="lang-en">Your Analytics choice (accept or reject), so it is respected on later visits.</span></li>
-      <li><span class="lang-es">Si usas el buscador o el catálogo, las portadas de libros ya
-        consultadas (para no volver a pedirlas cada vez).</span><span class="lang-en">If you use the search or catalogue pages, the book covers
+      <li><span class="lang-es" lang="es">La decisión que tomes sobre Analytics (aceptar o rechazarlo), para respetarla en visitas posteriores.</span><span class="lang-en" lang="en">Your Analytics choice (accept or reject), so it is respected on later visits.</span></li>
+      <li><span class="lang-es" lang="es">Si usas el buscador o el catálogo, las portadas de libros ya
+        consultadas (para no volver a pedirlas cada vez).</span><span class="lang-en" lang="en">If you use the search or catalogue pages, the book covers
         already looked up (so they aren't requested again each
         time).</span></li>
     </ul>
-    <p class="lang-es">Puedes borrar todo esto en cualquier momento desde los ajustes de
+    <p class="lang-es" lang="es">Puedes borrar todo esto en cualquier momento desde los ajustes de
       privacidad de tu propio navegador ("borrar datos de navegación
       de este sitio").</p>
-    <p class="lang-en">You can clear all of this at any time from your own browser's
+    <p class="lang-en" lang="en">You can clear all of this at any time from your own browser's
       privacy settings ("clear browsing data for this site").</p>
 
-    <h2><span class="lang-es">Servicios externos que sí reciben peticiones</span><span class="lang-en">External services that do receive requests</span></h2>
-    <p class="lang-es">Para que la web funcione, tu navegador —directamente, sin pasar por
+    <h2><span class="lang-es" lang="es">Servicios externos que sí reciben peticiones</span><span class="lang-en" lang="en">External services that do receive requests</span></h2>
+    <p class="lang-es" lang="es">Para que la web funcione, tu navegador —directamente, sin pasar por
       ningún servidor nuestro— hace peticiones a los siguientes proveedores.
       Cada uno enlaza a su propia política de privacidad, donde
       encontrarás más detalle del que podemos darte aquí:</p>
-    <p class="lang-en">For the site to work, your browser —directly, without going
+    <p class="lang-en" lang="en">For the site to work, your browser —directly, without going
       through any server of ours— makes requests to the following
       providers. Each one links to its own privacy policy, where you'll
       find more detail than we can give here:</p>
     <ul>
-      <li><b>GitHub Pages</b> (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) —
-        <span class="lang-es">es el proveedor de hosting que sirve esta web (GitHub
+      <li><b>W3C</b> (<a href="https://www.w3.org/Consortium/Legal/privacy-statement-20000612" rel="noopener"><span class="lang-es" lang="es">política de privacidad</span><span class="lang-en" lang="en">privacy policy</span></a>)
+        <span class="lang-es" lang="es">sirve la imagen del distintivo de accesibilidad del pie de página. Tu navegador la pide directamente a w3.org, que puede registrar tu dirección IP como cualquier servidor web.</span>
+        <span class="lang-en" lang="en">serves the accessibility badge image in the footer. Your browser requests it directly from w3.org, which may log your IP address like any web server.</span></li>
+      <li><b>GitHub Pages</b> (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener"><span class="lang-es" lang="es">política de privacidad</span><span class="lang-en" lang="en">privacy policy</span></a>) —
+        <span class="lang-es" lang="es">es el proveedor de hosting que sirve esta web (GitHub
         Pages, de GitHub/Microsoft). Al conectarte, GitHub procesa técnicamente tu
         petición (como haría cualquier proveedor de hosting) y puede
         registrar datos como tu dirección IP, el navegador que usas y
@@ -99,7 +106,7 @@
         propio servicio de hosting. Nosotros no tenemos acceso a esos
         registros ni los usamos con fines distintos a mantener la web
         funcionando; los gestiona GitHub como responsable de ese
-        tratamiento.</span><span class="lang-en">is the hosting provider serving this website (GitHub
+        tratamiento.</span><span class="lang-en" lang="en">is the hosting provider serving this website (GitHub
         Pages, run by GitHub/Microsoft). When you connect, GitHub technically processes
         your request (as any hosting provider would) and may log data
         such as your IP address, browser, and the page requested, for
@@ -108,27 +115,27 @@
         access to those logs and don't use them for anything beyond
         keeping the site running; GitHub manages that processing
         as the responsible party.</span></li>
-      <li><b>jsDelivr</b> (<a href="https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-com" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) —
-        <span class="lang-es">CDN usado para cargar las librerías de código Alpine.js y, si
-        usas el escáner de etiquetas, Tesseract.js.</span><span class="lang-en">CDN used to load the Alpine.js code library and, if you use
+      <li><b>jsDelivr</b> (<a href="https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-com" rel="noopener"><span class="lang-es" lang="es">política de privacidad</span><span class="lang-en" lang="en">privacy policy</span></a>) —
+        <span class="lang-es" lang="es">CDN usado para cargar las librerías de código Alpine.js y, si
+        usas el escáner de etiquetas, Tesseract.js.</span><span class="lang-en" lang="en">CDN used to load the Alpine.js code library and, if you use
         the label scanner, Tesseract.js.</span></li>
-      <li><b>Google Fonts</b> (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) —
-        <span class="lang-es">para cargar la tipografía del sitio.</span><span class="lang-en">to load the site's typeface.</span></li>
-      <li><b>Google Analytics</b> (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) —
-        <span class="lang-es">solo se carga si lo aceptas en el aviso de privacidad. Mide páginas consultadas y datos técnicos de navegación para elaborar estadísticas agregadas. Se configura con anonimización de IP y puedes retirar el consentimiento borrando los datos de este sitio.</span><span class="lang-en">is loaded only if you accept it in the privacy notice. It measures visited pages and technical browsing data to produce aggregate statistics. IP anonymisation is enabled, and you can withdraw consent by clearing this site's data.</span></li>
-      <li><b>Open Library</b> (<a href="https://openlibrary.org/dev/docs/api/covers" target="_blank" rel="noopener">Internet Archive</a>) <span class="lang-es">y</span> <b>Google Books</b> (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) — <span class="lang-es">para mostrar la portada de cada libro cuando existe (se
+      <li><b>Google Fonts</b> (<a href="https://policies.google.com/privacy" rel="noopener"><span class="lang-es" lang="es">política de privacidad</span><span class="lang-en" lang="en">privacy policy</span></a>) —
+        <span class="lang-es" lang="es">para cargar la tipografía del sitio.</span><span class="lang-en" lang="en">to load the site's typeface.</span></li>
+      <li><b>Google Analytics</b> (<a href="https://policies.google.com/privacy" rel="noopener"><span class="lang-es" lang="es">política de privacidad</span><span class="lang-en" lang="en">privacy policy</span></a>) —
+        <span class="lang-es" lang="es">solo se carga si lo aceptas en el aviso de privacidad. Mide páginas consultadas y datos técnicos de navegación para elaborar estadísticas agregadas. Se configura con anonimización de IP y puedes retirar el consentimiento borrando los datos de este sitio.</span><span class="lang-en" lang="en">is loaded only if you accept it in the privacy notice. It measures visited pages and technical browsing data to produce aggregate statistics. IP anonymisation is enabled, and you can withdraw consent by clearing this site's data.</span></li>
+      <li><b>Open Library</b> (<a href="https://openlibrary.org/dev/docs/api/covers" rel="noopener">Internet Archive</a>) <span class="lang-es" lang="es">y</span> <b>Google Books</b> (<a href="https://policies.google.com/privacy" rel="noopener"><span class="lang-es" lang="es">política de privacidad</span><span class="lang-en" lang="en">privacy policy</span></a>) — <span class="lang-es" lang="es">para mostrar la portada de cada libro cuando existe (se
         consulta por ISBN o por título/autor). Ninguno de los dos
         recibe datos personales tuyos: solo el título o ISBN del
-        libro que se está mostrando.</span><span class="lang-en">to display each book's cover when available (looked up by
+        libro que se está mostrando.</span><span class="lang-en" lang="en">to display each book's cover when available (looked up by
         ISBN or by title/author). Neither service receives any
         personal data of yours: only the title or ISBN of the book
         being shown.</span></li>
-      <li><b>Mailvelope</b> (<a href="https://www.mailvelope.com/en/privacy-policy" target="_blank" rel="noopener"><span class="lang-es">política de privacidad</span><span class="lang-en">privacy policy</span></a>) —
-        <span class="lang-es">se consulta si abres el enlace de la clave pública PGP desde la página de contacto.</span><span class="lang-en">is contacted if you open the public PGP key link from the contact page.</span></li>
+      <li><b>Mailvelope</b> (<a href="https://www.mailvelope.com/en/privacy-policy" rel="noopener"><span class="lang-es" lang="es">política de privacidad</span><span class="lang-en" lang="en">privacy policy</span></a>) —
+        <span class="lang-es" lang="es">se consulta si abres el enlace de la clave pública PGP desde la página de contacto.</span><span class="lang-en" lang="en">is contacted if you open the public PGP key link from the contact page.</span></li>
     </ul>
 
-    <h2><span class="lang-es">El escáner de la cámara</span><span class="lang-en">The camera scanner</span></h2>
-    <p class="lang-es">Si usas la página "Escanear", la imagen de la cámara se procesa
+    <h2><span class="lang-es" lang="es">El escáner de la cámara</span><span class="lang-en" lang="en">The camera scanner</span></h2>
+    <p class="lang-es" lang="es">Si usas la página "Escanear", la imagen de la cámara se procesa
       enteramente en tu propio dispositivo (nunca se sube a ningún
       servidor): la lectura de códigos de barras usa una función del
       propio navegador, y el reconocimiento de las etiquetas de
@@ -136,7 +143,7 @@
       tu navegador tras descargarse desde jsDelivr. Puedes revocar el
       permiso de cámara en cualquier momento desde los ajustes de tu
       navegador.</p>
-    <p class="lang-en">If you use the "Scan" page, the camera image is processed
+    <p class="lang-en" lang="en">If you use the "Scan" page, the camera image is processed
       entirely on your own device (never uploaded to any server): the
       barcode reader uses a built-in browser function, and the
       reference-label recognition uses Tesseract.js, which also runs
@@ -144,28 +151,28 @@
       You can revoke camera permission at any time from your
       browser's settings.</p>
 
-    <h2><span class="lang-es">Cookies</span><span class="lang-en">Cookies</span></h2>
-    <p class="lang-es">Este sitio no usa cookies propias de analítica, pero Google Analytics puede establecer cookies y tecnologías similares si aceptas el consentimiento. Sin consentimiento, Analytics no se carga. La preferencia se guarda en <code>localStorage</code>; puedes cambiarla borrando los datos de este sitio.</p>
-    <p class="lang-en">This site does not set its own analytics cookies, but Google Analytics may set cookies and similar technologies if you accept consent. Without consent, Analytics is not loaded. Your choice is stored in <code>localStorage</code>; you can change it by clearing this site's data.</p>
+    <h2><span class="lang-es" lang="es">Cookies</span><span class="lang-en" lang="en">Cookies</span></h2>
+    <p class="lang-es" lang="es">Este sitio no usa cookies propias de analítica, pero Google Analytics puede establecer cookies y tecnologías similares si aceptas el consentimiento. Sin consentimiento, Analytics no se carga. La preferencia se guarda en <code>localStorage</code>; puedes cambiarla borrando los datos de este sitio.</p>
+    <p class="lang-en" lang="en">This site does not set its own analytics cookies, but Google Analytics may set cookies and similar technologies if you accept consent. Without consent, Analytics is not loaded. Your choice is stored in <code>localStorage</code>; you can change it by clearing this site's data.</p>
 
-    <h2><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></h2>
-    <p class="lang-es">Para cualquier duda sobre esta política, escribe a
-      <a href="mailto:fioteca@fio.es">fioteca@fio.es</a>. También puedes usar
+    <h2><span class="lang-es" lang="es">Contacto</span><span class="lang-en" lang="en">Contact</span></h2>
+    <p class="lang-es" lang="es">Para cualquier duda sobre esta política, escribe a
+      <a href="contacto.html" class="fio-email" data-user="fioteca" data-domain="fio.es">fioteca [arroba] fio.es</a>. También puedes usar
       nuestra <a href="contacto.html">página de contacto</a>.</p>
-    <p class="lang-en">For any question about this policy, write to
-      <a href="mailto:fioteca@fio.es">fioteca@fio.es</a>. You can also use our
+    <p class="lang-en" lang="en">For any question about this policy, write to
+      <a href="contacto.html" class="fio-email" data-user="fioteca" data-domain="fio.es">fioteca [arroba] fio.es</a>. You can also use our
       <a href="contacto.html">contact page</a>.</p>
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/alerts.js"></script>
+  <script defer src="js/popups.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/covers.js"></script>
+  <script defer src="js/search-utils.js"></script>
+  <script defer src="js/splash.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/alerts.js"></script>
-  <script src="js/popups.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/covers.js"></script>
-  <script src="js/search-utils.js"></script>
-  <script src="js/splash.js"></script>
 </body>
 </html>

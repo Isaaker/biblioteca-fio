@@ -4,7 +4,6 @@
    sobre blanco, tipografía Abel.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Abel&family=Material+Symbols+Outlined:opsz,wght@20..48,400&display=swap');
 
 :root {
   --fio-blue: #202d58;
@@ -129,7 +128,6 @@ body {
 .fio-splash-logo {
   width: 120px;
   height: 120px;
-  animation: fio-splash-pulse 2s ease-in-out infinite;
 }
 
 @keyframes fio-splash-pulse {
@@ -177,12 +175,14 @@ a:hover { color: var(--fio-blue-dark); }
 
 .fio-header img {
   height: 46px;
-  width: auto;
+  width: 46px;
 }
 
-.fio-header h1 {
+.fio-header .fio-site-title {
   color: var(--fio-white);
   font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
   margin: 0;
 }
 
@@ -809,7 +809,7 @@ footer.fio-footer a {
 
 /* --- Responsive ------------------------------------------------------------- */
 @media (max-width: 600px) {
-  .fio-header h1 { font-size: 1.2rem; }
+  .fio-header .fio-site-title { font-size: 1.2rem; }
   .fio-filter-bar { grid-template-columns: 1fr 1fr; }
 }
 
@@ -1075,12 +1075,13 @@ footer.fio-footer a {
   margin-top: 12px;
 }
 
-.fio-detail-table td {
+.fio-detail-table th, .fio-detail-table td {
   padding: 8px 10px;
   border-bottom: 1px solid var(--fio-blue-border);
   vertical-align: top;
 }
 
+.fio-detail-table th,
 .fio-detail-table td:nth-child(1),
 .fio-detail-table td:nth-child(3) {
   color: var(--fio-muted);
@@ -1089,7 +1090,7 @@ footer.fio-footer a {
 }
 
 @media (max-width: 700px) {
-  .fio-detail-table, .fio-detail-table tbody, .fio-detail-table tr, .fio-detail-table td {
+  .fio-detail-table, .fio-detail-table tbody, .fio-detail-table tr, .fio-detail-table td, .fio-detail-table th {
     display: block;
     width: 100% !important;
   }
@@ -1313,7 +1314,7 @@ footer.fio-footer a {
 }
 
 .fio-event-card .fio-event-body { flex: 1; min-width: 0; }
-.fio-event-card .fio-event-body h3 { margin: 4px 0 6px; }
+.fio-event-card .fio-event-body h3, .fio-event-card .fio-event-body h2 { margin: 4px 0 6px; }
 .fio-event-card .fio-event-body p { margin: 0; }
 
 .fio-event-badge {
@@ -1693,7 +1694,7 @@ body[data-theme="dark"] .fio-favorites-icon-btn.fio-favorites-remove {
   border: 3px solid var(--fio-white);
 }
 
-.fio-timeline-era h3 {
+.fio-timeline-era h3, .fio-timeline-era h2 {
   margin: 0 0 4px;
 }
 
@@ -1944,3 +1945,44 @@ body[data-theme="dark"] .fio-groq-error { color: #ff8a80; }
   border-radius: 6px;
   background-color: var(--fio-white);
 }
+
+
+/* ==========================================================================
+   Utilidades (sustituyen a estilos en línea repetidos)
+   ========================================================================== */
+.fio-btn-brand { background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue); }
+.fio-link-plain { color: inherit; text-decoration: none; }
+.fio-hero-bg { background-image: url('../assets/img/portada.webp'); }
+.fio-w-100 { width: 100%; }
+.fio-mb-14 { margin-bottom: 14px; }
+.fio-mt-0 { margin-top: 0; }
+.fio-hidden-init { display: none; }
+.fio-justify-start { justify-content: flex-start; }
+.fio-note-muted { color: var(--fio-muted); margin-top: -6px; }
+.fio-block { display: block; }
+
+/* Reserva de espacio para evitar saltos de diseño (CLS) mientras
+   shell.js monta la cabecera y el pie. */
+#fio-header-mount { display: block; min-height: 82px; }
+#fio-footer-mount { display: block; min-height: 180px; }
+.fio-hero { min-height: 320px; }
+.fio-stats-grid { min-height: 96px; }
+
+.fio-pwa-banner[hidden] { display: none; }
+
+/* Redes sociales (pie) */
+.fio-social { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin: 10px 0; }
+.fio-social a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; min-height: 44px; border: 1px solid currentColor; border-radius: 999px; color: inherit; text-decoration: none; }
+.fio-social a:hover, .fio-social a:focus-visible { text-decoration: underline; }
+.fio-social svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* Aviso para quien navega sin JavaScript */
+.fio-noscript { padding: 14px 20px; background: #fff7d6; color: #1b1b1b; border-bottom: 2px solid #202d58; text-align: center; }
+.fio-noscript a { color: #202d58; font-weight: 700; }
+
+.fio-detail-table th { text-align: left; font-weight: 700; }
+.fio-wcag { display: flex; justify-content: center; margin: 10px 0; }
+.fio-wcag img { display: block; width: 88px; height: 31px; }
+.fio-prose { max-width: 820px; margin: 0 auto; }
+.fio-prose ul { padding-left: 22px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

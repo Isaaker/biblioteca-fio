@@ -1,0 +1,5 @@
+# Dependencias para construir el sitio en local con scripts/build_local.py.
+# Reutiliza las mismas versiones que el workflow de GitHub Actions
+# (build/requirements.txt), para que el build local y el de CI coincidan.
+# Instalación:  python -m pip install -r scripts/requirements-local-build.txt
+-r ../build/requirements.txt

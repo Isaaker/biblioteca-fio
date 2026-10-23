@@ -120,3 +120,7 @@ usuarios ni cuentas, y no se puede reservar ni pedir un libro desde
 esta web. Para consultas de préstamo, dirige a la persona a la página
 de inicio (`/index.html`), donde están el horario y el contacto de la
 biblioteca.
+
+## Versión sin JavaScript
+
+`/catalogo-completo.html` lista todos los libros en HTML puro (sin JavaScript), ordenados por título. Útil para rastreadores que no ejecutan JS.

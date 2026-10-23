@@ -27,19 +27,19 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
-  <noscript>
-    <meta
-      http-equiv="refresh"
-      content="0; url=./javascript_disabled.html"
-    >
-  </noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
+  <noscript><style>.fio-splash{display:none !important}</style></noscript>
 </head>
 <body>
+  <noscript><div class="fio-noscript" role="note">Esta página necesita JavaScript. Sin él puedes consultar el <a href="catalogo-completo.html">catálogo completo en HTML</a> o <a href="javascript_disabled.html">ver cómo activarlo</a>. / This page needs JavaScript. Without it, use the <a href="catalogo-completo.html">full catalogue as plain HTML</a>.</div></noscript>
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -86,7 +86,7 @@
 
         <div class="fio-actions-row">
           <template x-if="book.is_digitized && book.digital_link">
-            <a class="fio-digital-link" :href="book.digital_link" target="_blank" rel="noopener" data-i18n="view_digital_copy">Ver copia digital</a>
+            <a class="fio-digital-link" :href="book.digital_link" rel="noopener" data-i18n="view_digital_copy">Ver copia digital</a>
           </template>
           <button type="button" class="fio-ghost-btn" @click="toggleFavorite()">
             <span class="fio-icon" aria-hidden="true">star</span>
@@ -113,7 +113,7 @@
                 <span>
                   <div data-i18n="conservation_digital_available">COPIA DIGITAL DISPONIBLE</div>
                   <span class="fio-conservation-status-text" data-i18n="conservation_digital_body">Existe una copia digitalizada disponible para consulta. Esta se ofrece de manera preferente para favorecer la conservación del original si no existe una causa justificada para la consulta del mismo.</span>
-                  <a href="https://biblioteca.fio.es/acceso-copias-digitales" target="_blank" rel="noopener" data-i18n="conservation_more_info">Más información</a>.
+                  <a href="https://biblioteca.fio.es/acceso-copias-digitales" rel="noopener" data-i18n="conservation_more_info">Más información</a>.
                 </span>
               </div>
             </template>
@@ -133,7 +133,7 @@
         <div class="fio-synopsis-box" x-show="book">
           <div class="fio-section-header">
             <span class="fio-icon" aria-hidden="true">description</span>
-            <h3 data-i18n="synopsis_title">Sinopsis</h3>
+            <h2 data-i18n="synopsis_title">Sinopsis</h2>
           </div>
           <template x-if="synopsisLoading">
             <p style="color: var(--fio-muted); font-style: italic;" data-i18n="synopsis_loading">Cargando sinopsis…</p>
@@ -148,54 +148,54 @@
 
         <div class="fio-citation-box" x-show="book">
           <label><span class="fio-icon" aria-hidden="true">draw</span><span data-i18n="citation_format">Formato de cita</span></label>
-          <select x-model="citationStyle">
+          <select x-model="citationStyle" aria-label="Estilo de cita" data-i18n-attr="aria-label:citation_style_label">
             <option value="apa">APA</option>
             <option value="chicago">Chicago</option>
           </select>
           <textarea readonly rows="3" x-text="bookCitation()" aria-label="Cita generada"></textarea>
         </div>
 
-        <h3 data-i18n="catalog_data_title">Datos del catálogo</h3>
+        <h2 data-i18n="catalog_data_title">Datos del catálogo</h2>
         <table class="fio-detail-table">
           <tbody>
             <tr>
-              <td data-i18n="field_reference">Referencia</td><td x-text="book.reference || '—'"></td>
-              <td data-i18n="field_edition">Edición</td><td x-text="book.edition || '—'"></td>
+              <th scope="row" data-i18n="field_reference">Referencia</th><td x-text="book.reference || '—'"></td>
+              <th scope="row" data-i18n="field_edition">Edición</th><td x-text="book.edition || '—'"></td>
             </tr>
             <tr>
-              <td data-i18n="field_author">Autor(es)</td><td x-text="book.author || '—'"></td>
-              <td data-i18n="field_publisher">Editorial</td><td x-text="book.publisher || '—'"></td>
+              <th scope="row" data-i18n="field_author">Autor(es)</th><td x-text="book.author || '—'"></td>
+              <th scope="row" data-i18n="field_publisher">Editorial</th><td x-text="book.publisher || '—'"></td>
             </tr>
             <tr>
-              <td data-i18n="field_place">Lugar</td><td x-text="book.place || '—'"></td>
-              <td data-i18n="field_year">Año</td><td x-text="book.publication_year || '—'"></td>
+              <th scope="row" data-i18n="field_place">Lugar</th><td x-text="book.place || '—'"></td>
+              <th scope="row" data-i18n="field_year">Año</th><td x-text="book.publication_year || '—'"></td>
             </tr>
             <tr>
-              <td data-i18n="field_topic">Tema</td><td x-text="book.topic || '—'"></td>
-              <td data-i18n="field_subtopic">Subtema</td><td x-text="book.subtopic || '—'"></td>
+              <th scope="row" data-i18n="field_topic">Tema</th><td x-text="book.topic || '—'"></td>
+              <th scope="row" data-i18n="field_subtopic">Subtema</th><td x-text="book.subtopic || '—'"></td>
             </tr>
             <tr>
-              <td data-i18n="field_speciality">Especialidad</td><td x-text="book.speciality || '—'"></td>
-              <td data-i18n="field_specifications">Especificaciones</td><td x-text="book.specifications || '—'"></td>
+              <th scope="row" data-i18n="field_speciality">Especialidad</th><td x-text="book.speciality || '—'"></td>
+              <th scope="row" data-i18n="field_specifications">Especificaciones</th><td x-text="book.specifications || '—'"></td>
             </tr>
             <tr>
-              <td data-i18n="field_isbn">ISBN</td><td x-text="book.isbn || '—'"></td>
-              <td data-i18n="field_language">Idioma</td><td x-text="book.language || '—'"></td>
+              <th scope="row" data-i18n="field_isbn">ISBN</th><td x-text="book.isbn || '—'"></td>
+              <th scope="row" data-i18n="field_language">Idioma</th><td x-text="book.language || '—'"></td>
             </tr>
             <tr>
-              <td data-i18n="field_pages">Nº de páginas</td><td x-text="book.num_pages || '—'"></td>
-              <td data-i18n="field_illustrations">Ilustraciones</td><td x-text="book.illustrations || '—'"></td>
+              <th scope="row" data-i18n="field_pages">Nº de páginas</th><td x-text="book.num_pages || '—'"></td>
+              <th scope="row" data-i18n="field_illustrations">Ilustraciones</th><td x-text="book.illustrations || '—'"></td>
             </tr>
             <tr>
-              <td data-i18n="field_size">Tamaño</td><td x-text="book.size_cm ? (book.size_cm + ' cm') : '—'"></td>
-              <td data-i18n="field_series">Serie / Colección</td><td x-text="book.series || '—'"></td>
+              <th scope="row" data-i18n="field_size">Tamaño</th><td x-text="book.size_cm ? (book.size_cm + ' cm') : '—'"></td>
+              <th scope="row" data-i18n="field_series">Serie / Colección</th><td x-text="book.series || '—'"></td>
             </tr>
           </tbody>
         </table>
 
         <template x-if="relatedBooks.length > 0">
           <div style="margin-top: 32px;">
-            <h3 data-i18n="related_books_title">Libros relacionados</h3>
+            <h2 data-i18n="related_books_title">Libros relacionados</h2>
             <p class="fio-book-meta" data-i18n="related_books_lead">Mismo tema o autor que este libro.</p>
             <div class="fio-related-grid">
               <template x-for="rb in relatedBooks" :key="rb.id">
@@ -220,15 +220,15 @@
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/alerts.js"></script>
+  <script defer src="js/popups.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/search-utils.js"></script>
+  <script defer src="js/splash.js"></script>
+  <script defer src="js/covers.js"></script>
+  <script defer src="js/book-detail.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/alerts.js"></script>
-  <script src="js/popups.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/search-utils.js"></script>
-  <script src="js/splash.js"></script>
-  <script src="js/covers.js"></script>
-  <script src="js/book-detail.js"></script>
 </body>
 </html>

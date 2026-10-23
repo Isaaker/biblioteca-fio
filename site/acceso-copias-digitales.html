@@ -27,22 +27,22 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
-  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -- canonical URL, not a fetched subresource -->
+  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity: canonical URL, not a fetched subresource -->
   <link rel="canonical" href="https://biblioteca.fio.es/acceso-copias-digitales.html">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
-  <noscript>
-    <meta
-      http-equiv="refresh"
-      content="0; url=./javascript_disabled.html"
-    >
-  </noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
+  <noscript><style>.fio-splash{display:none !important}</style></noscript>
 </head>
 <body>
+  <noscript><div class="fio-noscript" role="note">Esta página necesita JavaScript. Sin él puedes consultar el <a href="catalogo-completo.html">catálogo completo en HTML</a> o <a href="javascript_disabled.html">ver cómo activarlo</a>. / This page needs JavaScript. Without it, use the <a href="catalogo-completo.html">full catalogue as plain HTML</a>.</div></noscript>
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -51,21 +51,21 @@
 
   <main class="fio-container" style="max-width:860px; margin:32px auto;">
     <article>
-      <h2 data-i18n="access_restricted_heading">Acceso restringido y finalidad de las copias digitales</h2>
+      <h1 data-i18n="access_restricted_heading">Acceso restringido y finalidad de las copias digitales</h1>
 
       <p data-i18n="access_restricted_intro">Las copias digitales a las que apunta el catálogo de la Biblioteca de la Fundación Infante de Orleans son accesibles únicamente al personal autorizado de la Fundación y están destinadas exclusivamente a la consulta en el ámbito de la propia biblioteca. Estas reproducciones se conservaron y generaron con fines de preservación y de investigación, con el objeto de proteger y facilitar el estudio de los originales, y no deben entenderse como autorizaciones para la redistribución pública de las obras digitalizadas.</p>
 
-      <h3 data-i18n="access_restricted_legal">Marco legal</h3>
+      <h2 data-i18n="access_restricted_legal">Marco legal</h2>
       <p data-i18n="access_restricted_legal_text">La reproducción de obras protegidas se rige por el Texto Refundido de la Ley de Propiedad Intelectual (Real Decreto Legislativo 1/1996, de 12 de abril). Dicha norma protege los derechos de explotación de los autores, pero contempla excepciones y límites. En particular, el artículo 37 del Texto Refundido permite a determinadas entidades sin ánimo de lucro efectuar reproducciones de obras de sus colecciones con fines de conservación, investigación o preservación, dentro de los requisitos y límites establecidos por la propia ley.</p>
 
-      <h3 data-i18n="access_restricted_conditions">Condiciones de uso</h3>
+      <h2 data-i18n="access_restricted_conditions">Condiciones de uso</h2>
       <ul>
         <li data-i18n="access_restricted_conditions_1">El acceso a las copias digitales señaladas en el catálogo está restringido al personal autorizado de la Fundación y a las consultas in situ en la biblioteca.</li>
         <li data-i18n="access_restricted_conditions_2">Queda expresamente prohibida la descarga, copia, redistribución o publicación de las reproducciones fuera del marco autorizado por la Fundación.</li>
         <li data-i18n="access_restricted_conditions_3">Las reproducciones se conservan exclusivamente para garantizar la preservación de los fondos y facilitar la investigación académica y especializada.</li>
       </ul>
 
-      <h3 data-i18n="access_restricted_contact">Contacto</h3>
+      <h2 data-i18n="access_restricted_contact">Contacto</h2>
       <p><span data-i18n="access_restricted_contact_text">Si cree que debería tener acceso autorizado a alguna copia digital por motivos académicos o de investigación, contacte con el servicio de la biblioteca en fioteca@fio.es indicando el identificador de la obra y la finalidad de la solicitud. La Fundación valorará las solicitudes conforme a su normativa interna y a lo establecido en la Ley de Propiedad Intelectual.</span> <a href="mailto:fioteca@fio.es">fioteca@fio.es</a></p>
 
       <p style="margin-top:24px; color:var(--fio-muted); font-size:0.95rem;" data-i18n="access_restricted_updated">Última actualización: 2026</p>
@@ -73,14 +73,14 @@
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/alerts.js"></script>
+  <script defer src="js/popups.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/covers.js"></script>
+  <script defer src="js/search-utils.js"></script>
+  <script defer src="js/splash.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/alerts.js"></script>
-  <script src="js/popups.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/covers.js"></script>
-  <script src="js/search-utils.js"></script>
-  <script src="js/splash.js"></script>
 </body>
 </html>

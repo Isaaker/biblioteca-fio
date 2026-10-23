@@ -27,23 +27,23 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
-  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -- canonical URL, not a fetched subresource -->
+  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity: canonical URL, not a fetched subresource -->
   <link rel="canonical" href="https://biblioteca.fio.es/donaciones.html">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
-  <noscript>
-    <meta
-      http-equiv="refresh"
-      content="0; url=./javascript_disabled.html"
-    >
-  </noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
+  <noscript><style>.fio-splash{display:none !important}</style></noscript>
 </head>
 <body>
+  <noscript><div class="fio-noscript" role="note">Esta página necesita JavaScript. Sin él puedes consultar el <a href="catalogo-completo.html">catálogo completo en HTML</a> o <a href="javascript_disabled.html">ver cómo activarlo</a>. / This page needs JavaScript. Without it, use the <a href="catalogo-completo.html">full catalogue as plain HTML</a>.</div></noscript>
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -71,36 +71,36 @@
     <p data-i18n="donation_contact_intro">Si deseas continuar con el proceso o tienes más dudas, puedes escribirnos a <a href="mailto:fioteca@fio.es">fioteca@fio.es</a>, o para facilitártelo aún más, puedes rellenar este formulario con la información que necesitamos para poder evaluar la donación.</p>
 
     <div class="fio-filter-bar" style="display:block;">
-      <h2 data-i18n="donation_form_title" style="margin-top:0;">Formulario de donación</h2>
-      <p class="lang-es" style="color: var(--fio-muted); margin-top:-6px;">Al pulsar "Enviar" se abrirá tu programa de correo con el mensaje ya preparado para <b>fioteca@fio.es</b>. No se envía nada desde esta página ni se guarda en ningún servidor.</p>
-      <p class="lang-en" style="color: var(--fio-muted); margin-top:-6px;">Pressing "Send" opens your own email application with the message ready to send to <b>fioteca@fio.es</b>. Nothing is sent from this page or stored on any server.</p>
+      <h2 data-i18n="donation_form_title" class="fio-mt-0">Formulario de donación</h2>
+      <p class="lang-es fio-note-muted" lang="es">Al pulsar "Enviar" se abrirá tu programa de correo con el mensaje ya preparado para <b>fioteca@fio.es</b>. No se envía nada desde esta página ni se guarda en ningún servidor.</p>
+      <p class="lang-en fio-note-muted" lang="en">Pressing "Send" opens your own email application with the message ready to send to <b>fioteca@fio.es</b>. Nothing is sent from this page or stored on any server.</p>
 
-      <div style="margin-bottom: 14px;">
+      <div class="fio-mb-14">
         <label for="d-name" data-i18n="form_name_label">Tu nombre *</label>
-        <input id="d-name" type="text" x-model="name" required aria-required="true" autocomplete="name" style="width:100%;">
+        <input id="d-name" type="text" x-model="name" required aria-required="true" autocomplete="name" class="fio-w-100">
       </div>
 
-      <div style="margin-bottom: 14px;">
+      <div class="fio-mb-14">
         <label for="d-email" data-i18n="form_email_label">Correo de contacto *</label>
-        <input id="d-email" type="email" x-model="email" required aria-required="true" autocomplete="email" style="width:100%;">
+        <input id="d-email" type="email" x-model="email" required aria-required="true" autocomplete="email" class="fio-w-100">
       </div>
 
-      <div style="margin-bottom: 14px;">
+      <div class="fio-mb-14">
         <label for="d-member" data-i18n="form_member_label">Número de socio (opcional)</label>
-        <input id="d-member" type="text" x-model="memberNumber" style="width:100%;">
+        <input id="d-member" type="text" x-model="memberNumber" class="fio-w-100">
       </div>
 
-      <div style="margin-bottom: 14px;">
+      <div class="fio-mb-14">
         <label for="d-quantity" data-i18n="donation_form_quantity_label">Cantidad aproximada de libros</label>
-        <input id="d-quantity" type="text" x-model="quantity" style="width:100%;">
+        <input id="d-quantity" type="text" x-model="quantity" class="fio-w-100">
       </div>
 
-      <div style="margin-bottom: 14px;">
+      <div class="fio-mb-14">
         <label for="d-items" data-i18n="donation_form_items_label">Títulos, autores o descripción de las obras</label>
         <textarea id="d-items" x-model="items" rows="6" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit;" data-i18n-attr="placeholder:donation_form_items_placeholder" placeholder="Uno por línea, o una descripción general si son muchos…"></textarea>
       </div>
 
-      <div style="margin-bottom: 14px;">
+      <div class="fio-mb-14">
         <label for="d-comments" data-i18n="donation_form_comments_label">Comentarios adicionales</label>
         <textarea id="d-comments" x-model="comments" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit;"></textarea>
       </div>
@@ -114,8 +114,8 @@
 
       <p x-show="error" x-text="error" role="alert" style="color:#b3261e; font-weight:600; margin:0 0 12px;"></p>
 
-      <div class="fio-hero-actions" style="justify-content:flex-start;">
-        <button type="button" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="send()" data-i18n="donation_form_submit">Enviar</button>
+      <div class="fio-hero-actions fio-justify-start">
+        <button type="button" class="fio-btn fio-btn-brand" @click="send()" data-i18n="donation_form_submit">Enviar</button>
       </div>
     </div>
 
@@ -124,11 +124,11 @@
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/donation.js"></script>
+  <script defer src="js/splash.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/donation.js"></script>
-  <script src="js/splash.js"></script>
 </body>
 </html>

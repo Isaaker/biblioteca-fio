@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo completo en HTML — Biblioteca FIO</title>
+<meta name="description" content="Listado completo, sin JavaScript, de los 0 libros de la Biblioteca de la Fundación Infante de Orleans, ordenados por título.">
+<link rel="canonical" href="https://biblioteca.fio.es/catalogo-completo.html">
+<link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'self'; form-action 'none'">
+<style>
+:root{color-scheme:light dark;--fg:#1b1b1b;--bg:#fff;--blue:#202d58;--muted:#555;--line:#d9dde8}
+@media (prefers-color-scheme:dark){:root{--fg:#eee;--bg:#14182b;--blue:#9db3ff;--muted:#b7bdd1;--line:#33406b}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;line-height:1.55;color:var(--fg);background:var(--bg)}
+header,main,footer{max-width:960px;margin:0 auto;padding:16px 20px}
+header{border-bottom:2px solid var(--blue)}
+a{color:var(--blue)}
+a:focus-visible{outline:3px solid #175cd3;outline-offset:2px}
+h1{color:var(--blue);margin:.4em 0}
+h2{color:var(--blue);border-bottom:1px solid var(--line);padding-bottom:4px;margin-top:2em}
+.az{display:flex;flex-wrap:wrap;gap:6px;padding:0;list-style:none}
+.az a{display:inline-block;min-width:34px;min-height:34px;padding:5px 8px;text-align:center;border:1px solid var(--line);border-radius:6px;text-decoration:none}
+ul.books{padding-left:0;list-style:none}
+ul.books li{padding:8px 0;border-bottom:1px solid var(--line)}
+.meta{color:var(--muted);font-size:.92rem}
+.skip{position:absolute;left:-9999px}.skip:focus{left:8px;top:8px;background:var(--bg);padding:6px}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header>
+<p><a href="index.html">Biblioteca — Fundación Infante de Orleans</a> · <a href="catalogo.html">Catálogo interactivo (requiere JavaScript)</a></p>
+</header>
+<main id="contenido">
+<h1>Catálogo completo (versión sin JavaScript)</h1>
+<p>Listado de 0 libros ordenados alfabéticamente por título. Para filtrar y buscar usa el <a href="catalogo.html">catálogo interactivo</a>. También puedes descargar el catálogo en formato <a href="data/catalogo.mrc">MARC21</a> o <a href="data/catalogo_marcxml.xml">MARCXML</a>.</p>
+<p lang="en">Full list of 0 books sorted by title. This page works without JavaScript; the interactive catalogue adds search and filters.</p>
+<nav aria-label="Índice alfabético / Alphabetical index"><ul class="az"></ul></nav>
+<p>El catálogo está vacío en este momento. / The catalogue is currently empty.</p>
+</main>
+<footer>
+<p><a href="privacidad.html">Política de privacidad</a> · <a href="contacto.html">Contacto</a></p>
+</footer>
+</body>
+</html>

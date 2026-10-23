@@ -40,6 +40,7 @@ from ai_catalog_formats import (
 )
 from book_files import write_book_files, write_ref_index
 from sitemap_builder import write_sitemap
+from static_catalog import write_static_catalog
 
 
 def _project_root() -> str:
@@ -184,6 +185,10 @@ def main() -> int:
 
     print(f"Escribiendo {marc_binary_path} y {marc_xml_path} ...")
     write_marc_collection(public_records, marc_binary_path, marc_xml_path)
+
+    static_path = _abs(root, "site/catalogo-completo.html")
+    write_static_catalog(public_records, static_path)
+    print(f"Catálogo estático sin JavaScript escrito en {static_path}.")
 
     sitemap_path = _abs(root, "site/sitemap.xml")
     sitemap_urls = write_sitemap(public_records, sitemap_path)

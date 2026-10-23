@@ -28,22 +28,22 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
-  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -- canonical URL, not a fetched subresource -->
+  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity: canonical URL, not a fetched subresource -->
   <link rel="canonical" href="https://biblioteca.fio.es/acceso-administradores.html">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
-  <noscript>
-    <meta
-      http-equiv="refresh"
-      content="0; url=./javascript_disabled.html"
-    >
-  </noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
+  <noscript><style>.fio-splash{display:none !important}</style></noscript>
 </head>
 <body>
+  <noscript><div class="fio-noscript" role="note">Esta página necesita JavaScript. Sin él puedes consultar el <a href="catalogo-completo.html">catálogo completo en HTML</a> o <a href="javascript_disabled.html">ver cómo activarlo</a>. / This page needs JavaScript. Without it, use the <a href="catalogo-completo.html">full catalogue as plain HTML</a>.</div></noscript>
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -53,22 +53,22 @@
   <main id="main-content" class="fio-container" style="max-width:720px; margin:32px auto;">
     <article class="fio-admin-gate">
       <span class="fio-icon fio-admin-gate-icon" aria-hidden="true">lock</span>
-      <h2 data-i18n="admin_access_heading">Sistema de acceso restringido</h2>
+      <h1 data-i18n="admin_access_heading">Sistema de acceso restringido</h1>
       <p data-i18n="admin_access_text1">Está a punto de acceder a un sistema restringido de la Fundación Infante de Orleans, destinado exclusivamente a las personas administradoras autorizadas de la Biblioteca.</p>
       <p data-i18n="admin_access_text2">Si no forma parte del equipo de administración, le rogamos que no continúe y regrese al catálogo público. Si es una persona autorizada, pulse «Continuar» para acceder al gestor de contenidos.</p>
       <p class="fio-admin-gate-external" data-i18n="admin_access_external">Al continuar será redirigido a un servicio externo (app.pagescms.org). El acceso queda sujeto a las condiciones de uso de la Fundación.</p>
       <div class="fio-hero-actions" style="justify-content:flex-start; margin-top:20px;">
-        <a class="fio-btn" href="https://app.pagescms.org" rel="noopener noreferrer" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="admin_access_continue">Continuar</a>
+        <a class="fio-btn fio-btn-brand" href="https://app.pagescms.org" rel="noopener noreferrer" data-i18n="admin_access_continue">Continuar</a>
         <a class="fio-filter-clear" href="index.html" data-i18n="admin_access_back">Volver al catálogo</a>
       </div>
     </article>
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/alerts.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/splash.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/alerts.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/splash.js"></script>
 </body>
 </html>

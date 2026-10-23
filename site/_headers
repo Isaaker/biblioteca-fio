@@ -24,3 +24,16 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=(self), payment=()
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
+
+# Caché larga para recursos estáticos (antes: 10 min por defecto).
+/assets/*
+  Cache-Control: public, max-age=2592000
+
+/css/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/js/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/data/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400

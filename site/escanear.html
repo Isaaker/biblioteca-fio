@@ -27,23 +27,23 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
-  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -- canonical URL, not a fetched subresource -->
+  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity: canonical URL, not a fetched subresource -->
   <link rel="canonical" href="https://biblioteca.fio.es/escanear.html">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
-  <noscript>
-    <meta
-      http-equiv="refresh"
-      content="0; url=./javascript_disabled.html"
-    >
-  </noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
+  <noscript><style>.fio-splash{display:none !important}</style></noscript>
 </head>
 <body>
+  <noscript><div class="fio-noscript" role="note">Esta página necesita JavaScript. Sin él puedes consultar el <a href="catalogo-completo.html">catálogo completo en HTML</a> o <a href="javascript_disabled.html">ver cómo activarlo</a>. / This page needs JavaScript. Without it, use the <a href="catalogo-completo.html">full catalogue as plain HTML</a>.</div></noscript>
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -72,7 +72,7 @@
     <p class="fio-scan-status" x-show="cameraError" x-text="cameraError" style="color:#a33;"></p>
 
     <div class="fio-scan-actions">
-      <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="startCamera()" x-show="!cameraActive" data-i18n="scan_start">Activar cámara</button>
+      <button class="fio-btn fio-btn-brand" @click="startCamera()" x-show="!cameraActive" data-i18n="scan_start">Activar cámara</button>
       <button class="fio-btn fio-btn-outline" style="border-color: var(--fio-blue); color: var(--fio-blue) !important;" @click="stopCamera()" x-show="cameraActive" data-i18n="scan_stop">Detener cámara</button>
     </div>
 
@@ -86,15 +86,15 @@
     <div class="fio-scan-manual">
       <label for="manual-ref" data-i18n="scan_manual_label">O escribe la referencia a mano:</label>
       <input id="manual-ref" type="text" x-model="manualRef" data-i18n-attr="placeholder:scan_manual_placeholder" placeholder="Ej. LB0123" @keyup.enter="submitManualRef()">
-      <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="submitManualRef()" data-i18n="scan_manual_go">Ir al libro</button>
+      <button class="fio-btn fio-btn-brand" @click="submitManualRef()" data-i18n="scan_manual_go">Ir al libro</button>
     </div>
 
     <template x-if="resultBook">
       <div class="fio-scan-result">
         <p data-i18n="scan_found" style="color: var(--fio-muted); margin-bottom: 4px;">Libro encontrado:</p>
-        <h3 x-text="resultBook.title"></h3>
+        <h2 x-text="resultBook.title"></h2>
         <p class="fio-book-meta" x-text="resultBook.author"></p>
-        <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="goToResult()" data-i18n="scan_view_book">Ver ficha del libro</button>
+        <button class="fio-btn fio-btn-brand" @click="goToResult()" data-i18n="scan_view_book">Ver ficha del libro</button>
       </div>
     </template>
 
@@ -104,15 +104,15 @@
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/alerts.js"></script>
+  <script defer src="js/popups.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/covers.js"></script>
+  <script defer src="js/search-utils.js"></script>
+  <script defer src="js/splash.js"></script>
+  <script defer src="js/scanner.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/alerts.js"></script>
-  <script src="js/popups.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/covers.js"></script>
-  <script src="js/search-utils.js"></script>
-  <script src="js/splash.js"></script>
-  <script src="js/scanner.js"></script>
 </body>
 </html>

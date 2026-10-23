@@ -43,6 +43,8 @@
         { href: 'data/catalogo.mrc', key: 'footer_export_marc', label: 'Exportar catálogo MARC21' },
         { href: 'data/catalogo_marcxml.xml', key: 'footer_export_marcxml', label: 'Exportar MARCXML' },
         { href: 'interoperabilidad.html', key: 'footer_connect_library', label: 'Conecta con la biblioteca' },
+        { href: 'catalogo-completo.html', key: 'footer_static_catalog', label: 'Catálogo en HTML (sin JavaScript)' },
+        { href: 'mapa-sitio.html', key: 'footer_sitemap', label: 'Mapa del sitio' },
       ],
     },
     {
@@ -58,6 +60,7 @@
       links: [
         { href: 'acceso-copias-digitales.html', key: 'footer_access_restricted', label: 'Acceso restringido' },
         { href: 'privacidad.html', key: 'footer_privacy', label: 'Política de privacidad' },
+        { href: 'accesibilidad.html', key: 'footer_accessibility', label: 'Accesibilidad' },
       ],
     },
     {
@@ -94,9 +97,9 @@
     mount.outerHTML = `
   <header class="fio-header">
     <div class="fio-header-inner">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" width="46" height="46">
       <div>
-        <h1 data-i18n="site_title">Biblioteca — Fundación Infante de Orleans</h1>
+        <p class="fio-site-title" data-i18n="site_title">Biblioteca — Fundación Infante de Orleans</p>
         <p data-i18n="site_tagline">Catálogo público de la biblioteca</p>
       </div>
       <button type="button" class="fio-nav-toggle" aria-label="Abrir menú" data-i18n-attr="aria-label:nav_menu_open" aria-expanded="false">
@@ -166,6 +169,14 @@
     <div class="fio-footer-panels">
       ${panelsHtml}
     </div>
+    <div class="fio-social">
+      <a href="https://www.instagram.com/fundacionfio/" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4ZM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z"/><path d="M16 2H8a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h8a6 6 0 0 0 6-6V8a6 6 0 0 0-6-6Zm4.2 14a4.2 4.2 0 0 1-4.2 4.2H8A4.2 4.2 0 0 1 3.8 16V8A4.2 4.2 0 0 1 8 3.8h8A4.2 4.2 0 0 1 20.2 8v8Z"/></svg><span>Instagram</span></a>
+      <a href="https://www.facebook.com/FundacionInfantedeOrleans" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.5 22v-8.2h2.8l.5-3.4h-3.3V8.2c0-1 .4-1.7 1.8-1.7h1.6V3.4C16.600 3.300 15.700 3.200 14.700 3.200c-2.600 0-4.300 1.600-4.300 4.400v2.800H7.600v3.400h2.800V22h3.100Z"/></svg><span>Facebook</span></a>
+      <a href="https://www.youtube.com/@fiomultimedia5262" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23 7.2a3 3 0 0 0-2.100-2.100C19 4.600 12 4.600 12 4.600s-7 0-8.900.5A3 3 0 0 0 1 7.200C.5 9.100.5 12 .5 12s0 2.900.5 4.800a3 3 0 0 0 2.100 2.100c1.900.5 8.900.5 8.900.5s7 0 8.900-.5a3 3 0 0 0 2.100-2.100c.5-1.900.5-4.800.5-4.800s0-2.900-.5-4.800ZM9.700 15.500v-7l6 3.500-6 3.500Z"/></svg><span>YouTube</span></a>
+      <a href="https://x.com/FIOtuit" rel="noopener noreferrer" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>X</span></a>
+      <a href="https://es.linkedin.com/company/fundaci%C3%B3n-infante-de-orleans" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452z"/></svg><span>LinkedIn</span></a>
+    </div>
+    <p class="fio-wcag"><a href="https://www.w3.org/WAI/WCAG1AA-Conformance"><img src="https://www.w3.org/WAI/wcag1AA.gif" alt="Nivel de conformidad Doble-A, W3C-WAI Pautas de Accesibilidad al Contenido en la Web 1.0 / Level Double-A conformance icon, W3C-WAI Web Content Accessibility Guidelines 1.0" width="88" height="31"></a></p>
     <p class="fio-footer-credits">Creado con ❤️ por Carlos Chevallier Marina e Isaac Hernán Martí</p>
   </footer>`;
 
@@ -220,11 +231,11 @@
     const banner = document.createElement('div');
     banner.id = 'fio-pwa-banner';
     banner.className = 'fio-pwa-banner';
-    banner.style.display = 'none';
+    banner.hidden = true;
     banner.innerHTML = `
       <p data-i18n="pwa_install_text">¿Quieres acceso rápido a la biblioteca? Instala esta web como aplicación.</p>
       <div class="fio-pwa-banner-actions">
-        <button type="button" id="fio-pwa-install" class="fio-btn fio-btn-solid" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="pwa_install_button">Instalar</button>
+        <button type="button" id="fio-pwa-install" class="fio-btn fio-btn-solid"  data-i18n="pwa_install_button">Instalar</button>
         <button type="button" id="fio-pwa-dismiss" class="fio-ghost-btn" data-i18n="pwa_dismiss_button">Ahora no</button>
       </div>`;
     document.body.appendChild(banner);
@@ -238,11 +249,11 @@
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault();
       deferredPrompt = event;
-      banner.style.display = 'flex';
+      banner.hidden = false;
     });
 
     installBtn.addEventListener('click', async () => {
-      banner.style.display = 'none';
+      banner.hidden = true;
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
       await deferredPrompt.userChoice;
@@ -250,12 +261,12 @@
     });
 
     dismissBtn.addEventListener('click', () => {
-      banner.style.display = 'none';
+      banner.hidden = true;
       sessionStorage.setItem('fio-pwa-banner-dismissed', 'true');
     });
 
     window.addEventListener('appinstalled', () => {
-      banner.style.display = 'none';
+      banner.hidden = true;
     });
   }
 
@@ -263,7 +274,24 @@
   // cabecera y el pie existen ya en el DOM cuando i18n.js procese las
   // traducciones al llegar ese evento, sin parpadeos ni contenido sin
   // traducir visible un instante.
+  // Correo de contacto: no aparece en claro en el HTML (lo recogen los
+  // bots de spam). Sin JavaScript queda el texto «usuario [arroba] dominio»
+  // y el enlace lleva al formulario de contacto.
+  function decodeEmails() {
+    document.querySelectorAll('a.fio-email[data-user][data-domain]').forEach(a => {
+      const addr = a.dataset.user + '@' + a.dataset.domain;
+      const subject = a.dataset.subject ? '?subject=' + encodeURIComponent(a.dataset.subject) : '';
+      a.setAttribute('href', 'mailto:' + addr + subject);
+      a.textContent = addr;
+    });
+  }
+
+  // Hoja de fuentes de Google cargada sin bloquear el primer renderizado
+  // (el <link> llega con media="print" y aquí se pasa a "all").
+  document.querySelectorAll('link[data-async-css]').forEach(l => { l.media = 'all'; });
+
   renderHeader();
   renderFooter();
   renderPwaBanner();
+  decodeEmails();
 })();

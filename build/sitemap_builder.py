@@ -22,6 +22,7 @@ SITE_URL = "https://biblioteca.fio.es"
 STATIC_PAGES = [
     ("index.html", "1.0", "weekly"),
     ("catalogo.html", "0.9", "daily"),
+    ("catalogo-completo.html", "0.7", "weekly"),
     ("buscar.html", "0.8", "monthly"),
     ("escanear.html", "0.5", "monthly"),
     ("estadisticas.html", "0.6", "weekly"),
@@ -34,6 +35,8 @@ STATIC_PAGES = [
     ("interoperabilidad.html", "0.4", "monthly"),
     ("acceso-copias-digitales.html", "0.3", "monthly"),
     ("privacidad.html", "0.2", "yearly"),
+    ("accesibilidad.html", "0.3", "yearly"),
+    ("mapa-sitio.html", "0.3", "yearly"),
 ]
 
 

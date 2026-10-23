@@ -27,19 +27,19 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
-  <noscript>
-    <meta
-      http-equiv="refresh"
-      content="0; url=./javascript_disabled.html"
-    >
-  </noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
+  <noscript><style>.fio-splash{display:none !important}</style></noscript>
 </head>
 <body>
+  <noscript><div class="fio-noscript" role="note">Esta página necesita JavaScript. Sin él puedes consultar el <a href="catalogo-completo.html">catálogo completo en HTML</a> o <a href="javascript_disabled.html">ver cómo activarlo</a>. / This page needs JavaScript. Without it, use the <a href="catalogo-completo.html">full catalogue as plain HTML</a>.</div></noscript>
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -52,14 +52,14 @@
     <div class="fio-search-hero">
       <h1 data-i18n="search_title">Buscar en el catálogo</h1>
       <p data-i18n="search_lead">Busca por título, autor, tema, editorial, idioma, serie, ISBN o referencia. También puedes usar la búsqueda por escáner.</p>
-      <p><a href="escanear.html" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="search_scan_cta">Buscar con la cámara (código de barras o etiqueta)</a></p>
+      <p><a href="escanear.html" class="fio-btn fio-btn-brand" data-i18n="search_scan_cta">Buscar con la cámara (código de barras o etiqueta)</a></p>
     </div>
 
     <!-- Búsqueda avanzada -->
     <div class="fio-filter-bar" style="display:block;">
-      <div style="margin-bottom: 14px;">
+      <div class="fio-mb-14">
         <label for="s-q" data-i18n="search_field_general">Búsqueda general</label>
-        <input id="s-q" type="text" x-model="q" @input="onGeneralInput()" @keyup.enter="submitSearch()" data-i18n-attr="placeholder:filter_q_placeholder" placeholder="Buscar por título, autor, tema, ISBN…" style="width:100%;">
+        <input id="s-q" type="text" x-model="q" @input="onGeneralInput()" @keyup.enter="submitSearch()" data-i18n-attr="placeholder:filter_q_placeholder" placeholder="Buscar por título, autor, tema, ISBN…" class="fio-w-100">
         <small style="color: var(--fio-muted); display:block; margin-top:4px;" data-i18n="filter_q_help">Admite "frases exactas", -excluir, opción1|opción2, y tolera alguna errata.</small>
       </div>
 
@@ -135,7 +135,7 @@
       </div>
 
       <div class="fio-hero-actions" style="justify-content:flex-start; margin-top:14px;">
-        <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="submitSearch()" data-i18n="search_submit">Buscar</button>
+        <button class="fio-btn fio-btn-brand" @click="submitSearch()" data-i18n="search_submit">Buscar</button>
         <button class="fio-filter-clear" @click="clearForm()" data-i18n="search_clear">Limpiar formulario</button>
       </div>
     </div>
@@ -148,10 +148,10 @@
       <label for="ai-what" data-i18n="ai_search_what_label">Qué estás buscando (opcional, para completar el prompt):</label>
       <input id="ai-what" type="text" x-model="aiWhat" data-i18n-attr="placeholder:ai_search_what_placeholder" placeholder="Ej. libros sobre meteorología aeronáutica en español" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit; margin: 8px 0 14px;">
 
-      <textarea readonly rows="6" x-text="aiPrompt" style="width:100%; padding:10px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family: monospace; font-size:0.85rem; color: var(--fio-muted); margin-bottom: 12px;"></textarea>
+      <textarea readonly rows="6" aria-label="Prompt generado para tu asistente de IA" data-i18n-attr="aria-label:ai_prompt_label" x-text="aiPrompt" style="width:100%; padding:10px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family: monospace; font-size:0.85rem; color: var(--fio-muted); margin-bottom: 12px;"></textarea>
 
-      <div class="fio-hero-actions" style="justify-content:flex-start;">
-        <button class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="copyAiPrompt()" data-i18n="ai_search_copy">Copiar el prompt</button>
+      <div class="fio-hero-actions fio-justify-start">
+        <button class="fio-btn fio-btn-brand" @click="copyAiPrompt()" data-i18n="ai_search_copy">Copiar el prompt</button>
       </div>
       <p style="margin: 14px 0 6px; color: var(--fio-muted);" data-i18n="ai_search_open_with">O ábrelo directamente en:</p>
       <div class="fio-ai-buttons">
@@ -209,10 +209,10 @@
         </div>
 
         <div class="fio-hero-actions" style="justify-content:flex-start; margin-top:12px;">
-          <button type="button" class="fio-btn" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" @click="askGroq()" :disabled="groqLoading" data-i18n="groq_ask">Preguntar</button>
+          <button type="button" class="fio-btn fio-btn-brand" @click="askGroq()" :disabled="groqLoading" data-i18n="groq_ask">Preguntar</button>
           <button type="button" class="fio-filter-clear" @click="saveGroqKey()" data-i18n="groq_save_key">Guardar clave</button>
           <button type="button" class="fio-filter-clear" @click="forgetGroqKey()" data-i18n="groq_forget_key">Olvidar clave</button>
-          <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" data-i18n="groq_get_key">Obtener una clave en console.groq.com</a>
+          <a href="https://console.groq.com/keys" rel="noopener noreferrer" data-i18n="groq_get_key">Obtener una clave en console.groq.com</a>
         </div>
 
         <p class="fio-groq-status" x-show="groqLoading" style="display:none;" data-i18n="groq_working">Consultando a Groq…</p>
@@ -239,12 +239,12 @@
                 <img :data-cover-for="book.id" :alt="'Portada de ' + book.title" loading="lazy">
               </a>
               <div class="fio-book-card-body">
-                <h2 class="fio-book-title"><a :href="'libro.html?id=' + book.id" x-text="book.title" style="color:inherit; text-decoration:none;"></a></h2>
+                <h2 class="fio-book-title"><a :href="'libro.html?id=' + book.id" x-text="book.title" class="fio-link-plain"></a></h2>
                 <p class="fio-book-meta" x-text="[book.author, book.publication_year, book.publisher].filter(Boolean).join(' · ')"></p>
                 <div class="fio-book-footer">
                   <span x-show="book.reference"><span data-i18n="reference_label">Referencia</span>: <span class="fio-signature" x-text="book.reference"></span></span>
                   <template x-if="book.is_digitized && book.digital_link">
-                    <a class="fio-digital-link" :href="book.digital_link" target="_blank" rel="noopener" data-i18n="digital_link_label">Ver copia digital</a>
+                    <a class="fio-digital-link" :href="book.digital_link" rel="noopener" data-i18n="digital_link_label">Ver copia digital</a>
                   </template>
                 </div>
               </div>
@@ -256,15 +256,15 @@
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/alerts.js"></script>
+  <script defer src="js/popups.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/search-utils.js"></script>
+  <script defer src="js/splash.js"></script>
+  <script defer src="js/covers.js"></script>
+  <script defer src="js/search.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/alerts.js"></script>
-  <script src="js/popups.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/search-utils.js"></script>
-  <script src="js/splash.js"></script>
-  <script src="js/covers.js"></script>
-  <script src="js/search.js"></script>
 </body>
 </html>
