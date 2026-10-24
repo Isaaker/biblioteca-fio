@@ -1,0 +1,12 @@
+# Configuración de Gitleaks para Biblioteca FIO.
+# Se amplían las reglas por defecto y se descartan falsos positivos conocidos.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Nombres de claves de localStorage (no son secretos)"
+regexTarget = "line"
+regexes = [
+  # p. ej.: const FIO_CONTRAST_KEY = 'fio-contrast-v1';
+  '''FIO_[A-Z_]+_KEY\s*=\s*['"]fio-[a-z-]+-v\d+['"]''',
+]
