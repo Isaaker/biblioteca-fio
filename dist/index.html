@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="site_title">Biblioteca — Fundación Infante de Orleans</title>
+  <title data-i18n="index_title">Biblioteca FIO — Catálogo de aviación e historia aeronáutica</title>
   <meta name="description" content="Catálogo público de la Biblioteca FIO: más de 3.500 volúmenes de historia de la aviación, aeronáutica, ingeniería e historia militar.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Biblioteca — Fundación Infante de Orleans">
@@ -27,18 +27,18 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
-  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -- canonical URL, not a fetched subresource -->
+  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -->
   <link rel="canonical" href="https://biblioteca.fio.es/index.html">
   <link rel="alternate" type="application/atom+xml" title="Últimas altas — Biblioteca FIO" href="feed.xml">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-P5dWw1QqY05W5HBxz++APGd4yigKYI6XQnk3MLZN5GM=' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="assets/img/portada.webp" fetchpriority="high">
   <link rel="stylesheet" href="css/styles.css">
-  <noscript>
-    <meta
-      http-equiv="refresh"
-      content="0; url=./javascript_disabled.html"
-    >
-  </noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
+  <noscript><style>.fio-splash{display:none !important}</style></noscript>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -48,6 +48,7 @@
     "description": "Catálogo público de la biblioteca de la Fundación Infante de Orleans, especializada en aviación e historia aeronáutica.",
     "inLanguage": ["es", "en"],
     "isAccessibleForFree": true,
+    "sameAs": ["https://www.instagram.com/fundacionfio/", "https://www.facebook.com/FundacionInfantedeOrleans", "https://www.youtube.com/@fiomultimedia5262", "https://x.com/FIOtuit", "https://es.linkedin.com/company/fundaci%C3%B3n-infante-de-orleans"],
     "parentOrganization": {
       "@type": "NonprofitOrganization",
       "name": "Fundación Infante de Orleans",
@@ -74,10 +75,11 @@
   </script>
 </head>
 <body>
+  <noscript><div class="fio-noscript" role="note">Esta página necesita JavaScript. Sin él puedes consultar el <a href="catalogo-completo.html">catálogo completo en HTML</a> o <a href="javascript_disabled.html">ver cómo activarlo</a>. / This page needs JavaScript. Without it, use the <a href="catalogo-completo.html">full catalogue as plain HTML</a>.</div></noscript>
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -88,7 +90,7 @@
 
   <main id="main-content" x-data="fioLanding" x-init="init()">
 
-    <div class="fio-hero" style="background-image: url('assets/img/portada.jpg');">
+    <div class="fio-hero fio-hero-bg">
       <h1 data-i18n="hero_title">Biblioteca Fundación Infante de Orleans</h1>
       <p data-i18n="hero_lead">Consulta el catálogo de nuestra biblioteca especializada en aviación e historia aeronáutica: libros, revistas y publicaciones sobre la aviación histórica española.</p>
       <div class="fio-hero-actions">
@@ -97,9 +99,28 @@
       </div>
     </div>
 
+    <div class="fio-features-grid">
+      <div class="fio-feature-card">
+        <div class="fio-feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5v-17ZM6.5 4A.5.5 0 0 0 6 4.5v13.6A2.5 2.5 0 0 1 6.5 18H18V4H6.5Z"/><path d="M8 7h8v1.5H8V7Zm0 3h8v1.5H8V10Zm0 3h5v1.5H8V13Z"/></svg>
+        </div>
+        <h2 data-i18n="feature_catalog_title">Catálogo abierto</h2>
+        <p data-i18n="feature_catalog_body">Explora el fondo bibliográfico de la Fundación sin necesidad de registro: títulos, autores, editoriales y materias.</p>
+        <a href="catalogo.html" class="fio-btn fio-btn-solid fio-btn-brand" data-i18n="hero_cta_catalog">Ver catálogo</a>
+      </div>
+      <div class="fio-feature-card">
+        <div class="fio-feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M9.5 3a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z"/><path d="M14.5 14.79 20.71 21l1.29-1.29-6.21-6.21-1.29 1.29Z"/></svg>
+        </div>
+        <h2 data-i18n="feature_search_title">Buscador</h2>
+        <p data-i18n="feature_search_body">Filtra por autor, tema, año o busca texto libre para encontrar rápidamente la obra que buscas dentro de nuestra biblioteca.</p>
+        <a href="buscar.html" class="fio-btn fio-btn-solid fio-btn-brand" data-i18n="hero_cta_search">Buscar</a>
+      </div>
+    </div>
+
     <section class="fio-about" aria-labelledby="about-heading">
       <h2 id="about-heading" data-i18n="about_title">Sobre nosotros</h2>
-      <p data-i18n="about_body">La Biblioteca de la Fundación Infante de Orleans es la mayor biblioteca aeronáutica civil de nuestro país. Cuenta con una amplia colección que incluye más de 3.500 libros, una hemeroteca, una videoteca y el archivo fotográfico «Francisco Andreu». La biblioteca es de acceso público y gratuito, y está financiada de forma privada por la Fundación Infante de Orleans.</p>
+      <p data-i18n="about_body">La Biblioteca de la Fundación Infante de Orleans es una de las mayores bibliotecas aeronáuticas civiles de nuestro país. Cuenta con una amplia colección que incluye más de 3.500 libros, una hemeroteca, una videoteca y el archivo fotográfico «Francisco Andreu». La biblioteca es de acceso público y gratuito, y está financiada de forma privada por la Fundación Infante de Orleans.</p>
     </section>
 
     <div class="fio-stats-grid">
@@ -125,36 +146,41 @@
       <div class="fio-featured-book">
         <h2 data-i18n="featured_book_title">Libro del mes</h2>
         <div class="fio-featured-book-body">
-          <a :href="'libro.html?id=' + featured.id" class="fio-cover fio-cover-lg">
-            <img :data-cover-for="featured.id" :alt="'Portada de ' + featured.title" loading="lazy">
+          <a :href="'libro.html?id=' + featured.id" class="fio-cover fio-cover-lg" tabindex="-1" aria-hidden="true">
+            <img :data-cover-for="featured.id" alt="" loading="lazy" width="160" height="240">
           </a>
           <div>
-            <h3 class="fio-book-title"><a :href="'libro.html?id=' + featured.id" x-text="featured.title" style="color:inherit; text-decoration:none;"></a></h3>
+            <h3 class="fio-book-title"><a :href="'libro.html?id=' + featured.id" x-text="featured.title" class="fio-link-plain"></a></h3>
             <p class="fio-book-meta" x-text="[featured.author, featured.publication_year, featured.publisher].filter(Boolean).join(' · ')"></p>
             <p class="fio-book-meta" x-show="featured.topic"><span data-i18n="field_topic">Tema</span>: <span x-text="featured.topic"></span></p>
-            <a :href="'libro.html?id=' + featured.id" class="fio-btn fio-btn-solid" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="featured_book_cta">Ver ficha completa</a>
+            <a :href="'libro.html?id=' + featured.id" class="fio-btn fio-btn-solid fio-btn-brand" data-i18n="featured_book_cta">Ver ficha completa</a>
           </div>
         </div>
       </div>
     </template>
-    <div class="fio-features-grid">
-      <div class="fio-feature-card">
-        <div class="fio-feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5v-17ZM6.5 4A.5.5 0 0 0 6 4.5v13.6A2.5 2.5 0 0 1 6.5 18H18V4H6.5Z"/><path d="M8 7h8v1.5H8V7Zm0 3h8v1.5H8V10Zm0 3h5v1.5H8V13Z"/></svg>
+
+    <section class="fio-collections" aria-labelledby="collections-heading">
+      <h2 id="collections-heading" data-i18n="collections_title">Nuestras colecciones</h2>
+      <div class="fio-features-grid">
+        <div class="fio-feature-card">
+          <h3 data-i18n="collections_library_title">Biblioteca</h3>
+          <p data-i18n="collections_library_body">Libros de consulta, monografías de aviones, manuales técnicos, textos históricos, biografías, novelas y cómics sobre aviación y aeronáutica, la mayoría en castellano e inglés.</p>
         </div>
-        <h3 data-i18n="feature_catalog_title">Catálogo abierto</h3>
-        <p data-i18n="feature_catalog_body">Explora el fondo bibliográfico de la Fundación sin necesidad de registro: títulos, autores, editoriales y materias.</p>
-        <a href="catalogo.html" class="fio-btn fio-btn-solid" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="hero_cta_catalog">Ver catálogo</a>
-      </div>
-      <div class="fio-feature-card">
-        <div class="fio-feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M9.5 3a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z"/><path d="M14.5 14.79 20.71 21l1.29-1.29-6.21-6.21-1.29 1.29Z"/></svg>
+        <div class="fio-feature-card">
+          <h3 data-i18n="collections_periodicals_title">Hemeroteca</h3>
+          <p data-i18n="collections_periodicals_body">Revistas y publicaciones periódicas del ámbito aeronáutico, útiles para seguir la evolución de la aviación a lo largo del tiempo.</p>
         </div>
-        <h3 data-i18n="feature_search_title">Buscador</h3>
-        <p data-i18n="feature_search_body">Filtra por autor, tema, año o busca texto libre para encontrar rápidamente la obra que buscas dentro de nuestra biblioteca.</p>
-        <a href="buscar.html" class="fio-btn fio-btn-solid" style="background-color: var(--fio-blue); color: var(--fio-white) !important; border-color: var(--fio-blue);" data-i18n="hero_cta_search">Buscar</a>
+        <div class="fio-feature-card">
+          <h3 data-i18n="collections_video_title">Videoteca</h3>
+          <p data-i18n="collections_video_body">Material audiovisual sobre aviación e historia aeronáutica, consultable en la sede de la biblioteca.</p>
+        </div>
+        <div class="fio-feature-card">
+          <h3 data-i18n="collections_photo_title">Archivo fotográfico «Francisco Andreu»</h3>
+          <p data-i18n="collections_photo_body">Fondo fotográfico que conserva imágenes de la aviación y de quienes la hicieron posible.</p>
+        </div>
       </div>
-    </div>
+      <p><a href="catalogo-completo.html" data-i18n="collections_static_link">Ver el catálogo completo en HTML, sin JavaScript</a></p>
+    </section>
 
     <div class="fio-visit-card">
       <h2 data-i18n="visit_title">Visítanos</h2>
@@ -177,7 +203,7 @@
               <b data-i18n="visit_hours_label">Horario de apertura</b><br>
               <span data-i18n="visit_hours_body">Lunes, miércoles y viernes, de 10:30 a 13:30.</span><br>
               <small><span data-i18n="visit_hours_note">Fuera de ese horario, contacta con los voluntarios en</span>
-                <a href="mailto:fioteca@fio.es?subject=Consulta%20de%20acceso%20fuera%20de%20horario">fioteca@fio.es</a></small>
+                <a href="contacto.html" class="fio-email" data-user="fioteca" data-domain="fio.es" data-subject="Consulta de acceso fuera de horario">fioteca [arroba] fio.es</a></small>
             </div>
           </div>
         </div>
@@ -207,15 +233,15 @@
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/alerts.js"></script>
+  <script defer src="js/popups.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/covers.js"></script>
+  <script defer src="js/search-utils.js"></script>
+  <script defer src="js/splash.js"></script>
+  <script defer src="js/landing.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/alerts.js"></script>
-  <script src="js/popups.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/covers.js"></script>
-  <script src="js/search-utils.js"></script>
-  <script src="js/splash.js"></script>
-  <script src="js/landing.js"></script>
 </body>
 </html>

@@ -27,23 +27,23 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
-  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -- canonical URL, not a fetched subresource -->
+  <!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -->
   <link rel="canonical" href="https://biblioteca.fio.es/colaborar.html">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://covers.openlibrary.org https://www.googleapis.com https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com; worker-src 'self' blob:; child-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
-  <noscript>
-    <meta
-      http-equiv="refresh"
-      content="0; url=./javascript_disabled.html"
-    >
-  </noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
+  <noscript><style>.fio-splash{display:none !important}</style></noscript>
 </head>
 <body>
+  <noscript><div class="fio-noscript" role="note">Esta página necesita JavaScript. Sin él puedes consultar el <a href="catalogo-completo.html">catálogo completo en HTML</a> o <a href="javascript_disabled.html">ver cómo activarlo</a>. / This page needs JavaScript. Without it, use the <a href="catalogo-completo.html">full catalogue as plain HTML</a>.</div></noscript>
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -61,19 +61,19 @@
     <div class="fio-callout" role="note">
       <h2 data-i18n="collab_donate_title">Dona libros</h2>
       <p data-i18n="collab_donate_text">¿Tienes libros, revistas o documentos de aviación que quieras que se conserven y se compartan? Cuéntanos qué tienes y cómo entregarlo.</p>
-      <a class="fio-btn fio-btn-solid" href="donaciones.html" style="background-color: var(--fio-blue); color: var(--fio-white) !important;" data-i18n="collab_donate_cta">Quiero donar un volumen</a>
+      <a class="fio-btn fio-btn-solid fio-btn-brand" href="donaciones.html" data-i18n="collab_donate_cta">Quiero donar un volumen</a>
     </div>
 
     <div class="fio-callout" role="note">
       <h2 data-i18n="collab_member_title">Hazte socio</h2>
       <p data-i18n="collab_member_text">Las cuotas de socios sostienen la conservación del patrimonio aeronáutico.</p>
-      <a class="fio-btn fio-btn-outline-blue" href="https://fio.es/hazte-socio/" target="_blank" rel="noopener" data-i18n="thanks_help_member">Quiero hacerme socio</a>
+      <a class="fio-btn fio-btn-outline-blue" href="https://fio.es/hazte-socio/" rel="noopener" data-i18n="thanks_help_member">Quiero hacerme socio</a>
     </div>
 
     <div class="fio-callout" role="note">
       <h2 data-i18n="collab_volunteer_title">Sé voluntario</h2>
       <p data-i18n="collab_volunteer_text">Colabora en las tareas necesarias para mantener la fundación en funcionamiento. No hace falta experiencia previa: te acompañamos.</p>
-      <a class="fio-btn fio-btn-outline-blue" href="https://fio.es/nuestros-voluntarios/" target="_blank" rel="noopener" data-i18n="thanks_help_volunteer">Quiero ser voluntario</a>
+      <a class="fio-btn fio-btn-outline-blue" href="https://fio.es/nuestros-voluntarios/" rel="noopener" data-i18n="thanks_help_volunteer">Quiero ser voluntario</a>
     </div>
 
     <div class="fio-callout" role="note">
@@ -85,9 +85,9 @@
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/splash.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/splash.js"></script>
 </body>
 </html>

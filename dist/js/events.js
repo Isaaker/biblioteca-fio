@@ -60,7 +60,7 @@
         <span class="lang-es">Evento recurrente — primer domingo de cada mes (excepto enero y agosto)</span>
         <span class="lang-en">Recurring event — first Sunday of every month (except January and August)</span>
       </span>
-      <h3><a href="https://fio.es/exhibicion-de-vuelo/" target="_blank" rel="noopener">Exhibición en Vuelo: Fundación Infante de Orleans</a></h3>
+      <h2><a href="https://fio.es/exhibicion-de-vuelo/" rel="noopener">Exhibición en Vuelo: Fundación Infante de Orleans</a></h2>
       <p class="fio-book-meta">
         <span class="lang-es">Domingo ${date.getDate()} de ${MONTH_NAME_ES[date.getMonth()]} de ${date.getFullYear()} — Aeródromo de Cuatro Vientos, Madrid.</span>
         <span class="lang-en">Sunday ${date.getDate()} ${MONTH_NAME_EN[date.getMonth()]} ${date.getFullYear()} — Cuatro Vientos aerodrome, Madrid.</span>

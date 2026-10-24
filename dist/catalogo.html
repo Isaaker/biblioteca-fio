@@ -41,19 +41,19 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#202d58">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
-  <noscript>
-    <meta
-      http-equiv="refresh"
-      content="0; url=./javascript_disabled.html"
-    >
-  </noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap" media="print" data-async-css>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&amp;family=Material+Symbols+Outlined:opsz,wght@20..48,400&amp;display=swap"></noscript>
+  <noscript><style>.fio-splash{display:none !important}</style></noscript>
 </head>
 <body>
+  <noscript><div class="fio-noscript" role="note">Esta página necesita JavaScript. Sin él puedes consultar el <a href="catalogo-completo.html">catálogo completo en HTML</a> o <a href="javascript_disabled.html">ver cómo activarlo</a>. / This page needs JavaScript. Without it, use the <a href="catalogo-completo.html">full catalogue as plain HTML</a>.</div></noscript>
 
   <div id="fio-splash" class="fio-splash">
     <div class="fio-splash-content">
-      <img src="assets/img/logo.png" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
+      <img src="assets/img/logo.webp" alt="Logotipo Fundación Infante de Orleans" data-i18n-attr="alt:logo_alt" class="fio-splash-logo">
       <p class="fio-splash-copyright" data-i18n="splash_copyright">Fundación Infante de Orleans © 2026<br>Todos los derechos reservados</p>
     </div>
   </div>
@@ -168,7 +168,7 @@
                 <img :data-cover-for="book.id" :alt="'Portada de ' + book.title" loading="lazy">
               </a>
               <div class="fio-book-card-body">
-              <h2 class="fio-book-title"><a :href="'libro.html?id=' + book.id" x-text="book.title" style="color:inherit; text-decoration:none;"></a></h2>
+              <h2 class="fio-book-title"><a :href="'libro.html?id=' + book.id" x-text="book.title" class="fio-link-plain"></a></h2>
               <p class="fio-book-meta" x-text="bookSubtitle(book)"></p>
               <div class="fio-book-tags">
                 <template x-if="book.topic">
@@ -189,7 +189,7 @@
                   <span data-i18n="isbn_label">ISBN</span>: <span x-text="book.isbn"></span>
                 </span>
                 <template x-if="book.is_digitized && book.digital_link">
-                  <a class="fio-digital-link" :href="book.digital_link" target="_blank" rel="noopener" data-i18n="digital_link_label">
+                  <a class="fio-digital-link" :href="book.digital_link" rel="noopener" data-i18n="digital_link_label">
                     Ver copia digital
                   </a>
                 </template>
@@ -212,15 +212,15 @@
   </main>
 
   <div id="fio-footer-mount"></div>
-  <script src="js/shell.js"></script>
+  <script defer src="js/shell.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/alerts.js"></script>
+  <script defer src="js/popups.js"></script>
+  <script defer src="js/fio-ux.js"></script>
+  <script defer src="js/search-utils.js"></script>
+  <script defer src="js/splash.js"></script>
+  <script defer src="js/covers.js"></script>
+  <script defer src="js/catalog.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/alerts.js"></script>
-  <script src="js/popups.js"></script>
-  <script src="js/fio-ux.js"></script>
-  <script src="js/search-utils.js"></script>
-  <script src="js/splash.js"></script>
-  <script src="js/covers.js"></script>
-  <script src="js/catalog.js"></script>
 </body>
 </html>

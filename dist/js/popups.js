@@ -109,7 +109,6 @@
 
         const a = document.createElement('a');
         a.href = entry.url;
-        a.target = '_blank';
         a.rel = 'noopener noreferrer';
         a.textContent = String(rawText);
         return a;
