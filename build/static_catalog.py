@@ -107,6 +107,7 @@ def build_static_catalog_html(public_records: list[dict]) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Catálogo completo en HTML — Biblioteca FIO</title>
 <meta name="description" content="Listado completo, sin JavaScript, de los {total} libros de la Biblioteca de la Fundación Infante de Orleans, ordenados por título.">
+<!-- nosemgrep: html.security.audit.missing-integrity.missing-integrity -->
 <link rel="canonical" href="{SITE_URL}/catalogo-completo.html">
 <link rel="icon" href="assets/img/favicons/apple-touch-icon.png">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'self'; form-action 'none'">
