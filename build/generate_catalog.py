@@ -41,6 +41,7 @@ from ai_catalog_formats import (
 from book_files import write_book_files, write_ref_index
 from sitemap_builder import write_sitemap
 from static_catalog import write_static_catalog
+from blog_builder import build_blog, BlogBuildError
 
 
 def _project_root() -> str:
@@ -190,8 +191,20 @@ def main() -> int:
     write_static_catalog(public_records, static_path)
     print(f"Catálogo estático sin JavaScript escrito en {static_path}.")
 
+    print("Generando blog desde contenido Markdown...")
+    try:
+        blog_posts = build_blog(
+            _abs(root, "data/blog"),
+            _abs(root, "site/blog"),
+            public_records,
+        )
+    except (BlogBuildError, OSError) as exc:
+        print(f"ERROR al generar el blog: {exc}", file=sys.stderr)
+        return 1
+    print(f"  {len(blog_posts)} entrada(s) publicada(s) en site/blog/.")
+
     sitemap_path = _abs(root, "site/sitemap.xml")
-    sitemap_urls = write_sitemap(public_records, sitemap_path)
+    sitemap_urls = write_sitemap(public_records, sitemap_path, blog_posts)
     print(f"Sitemap escrito en {sitemap_path} ({sitemap_urls} URLs).")
 
     print("Comprobando que ningún dato interno se ha filtrado al registro público de cada libro...")

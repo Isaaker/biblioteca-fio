@@ -30,6 +30,7 @@
     { href: 'escanear.html', key: 'nav_scan', label: 'Escanear' },
     { href: 'estadisticas.html', key: 'nav_stats', label: 'Estadísticas' },
     { href: 'eventos.html', key: 'nav_events', label: 'Eventos' },
+    { href: 'blog/index.html', key: 'nav_blog', label: 'Blog' },
     { href: 'colaborar.html', key: 'nav_collaborate', label: 'Colaborar' },
     { href: 'gracias.html', key: 'nav_thanks', label: 'Agradecimientos' },
     { href: 'contacto.html', key: 'nav_contact', label: 'Contacto' },
@@ -88,10 +89,12 @@
     if (!mount) return;
 
     const current = currentPageFile();
+    const inBlog = window.location.pathname.includes('/blog/');
+    const prefix = inBlog ? '../' : '';
     const navHtml = NAV_LINKS.map(link => {
-      const active = link.href === current ? ' class="active"' : '';
+      const active = link.href === current || (link.href === 'blog/index.html' && inBlog) ? ' class="active"' : '';
       const currentAttribute = active ? ' aria-current="page"' : '';
-      return `<a href="${link.href}"${active}${currentAttribute} data-i18n="${link.key}">${link.label}</a>`;
+      return `<a href="${prefix}${link.href}"${active}${currentAttribute} data-i18n="${link.key}">${link.label}</a>`;
     }).join('\n          ');
 
     mount.outerHTML = `
@@ -154,8 +157,9 @@
       return `<button type="button" role="tab" class="fio-footer-tab${selected ? ' active' : ''}" id="fio-ftab-${group.id}" aria-controls="fio-fpanel-${group.id}" aria-selected="${selected}" tabindex="${selected ? '0' : '-1'}" data-i18n="${group.key}">${group.label}</button>`;
     }).join('');
     const panelsHtml = FOOTER_GROUPS.map((group, index) => {
+      const prefix = window.location.pathname.includes('/blog/') ? '../' : '';
       const links = group.links.map(link =>
-        `<a href="${link.href}" data-i18n="${link.key}">${link.label}</a>`
+        `<a href="${prefix}${link.href}" data-i18n="${link.key}">${link.label}</a>`
       ).join('\n        <span aria-hidden="true">·</span>\n        ');
       return `<div role="tabpanel" class="fio-footer-links" id="fio-fpanel-${group.id}" aria-labelledby="fio-ftab-${group.id}"${index === 0 ? '' : ' hidden'}>
         ${links}

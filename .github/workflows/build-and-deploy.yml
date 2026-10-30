@@ -6,6 +6,7 @@ on:
       - "data/indice_general.xlsx"
       - "data/digitalizados.json"
       - "data/agradecimientos.json"
+      - "data/blog/**"
       - "build/**"
       - "site/**"
       - ".github/workflows/build-and-deploy.yml"
@@ -15,6 +16,8 @@ on:
         description: "Permitir catálogo vacío (0 libros). Solo para el arranque inicial del sitio, sin Excel real todavía."
         type: boolean
         default: false
+  schedule:
+    - cron: "15 0 1 * *"
 permissions:
   contents: write
   pages: write

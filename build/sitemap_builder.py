@@ -27,6 +27,9 @@ STATIC_PAGES = [
     ("escanear.html", "0.5", "monthly"),
     ("estadisticas.html", "0.6", "weekly"),
     ("eventos.html", "0.6", "weekly"),
+    ("blog/", "0.7", "weekly"),
+    ("blog/noticias.html", "0.6", "weekly"),
+    ("blog/resenas.html", "0.6", "weekly"),
     ("linea-tiempo.html", "0.6", "monthly"),
     ("gracias.html", "0.5", "monthly"),
     ("colaborar.html", "0.6", "monthly"),
@@ -40,7 +43,7 @@ STATIC_PAGES = [
 ]
 
 
-def build_sitemap_xml(public_records: list[dict]) -> str:
+def build_sitemap_xml(public_records: list[dict], blog_posts: list[dict] | None = None) -> str:
     today = date.today().isoformat()
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -68,13 +71,23 @@ def build_sitemap_xml(public_records: list[dict]) -> str:
             f"  </url>"
         )
 
+    for post in blog_posts or []:
+        lines.append(
+            f"  <url>\n"
+            f"    <loc>{SITE_URL}/blog/{post['slug']}.html</loc>\n"
+            f"    <lastmod>{post['date'].isoformat()}</lastmod>\n"
+            f"    <changefreq>monthly</changefreq>\n"
+            f"    <priority>0.6</priority>\n"
+            f"  </url>"
+        )
+
     lines.append("</urlset>")
     return "\n".join(lines) + "\n"
 
 
-def write_sitemap(public_records: list[dict], output_path: str) -> int:
+def write_sitemap(public_records: list[dict], output_path: str, blog_posts: list[dict] | None = None) -> int:
     """Escribe el sitemap en `output_path`. Devuelve el nº total de URLs."""
-    xml = build_sitemap_xml(public_records)
+    xml = build_sitemap_xml(public_records, blog_posts)
     with open(output_path, "w", encoding="utf-8") as fh:
         fh.write(xml)
-    return len(STATIC_PAGES) + len(public_records)
+    return len(STATIC_PAGES) + len(public_records) + len(blog_posts or [])

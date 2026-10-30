@@ -14,6 +14,7 @@ site/data/ref-index.json
 site/data/catalogo.mrc
 site/data/catalogo_marcxml.xml
 site/data/books/
+site/blog/
 
 # dist/ SÍ se versiona a propósito: es el sitio ya construido que
 # Cloudflare Pages (y opcionalmente GitHub Pages) despliegan

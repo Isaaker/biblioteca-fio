@@ -52,7 +52,7 @@
 
   <div id="fio-header-mount"></div>
 
-  <main id="main-content" x-data="fioDonation()">
+  <main id="main-content">
     <h1 data-i18n="donation_title">Donar libros</h1>
 
     <p data-i18n="donation_intro">Si has llegado hasta aquí significa que tienes obras que deberían formar parte de nuestra colección. Estaremos encantados de recibirlas, pero antes queremos que tengas en cuenta lo siguiente:</p>
@@ -68,55 +68,18 @@
 
     <p data-i18n="donation_transparency">Queremos que el proceso sea totalmente transparente; por ello, creemos que es importante compartir esta información contigo.</p>
 
-    <p data-i18n="donation_contact_intro">Si deseas continuar con el proceso o tienes más dudas, puedes escribirnos a <a href="mailto:fioteca@fio.es">fioteca@fio.es</a>, o para facilitártelo aún más, puedes rellenar este formulario con la información que necesitamos para poder evaluar la donación.</p>
+    <p data-i18n="donation_contact_intro">Si deseas continuar con el proceso o tienes más dudas, puedes escribirnos a <a href="mailto:fioteca@fio.es">fioteca@fio.es</a>. Descarga y completa el formulario de donación y, después, envíalo a esa misma dirección.</p>
 
     <div class="fio-filter-bar" style="display:block;">
       <h2 data-i18n="donation_form_title" class="fio-mt-0">Formulario de donación</h2>
-      <p class="lang-es fio-note-muted" lang="es">Al pulsar "Enviar" se abrirá tu programa de correo con el mensaje ya preparado para <b>fioteca@fio.es</b>. No se envía nada desde esta página ni se guarda en ningún servidor.</p>
-      <p class="lang-en fio-note-muted" lang="en">Pressing "Send" opens your own email application with the message ready to send to <b>fioteca@fio.es</b>. Nothing is sent from this page or stored on any server.</p>
-
-      <div class="fio-mb-14">
-        <label for="d-name" data-i18n="form_name_label">Tu nombre *</label>
-        <input id="d-name" type="text" x-model="name" required aria-required="true" autocomplete="name" class="fio-w-100">
-      </div>
-
-      <div class="fio-mb-14">
-        <label for="d-email" data-i18n="form_email_label">Correo de contacto *</label>
-        <input id="d-email" type="email" x-model="email" required aria-required="true" autocomplete="email" class="fio-w-100">
-      </div>
-
-      <div class="fio-mb-14">
-        <label for="d-member" data-i18n="form_member_label">Número de socio (opcional)</label>
-        <input id="d-member" type="text" x-model="memberNumber" class="fio-w-100">
-      </div>
-
-      <div class="fio-mb-14">
-        <label for="d-quantity" data-i18n="donation_form_quantity_label">Cantidad aproximada de libros</label>
-        <input id="d-quantity" type="text" x-model="quantity" class="fio-w-100">
-      </div>
-
-      <div class="fio-mb-14">
-        <label for="d-items" data-i18n="donation_form_items_label">Títulos, autores o descripción de las obras</label>
-        <textarea id="d-items" x-model="items" rows="6" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit;" data-i18n-attr="placeholder:donation_form_items_placeholder" placeholder="Uno por línea, o una descripción general si son muchos…"></textarea>
-      </div>
-
-      <div class="fio-mb-14">
-        <label for="d-comments" data-i18n="donation_form_comments_label">Comentarios adicionales</label>
-        <textarea id="d-comments" x-model="comments" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--fio-blue-border); border-radius:6px; font-family:inherit;"></textarea>
-      </div>
-
-      <div style="margin-bottom: 18px;">
-        <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
-          <input type="checkbox" x-model="digitalCopyInterest">
-          <span data-i18n="donation_form_digital_copy">Me interesaría recibir copia digital, si la obra es elegible</span>
-        </label>
-      </div>
-
-      <p x-show="error" x-text="error" role="alert" style="color:#b3261e; font-weight:600; margin:0 0 12px;"></p>
-
-      <div class="fio-hero-actions fio-justify-start">
-        <button type="button" class="fio-btn fio-btn-brand" @click="send()" data-i18n="donation_form_submit">Enviar</button>
-      </div>
+      <p class="lang-es fio-note-muted" lang="es">Descarga y completa el formulario PDF. Una vez cumplimentado, remítelo por correo electrónico a <a href="mailto:fioteca@fio.es">fioteca@fio.es</a>.</p>
+      <p class="lang-en fio-note-muted" lang="en">Download and complete the PDF form. Once completed, email it to <a href="mailto:fioteca@fio.es">fioteca@fio.es</a>.</p>
+      <p class="fio-hero-actions fio-justify-start">
+        <a class="fio-btn fio-btn-brand" href="assets/docs/Formulario_Donacion_Fondos_Fioteca_v1.0.pdf" download>
+          <span class="lang-es" lang="es">Descargar formulario de donación (PDF)</span>
+          <span class="lang-en" lang="en">Download donation form (PDF)</span>
+        </a>
+      </p>
     </div>
 
     <p class="fio-book-meta" data-i18n="donation_digital_copy_note">Algunos libros podrían ser elegibles para que recibas una copia digital gratuita, de manera que puedas continuar accediendo al libro aunque lo hayas donado (siempre podrás verlo físicamente en la biblioteca; la copia digital es un extra).</p>
@@ -127,8 +90,6 @@
   <script defer src="js/shell.js"></script>
   <script defer src="js/i18n.js"></script>
   <script defer src="js/fio-ux.js"></script>
-  <script defer src="js/donation.js"></script>
   <script defer src="js/splash.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/csp@3.17.2/dist/cdn.min.js" integrity="sha384-kWTzsVwMm5SQeDmCv4DpGqQuKHE6MPWr6MM9R6cJg1CHF3xPbmjZX3ZTS6OB0EZu" crossorigin="anonymous"></script>
 </body>
 </html>
